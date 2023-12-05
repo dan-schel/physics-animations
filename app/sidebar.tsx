@@ -14,7 +14,7 @@ export default function Sidebar({ className }: { className?: string }) {
   return (
     <nav className={`${className} ${styles.sidebar}`}>
       <div className={styles.content}>
-        <p className={styles.title}>Animations for VCE Physics</p>
+        <p className={styles.title}>Navigation</p>
         <ul>
           {AnimationList.map((node, i) => {
             return (
