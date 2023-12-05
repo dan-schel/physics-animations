@@ -6,7 +6,7 @@ import {
   AnimationTreeNode,
   AnimationEntry,
   AnimationCollection,
-} from "./animation-list";
+} from "./(utils)/animation-list";
 import styles from "./sidebar.module.scss";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
