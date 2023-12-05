@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import AnimationCanvas from "../../(utils)/animation-canvas";
 import { WaveBasicEngine } from "@/engines/wave-basic/wave-basic";
 import { pulse, reflect } from "@/engines/wave-basic/functions";
+import AnimationHeader from "@/app/(utils)/animation-header";
 
 export default function Animation() {
   const engine = useMemo(() => {
@@ -12,7 +13,7 @@ export default function Animation() {
 
   return (
     <div>
-      <p>Pulse open</p>
+      <AnimationHeader title="Pulse (open)"></AnimationHeader>
       <AnimationCanvas engine={engine}></AnimationCanvas>
     </div>
   );
