@@ -1,19 +1,53 @@
 .page {
+  display: grid;
   height: 100vh;
   height: 100svh;
 }
+.main {
+  grid-area: main;
+  display: grid;
+}
+.openSidebarButton {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+}
 
 @media (min-width: 60rem) {
+  // Desktop-only styles.
+
   .page {
-    display: grid;
     grid-template-columns: 20rem 1fr;
     grid-template-areas: "sidebar main";
   }
   .sidebar {
     grid-area: sidebar;
   }
-  .main {
-    grid-area: main;
-    display: grid;
+  .openSidebarButton {
+    display: none;
+  }
+}
+@media (max-width: 59.999rem) {
+  // Mobile-only styles.
+
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-areas: "main";
+  }
+  .sidebar {
+    position: fixed;
+    width: min(calc(100vw - 2rem), 20rem);
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+
+    --extra-margin: 3rem;
+  }
+
+  :global(.sidebarOpen) {
+    .sidebar {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }

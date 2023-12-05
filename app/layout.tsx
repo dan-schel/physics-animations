@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import styles from "./layout.module.scss";
 import Sidebar from "./sidebar";
+import OpenSidebarButton from "./open-sidebar-button";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} ${styles.page}`}>
         <Sidebar className={styles.sidebar}></Sidebar>
+        <OpenSidebarButton
+          className={styles.openSidebarButton}
+        ></OpenSidebarButton>
         <main className={styles.main}>{children}</main>
       </body>
     </html>

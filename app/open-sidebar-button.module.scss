@@ -1,0 +1,14 @@
+@use "../other/css-template/import" as template;
+
+.button {
+  @include template.button-outlined;
+  @include template.content-text-icon;
+  @include template.row;
+  height: 2rem;
+  padding: 0 0.5rem;
+  gap: 0.5rem;
+
+  :global(.icon) {
+    font-size: 1.2rem;
+  }
+}
