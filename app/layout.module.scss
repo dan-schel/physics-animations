@@ -20,7 +20,7 @@
   // Desktop-only styles.
 
   .page {
-    grid-template-columns: 20rem 1fr;
+    grid-template-columns: 25rem 1fr;
     grid-template-areas: "sidebar main";
   }
   .sidebar {
@@ -39,7 +39,7 @@
   }
   .sidebar {
     position: fixed;
-    width: min(calc(100vw - 2rem), 20rem);
+    width: min(calc(100vw - 2rem), 25rem);
     height: 100%;
     visibility: hidden;
     opacity: 0;
