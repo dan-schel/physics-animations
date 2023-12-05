@@ -7,6 +7,9 @@
   grid-area: main;
   display: grid;
 }
+.sidebar {
+  transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+}
 .openSidebarButton {
   position: fixed;
   top: 1rem;
@@ -40,14 +43,18 @@
     height: 100%;
     visibility: hidden;
     opacity: 0;
-
+    transform: translate(-1rem, 0);
     --extra-margin: 3rem;
+  }
+  .main {
+    margin-top: 3rem;
   }
 
   :global(.sidebarOpen) {
     .sidebar {
       visibility: visible;
       opacity: 1;
+      transform: translate(0, 0);
     }
   }
 }

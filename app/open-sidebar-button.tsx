@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./open-sidebar-button.module.scss";
 
 export default function OpenSidebarButton({
@@ -8,7 +8,10 @@ export default function OpenSidebarButton({
 }: {
   className?: string;
 }) {
-  const [sidebarOpen, setSidebarOpen] = useState(isSidebarOpen());
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  useEffect(() => {
+    setSidebarOpen(isSidebarOpen());
+  }, []);
 
   // The button is wrapped inside a div because css-template overrides
   // "position: fixed" for "position: relative" for buttons.
