@@ -1,20 +1,20 @@
 "use client";
 
-import { WaveBasicEngine } from "@/engines/wave-basic/wave-basic";
 import { useRef, useEffect, useState } from "react";
 import styles from "./animation-canvas.module.scss";
 import { AnimationEngine } from "@/engines/animation-engine";
 
-export default function AnimationCanvas() {
+export default function AnimationCanvas({
+  engine,
+}: {
+  engine: AnimationEngine;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [engine, setEngine] = useState<AnimationEngine | null>(null);
 
   useEffect(() => {
     if (canvasRef.current != null) {
-      const engine = new WaveBasicEngine();
-      engine.init(canvasRef.current);
-      setEngine(engine);
-      return () => engine.destroy();
+      engine.attachCanvas(canvasRef.current);
+      return () => engine.detachCanvas();
     }
   }, [canvasRef]);
 

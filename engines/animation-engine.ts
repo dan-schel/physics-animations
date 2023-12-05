@@ -4,28 +4,37 @@ export abstract class AnimationEngine {
   private width = 0;
   private height = 0;
   private dpiRatio = 1;
-  private destroyed = false;
+  private detached = false;
 
   private time = 0;
+  private lastTimestamp: number | null = null;
   private isPaused = false;
 
-  constructor() {}
+  constructor() {
+    console.log("created engine.");
+  }
 
-  init(canvas: HTMLCanvasElement) {
-    if (this.destroyed) {
-      throw new Error("Cannot initialize destroyed engine.");
-    }
-
+  attachCanvas(canvas: HTMLCanvasElement) {
+    console.log("attaching canvas...");
     const ctx = canvas.getContext("2d");
     if (ctx === null) {
       throw new Error("Failed to get 2D context for canvas.");
     }
 
+    this.detached = false;
     this.resize(canvas, ctx);
     this.resizeEvent = () => this.resize(canvas, ctx);
     window.addEventListener("resize", this.resizeEvent);
 
     this.beginRenderLoop(ctx);
+  }
+
+  detachCanvas(): void {
+    console.log("detaching canvas...");
+    if (this.resizeEvent != null) {
+      window.removeEventListener("resize", this.resizeEvent);
+    }
+    this.detached = true;
   }
 
   private resize(canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) {
@@ -46,29 +55,21 @@ export abstract class AnimationEngine {
     canvas.height = this.height * this.dpiRatio;
   }
 
-  destroy(): void {
-    if (this.resizeEvent != null) {
-      window.removeEventListener("resize", this.resizeEvent);
-    }
-    this.destroyed = true;
-  }
-
   beginRenderLoop(ctx: CanvasRenderingContext2D): void {
-    let lastTime = performance.now();
-    const renderLoop = () => {
-      if (this.destroyed) {
+    const renderLoop = (timestamp: number) => {
+      if (this.detached) {
         return;
       }
 
-      const time = performance.now();
-      const deltaTime = time - lastTime;
       if (!this.isPaused) {
-        this.time += deltaTime;
+        const delta =
+          this.lastTimestamp == null ? 0 : timestamp - this.lastTimestamp;
+        this.time += delta / 1000;
+        this.lastTimestamp = timestamp;
       }
 
       ctx.save();
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(
+      ctx.clearRect(
         0,
         0,
         this.width * this.dpiRatio,
@@ -77,11 +78,11 @@ export abstract class AnimationEngine {
       ctx.scale(this.dpiRatio, this.dpiRatio);
 
       this.render(ctx, this.time, this.width, this.height);
-      requestAnimationFrame(renderLoop);
+      requestAnimationFrame((timestamp) => renderLoop(timestamp));
 
       ctx.restore();
     };
-    requestAnimationFrame(renderLoop);
+    requestAnimationFrame((timestamp) => renderLoop(timestamp));
   }
 
   pause(): void {

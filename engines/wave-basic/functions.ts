@@ -17,11 +17,10 @@ export function pulse(
 export function reversePulse(
   width: number,
   speed: number,
-  height: number,
-  segments: number
+  height: number
 ): WaveFunction {
   return (x, t) => {
-    const a = -(segments - x) / (width / Math.PI) + t * speed;
+    const a = -(1 - x) / (width / Math.PI) + t * speed;
     if (a < 0 || a > Math.PI) {
       return 0;
     }
@@ -43,17 +42,14 @@ export function sine(
   };
 }
 
-export function reflect(wave: WaveFunction, segments: number): WaveFunction {
+export function reflect(wave: WaveFunction): WaveFunction {
   return (x, t) => {
-    return wave((segments - 1) * 2 - x, t);
+    return wave(2 - x, t);
   };
 }
 
-export function reflectAndInvert(
-  wave: WaveFunction,
-  segments: number
-): WaveFunction {
+export function reflectAndInvert(wave: WaveFunction): WaveFunction {
   return (x, t) => {
-    return -wave((segments - 1) * 2 - x, t);
+    return -wave(2 - x, t);
   };
 }
