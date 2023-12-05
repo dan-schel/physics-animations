@@ -42,18 +42,21 @@ function drawWave(
   ctx.strokeStyle = style;
   ctx.lineWidth = thickness;
   ctx.beginPath();
+
   for (let i = 0; i < segments; i++) {
-    let x = (i / (segments - 1)) * width;
-    let y = wave(i / segments, time) + offset;
+    const percentage = i / (segments - 1);
+    const x = percentage * width;
+    const y = wave(percentage, time) + offset;
+
     if (i == 0) {
       ctx.moveTo(x, y);
     } else {
       ctx.lineTo(x, y);
     }
 
+    // If this is the end of the line, draw the open or fixed endpoint.
     if (i == segments - 1) {
       ctx.stroke();
-
       if (end == "open") {
         ctx.strokeStyle = "#ffffff";
         ctx.fillStyle = "#000000";

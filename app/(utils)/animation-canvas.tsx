@@ -16,7 +16,7 @@ export default function AnimationCanvas({
       engine.attachCanvas(canvasRef.current);
       return () => engine.detachCanvas();
     }
-  }, [canvasRef]);
+  }, [canvasRef, engine]);
 
   return (
     <div className={styles.wrapper}>

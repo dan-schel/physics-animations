@@ -10,12 +10,9 @@ export abstract class AnimationEngine {
   private lastTimestamp: number | null = null;
   private isPaused = false;
 
-  constructor() {
-    console.log("created engine.");
-  }
+  constructor() {}
 
   attachCanvas(canvas: HTMLCanvasElement) {
-    console.log("attaching canvas...");
     const ctx = canvas.getContext("2d");
     if (ctx === null) {
       throw new Error("Failed to get 2D context for canvas.");
@@ -30,7 +27,6 @@ export abstract class AnimationEngine {
   }
 
   detachCanvas(): void {
-    console.log("detaching canvas...");
     if (this.resizeEvent != null) {
       window.removeEventListener("resize", this.resizeEvent);
     }
