@@ -3,6 +3,11 @@
 @include template.init;
 @include template.theme-dark-base;
 
+body {
+  height: 100vh;
+  height: 100svh;
+}
+
 .link {
   @include template.link;
 }

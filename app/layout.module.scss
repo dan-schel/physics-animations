@@ -1,0 +1,19 @@
+.page {
+  height: 100vh;
+  height: 100svh;
+}
+
+@media (min-width: 60rem) {
+  .page {
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    grid-template-areas: "sidebar main";
+  }
+  .sidebar {
+    grid-area: sidebar;
+  }
+  .main {
+    grid-area: main;
+    display: grid;
+  }
+}
