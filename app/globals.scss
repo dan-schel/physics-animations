@@ -11,3 +11,6 @@ body {
 .link {
   @include template.link;
 }
+.oneLine {
+  @include template.one-line;
+}

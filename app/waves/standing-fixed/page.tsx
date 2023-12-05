@@ -1,7 +1,7 @@
 export default function Animation() {
   return (
     <div>
-      <p>Pulse fixed</p>
+      <p>Standing fixed</p>
     </div>
   );
 }

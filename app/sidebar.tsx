@@ -9,8 +9,11 @@ import {
 } from "./animation-list";
 import styles from "./sidebar.module.scss";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Sidebar({ className }: { className?: string }) {
+  const pathname = usePathname();
+
   return (
     <nav className={`${className} ${styles.sidebar}`}>
       <div className={styles.content}>
@@ -18,7 +21,12 @@ export default function Sidebar({ className }: { className?: string }) {
         <ul>
           {AnimationList.map((node, i) => {
             return (
-              <SidebarTreeNode key={i} node={node} depth={0}></SidebarTreeNode>
+              <SidebarTreeNode
+                key={i}
+                node={node}
+                depth={0}
+                pathname={pathname}
+              ></SidebarTreeNode>
             );
           })}
         </ul>
@@ -30,35 +38,53 @@ export default function Sidebar({ className }: { className?: string }) {
 function SidebarTreeNode({
   node,
   depth,
+  pathname,
 }: {
   node: AnimationTreeNode;
   depth: number;
+  pathname: string;
 }) {
   if ("children" in node) {
     return (
       <SidebarAnimationCollection
         node={node}
         depth={depth}
+        pathname={pathname}
       ></SidebarAnimationCollection>
     );
   } else {
-    return <SidebarEntry node={node} depth={depth}></SidebarEntry>;
+    return (
+      <SidebarEntry
+        node={node}
+        depth={depth}
+        pathname={pathname}
+      ></SidebarEntry>
+    );
   }
 }
 
 function SidebarEntry({
   node,
   depth,
+  pathname,
 }: {
   node: AnimationEntry;
   depth: number;
+  pathname: string;
 }) {
   return (
     <li style={{ "--depth": depth } as React.CSSProperties}>
-      <Link href={node.href} className={styles.entry}>
+      <Link
+        href={node.href}
+        className={`${styles.entry} ${
+          node.href == pathname ? styles.selected : ""
+        }`}
+      >
         {node.type == "animation" && <AnimationIcon></AnimationIcon>}
         {node.type == "document" && <DocumentIcon></DocumentIcon>}
-        <p>{node.title}</p>
+        <div className="oneLine">
+          <p>{node.title}</p>
+        </div>
       </Link>
     </li>
   );
@@ -67,9 +93,11 @@ function SidebarEntry({
 function SidebarAnimationCollection({
   node,
   depth,
+  pathname,
 }: {
   node: AnimationCollection;
   depth: number;
+  pathname: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -82,10 +110,10 @@ function SidebarAnimationCollection({
         className={styles.collectionButton}
         onClick={() => setOpen((open) => !open)}
       >
-        <ChevronIcon
-          className={open ? styles.open : styles.closed}
-        ></ChevronIcon>
-        <p>{node.title}</p>
+        <ChevronIcon className={open ? styles.open : ""}></ChevronIcon>
+        <div className="oneLine">
+          <p>{node.title}</p>
+        </div>
       </button>
       {open && (
         <ul>
@@ -95,6 +123,7 @@ function SidebarAnimationCollection({
                 key={i}
                 node={item}
                 depth={depth + 1}
+                pathname={pathname}
               ></SidebarTreeNode>
             );
           })}

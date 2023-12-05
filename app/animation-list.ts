@@ -23,53 +23,38 @@ export const AnimationList: AnimationTree = [
     title: "Waves",
     children: [
       {
-        title: "Pulse fixed at one end",
+        title: "Regular",
+        href: "/waves/regular",
+        type: "animation",
+      },
+      {
+        title: "Collision (same)",
+        href: "/waves/collision-same",
+        type: "animation",
+      },
+      {
+        title: "Collision (opposite)",
+        href: "/waves/collision-opposite",
+        type: "animation",
+      },
+      {
+        title: "Pulse (fixed)",
         href: "/waves/pulse-fixed",
         type: "animation",
       },
       {
-        title: "Pulse free at one end",
-        href: "/waves/pulse-free",
+        title: "Pulse (open)",
+        href: "/waves/pulse-open",
         type: "animation",
       },
       {
-        title: "Waves",
-        children: [
-          {
-            title: "Pulse fixed at one end",
-            href: "/waves/pulse-fixed",
-            type: "animation",
-          },
-          {
-            title: "Pulse free at one end",
-            href: "/waves/pulse-free",
-            type: "animation",
-          },
-          {
-            title: "Waves",
-            children: [
-              {
-                title: "Pulse fixed at one end",
-                href: "/waves/pulse-fixed",
-                type: "animation",
-              },
-              {
-                title: "Pulse free at one end",
-                href: "/waves/pulse-free",
-                type: "animation",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: "Pulse fixed at one end",
-        href: "/waves/pulse-fixed",
+        title: "Standing wave (fixed)",
+        href: "/waves/standing-fixed",
         type: "animation",
       },
       {
-        title: "Pulse free at one end",
-        href: "/waves/pulse-free",
+        title: "Standing wave (open)",
+        href: "/waves/standing-open",
         type: "animation",
       },
     ],

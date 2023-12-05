@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import styles from "./open-sidebar-button.module.scss";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function OpenSidebarButton({
   className,
@@ -12,6 +13,14 @@ export default function OpenSidebarButton({
   useEffect(() => {
     setSidebarOpen(isSidebarOpen());
   }, []);
+
+  // Close the sidebar upon navigation.
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    document.body.classList.remove("sidebarOpen");
+    setSidebarOpen(false);
+  }, [pathname, searchParams]);
 
   // The button is wrapped inside a div because css-template overrides
   // "position: fixed" for "position: relative" for buttons.
