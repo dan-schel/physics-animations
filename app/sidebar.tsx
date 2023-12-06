@@ -99,7 +99,9 @@ function SidebarAnimationCollection({
   depth: number;
   pathname: string;
 }) {
-  const [open, setOpen] = useState(false);
+  // TODO: If there's lot of animations, maybe set this to false (collasped) by
+  // default.
+  const [open, setOpen] = useState(true);
 
   return (
     <li

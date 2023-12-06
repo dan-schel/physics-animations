@@ -2,10 +2,11 @@
 
 import { useMemo } from "react";
 import AnimationCanvas from "../../(utils)/animation-canvas";
-import { WaveBasicEngine } from "@/engines/wave-basic/wave-basic";
+import { WaveBasicEngine } from "@/engines/wave-basic/wave-basic-engine";
 import { reflectAndInvert, sine } from "@/engines/wave-basic/functions";
 import AnimationHeader from "@/app/(utils)/animation-header";
 import PlaybackControls from "@/app/(utils)/playback-controls";
+import OptionMenu from "@/app/(utils)/option-menu";
 
 export default function Animation() {
   const engine = useMemo(() => {
@@ -21,6 +22,7 @@ export default function Animation() {
       <AnimationHeader title="Standing wave (fixed)"></AnimationHeader>
       <AnimationCanvas engine={engine}></AnimationCanvas>
       <PlaybackControls engine={engine}></PlaybackControls>
+      <OptionMenu engine={engine}></OptionMenu>
     </div>
   );
 }

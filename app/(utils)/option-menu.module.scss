@@ -1,0 +1,16 @@
+@use "@/other/css-template/import" as template;
+
+.options {
+  background-color: var(--color-paper-20);
+  border-top: 1px solid var(--color-ink-10);
+
+  padding: 1rem;
+}
+
+@media (min-width: 60rem) {
+  // Desktop-only styles.
+
+  .options {
+    padding: 1rem 2rem;
+  }
+}

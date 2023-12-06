@@ -1,3 +1,5 @@
+import { AnimationOptions, OptionValues } from "./animation-options";
+
 export abstract class AnimationEngine {
   private resizeEvent: EventListener | null = null;
 
@@ -10,7 +12,11 @@ export abstract class AnimationEngine {
   private lastTimestamp: number | null = null;
   private playback: "playing" | "held" | "paused" = "playing";
 
-  constructor() {}
+  private optionValues: OptionValues;
+
+  constructor(readonly options: AnimationOptions) {
+    this.optionValues = options.getDefaultValues();
+  }
 
   attachCanvas(canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
@@ -73,7 +79,7 @@ export abstract class AnimationEngine {
       );
       ctx.scale(this.dpiRatio, this.dpiRatio);
 
-      this.render(ctx, this.time, this.width, this.height);
+      this.render(ctx, this.time, this.width, this.height, this.optionValues);
       requestAnimationFrame((timestamp) => renderLoop(timestamp));
 
       ctx.restore();
@@ -106,6 +112,14 @@ export abstract class AnimationEngine {
     this.time = time;
   }
 
+  getOptionValues(): OptionValues {
+    return { ...this.optionValues };
+  }
+
+  setOption(id: string, value: any) {
+    this.optionValues[id] = value;
+  }
+
   abstract getDuration(): number;
 
   abstract isLooping(): boolean;
@@ -114,6 +128,7 @@ export abstract class AnimationEngine {
     ctx: CanvasRenderingContext2D,
     time: number,
     width: number,
-    height: number
+    height: number,
+    optionValues: OptionValues
   ): void;
 }

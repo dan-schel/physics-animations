@@ -1,5 +1,10 @@
 import { AnimationEngine } from "../animation-engine";
+import { OptionValues } from "../animation-options";
 import { WaveFunction, pulse } from "./functions";
+import { WaveBasicOptions } from "./wave-basic-options";
+
+const subwaveColors = ["#ff0000a0", "#00ff00a0"];
+const subwaveOffset = 2;
 
 export class WaveBasicEngine extends AnimationEngine {
   constructor(
@@ -7,17 +12,35 @@ export class WaveBasicEngine extends AnimationEngine {
     readonly duration: number,
     readonly looping: boolean
   ) {
-    super();
+    super(new WaveBasicOptions());
   }
 
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
     width: number,
-    height: number
+    height: number,
+    optionValues: OptionValues
   ): void {
     ctx.save();
     ctx.translate(0, height * 0.5);
+
+    if (optionValues["components"]) {
+      this.waves.forEach((wave, i) => {
+        const color = subwaveColors[i % subwaveColors.length];
+        drawWave(
+          ctx,
+          wave,
+          time,
+          color,
+          2,
+          "none",
+          i * subwaveOffset - (this.waves.length * subwaveOffset) / 2,
+          100,
+          width
+        );
+      });
+    }
 
     const superposition: WaveFunction = (x, t) => {
       let y = 0;
@@ -27,7 +50,24 @@ export class WaveBasicEngine extends AnimationEngine {
       return y;
     };
 
-    drawWave(ctx, superposition, time, `#ffffff`, 2, "open", 0, 100, width);
+    if (optionValues["superposition"]) {
+      drawWave(ctx, superposition, time, `#ffffff`, 2, "open", 0, 100, width);
+    }
+
+    if (optionValues["particles"]) {
+      const longitudinal = optionValues["longitudinal"] as boolean;
+      drawParticles(
+        ctx,
+        superposition,
+        time,
+        `#ffffff`,
+        5,
+        20,
+        width,
+        longitudinal
+      );
+    }
+
     ctx.restore();
   }
 
@@ -46,7 +86,7 @@ function drawWave(
   time: number,
   style: string,
   thickness: number,
-  end: "open" | "fixed",
+  end: "open" | "fixed" | "none",
   offset: number,
   segments: number,
   width: number
@@ -86,26 +126,26 @@ function drawWave(
   }
 }
 
-function drawWaveParticles(
+function drawParticles(
   ctx: CanvasRenderingContext2D,
   wave: WaveFunction,
   time: number,
   style: string,
   size: number,
-  segments: number,
-  segmentWidth: number,
-  particleEvery: number,
+  particles: number,
+  width: number,
   showLongitudinal: boolean
 ) {
   ctx.fillStyle = style;
-  for (let i = 0; i < segments; i += particleEvery) {
-    let x = i * segmentWidth - segments * 0.5 * segmentWidth;
+  for (let i = 0; i < particles; i++) {
+    const percentage = i / (particles - 1);
+    let x = percentage * width;
     let y = 0;
 
     if (!showLongitudinal) {
-      y += wave(i / segments, time);
+      y += wave(percentage, time);
     } else {
-      x += wave(i / segments, time) * 0.75;
+      x += wave(percentage, time) * 0.75;
     }
 
     ctx.beginPath();
