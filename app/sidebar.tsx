@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import {
-  AnimationList,
-  AnimationTreeNode,
-  AnimationEntry,
-  AnimationCollection,
-} from "./(utils)/animation-list";
+  navTree,
+  NavTreeNode,
+  NavPage,
+  NavCollection,
+} from "./(utils)/nav-tree";
 import styles from "./sidebar.module.scss";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -19,7 +19,7 @@ export default function Sidebar({ className }: { className?: string }) {
       <div className={styles.content}>
         <p className={styles.title}>Navigation</p>
         <ul>
-          {AnimationList.map((node, i) => {
+          {navTree.map((node, i) => {
             return (
               <SidebarTreeNode
                 key={i}
@@ -40,7 +40,7 @@ function SidebarTreeNode({
   depth,
   pathname,
 }: {
-  node: AnimationTreeNode;
+  node: NavTreeNode;
   depth: number;
   pathname: string;
 }) {
@@ -68,7 +68,7 @@ function SidebarEntry({
   depth,
   pathname,
 }: {
-  node: AnimationEntry;
+  node: NavPage;
   depth: number;
   pathname: string;
 }) {
@@ -95,7 +95,7 @@ function SidebarAnimationCollection({
   depth,
   pathname,
 }: {
-  node: AnimationCollection;
+  node: NavCollection;
   depth: number;
   pathname: string;
 }) {
