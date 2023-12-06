@@ -1,5 +1,6 @@
 import { AnimationType } from "../animation";
 import { AnimationOptionDefinition, AnimationOptions } from "../options";
+import { WaveFunction } from "./functions";
 import { WaveAnimationRenderer } from "./wave-animation-renderer";
 
 export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
@@ -17,6 +18,28 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       duration,
       new WaveAnimationOptions(),
       renderer
+    );
+  }
+
+  static fromObject({
+    name,
+    description,
+    href,
+    duration,
+    waves,
+  }: {
+    name: string;
+    description: string | null;
+    href: string;
+    duration: number;
+    waves: WaveFunction[];
+  }) {
+    return new WaveAnimationType(
+      name,
+      description,
+      href,
+      duration,
+      new WaveAnimationRenderer(waves)
     );
   }
 }
