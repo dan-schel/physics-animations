@@ -1,6 +1,5 @@
-import { AnimationEngine } from "@/engines/animation-engine";
 import { clamp } from "@schel-d/js-utils";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "./playback-controls.module.scss";
 import { AnimationType } from "@/data/animation";
 import { AnimationOptions } from "@/data/options";
@@ -14,7 +13,7 @@ export default function PlaybackControls({
 }: {
   animation: AnimationType<AnimationOptions>;
   time: number;
-  setTime: (newValue: number) => void;
+  setTime: Dispatch<SetStateAction<number>>;
 }) {
   const [paused, setPaused] = useState(false);
 
@@ -34,7 +33,12 @@ export default function PlaybackControls({
       <button className={styles.reset} onClick={handleReset}>
         <ResetIcon></ResetIcon>
       </button>
-      <Seekbar animation={animation} time={time} setTime={setTime}></Seekbar>
+      <Seekbar
+        animation={animation}
+        time={time}
+        setTime={setTime}
+        paused={paused}
+      ></Seekbar>
     </div>
   );
 }
@@ -43,15 +47,39 @@ function Seekbar({
   animation,
   time,
   setTime,
+  paused,
 }: {
   animation: AnimationType<AnimationOptions>;
   time: number;
-  setTime: (newValue: number) => void;
+  setTime: Dispatch<SetStateAction<number>>;
+  paused: boolean;
 }) {
   const [holding, setHolding] = useState(false);
   const seekbarValue = clamp(time / animation.duration, 0, 1) * precision;
 
-  // TODO: Use requestAnimationFrame to increment the time variable.
+  const requestRef = useRef<number>();
+
+  useEffect(() => {
+    if (paused || holding) {
+      requestRef.current = undefined;
+      return;
+    }
+
+    let lastTimestamp: number | null = null;
+    const animate = (timestamp: number) => {
+      const delta = lastTimestamp == null ? 0 : timestamp - lastTimestamp;
+      setTime((time) => time + delta / 1000);
+      lastTimestamp = timestamp;
+      requestRef.current = requestAnimationFrame(animate);
+    };
+
+    requestRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
+    };
+  }, [paused, holding]);
 
   function handleSeekbarChanged(e: React.ChangeEvent<HTMLInputElement>) {
     const value = parseInt(e.target.value);

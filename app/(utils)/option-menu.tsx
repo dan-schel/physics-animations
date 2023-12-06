@@ -5,6 +5,7 @@ import {
   AnimationOptions,
 } from "@/data/options";
 import { AnimationType } from "@/data/animation";
+import { Dispatch, SetStateAction } from "react";
 
 export default function OptionMenu({
   animation,
@@ -13,7 +14,9 @@ export default function OptionMenu({
 }: {
   animation: AnimationType<AnimationOptions>;
   optionValues: AnimationOptionValues<AnimationOptions>;
-  setOptionValues: (newValue: AnimationOptionValues<AnimationOptions>) => void;
+  setOptionValues: Dispatch<
+    SetStateAction<AnimationOptionValues<AnimationOptions>>
+  >;
 }) {
   return (
     <div className={styles.options}>
