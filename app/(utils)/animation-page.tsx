@@ -1,24 +1,20 @@
-import { WaveBasicEngine } from "@/engines/wave-basic/wave-basic-engine";
-import { useMemo } from "react";
+import { useState } from "react";
 import AnimationCanvas from "./animation-canvas";
 import AnimationHeader from "./animation-header";
 import OptionMenu from "./option-menu";
 import PlaybackControls from "./playback-controls";
 import { AnimationType } from "@/data/animation";
-import { WaveAnimationRenderer } from "@/data/wave-animation/wave-animation-renderer";
+import { AnimationOptions } from "@/data/options";
 
 export default function AnimationPage({
   animation,
 }: {
-  animation: AnimationType;
+  animation: AnimationType<AnimationOptions>;
 }) {
-  const engine = useMemo(() => {
-    return new WaveBasicEngine(
-      (animation.renderer as WaveAnimationRenderer).waves,
-      animation.duration,
-      false
-    );
-  }, []);
+  const [time, setTime] = useState(0);
+  const [optionValues, setOptionValues] = useState(
+    animation.options.getDefaultValues()
+  );
 
   return (
     <div>
@@ -26,9 +22,21 @@ export default function AnimationPage({
         title={animation.title}
         description={animation.description ?? undefined}
       ></AnimationHeader>
-      <AnimationCanvas engine={engine}></AnimationCanvas>
-      <PlaybackControls engine={engine}></PlaybackControls>
-      <OptionMenu engine={engine}></OptionMenu>
+      <AnimationCanvas
+        animation={animation}
+        time={time}
+        optionValues={optionValues}
+      ></AnimationCanvas>
+      <PlaybackControls
+        animation={animation}
+        time={time}
+        setTime={setTime}
+      ></PlaybackControls>
+      <OptionMenu
+        animation={animation}
+        optionValues={optionValues}
+        setOptionValues={setOptionValues}
+      ></OptionMenu>
     </div>
   );
 }

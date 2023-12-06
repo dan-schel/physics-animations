@@ -1,27 +1,29 @@
-import { AnimationEngine } from "@/engines/animation-engine";
 import styles from "./option-menu.module.scss";
-import { useMemo, useState } from "react";
-import { OptionDefinition } from "@/engines/animation-options";
+import {
+  AnimationOptionDefinition,
+  AnimationOptionValues,
+  AnimationOptions,
+} from "@/data/options";
+import { AnimationType } from "@/data/animation";
 
-export default function OptionMenu({ engine }: { engine: AnimationEngine }) {
-  const [values, setValues] = useState(engine.getOptionValues());
-
-  const definitions = useMemo(() => engine.options.getDefinitions(), [engine]);
-
-  function handleValueChanged(definition: OptionDefinition, value: any) {
-    engine.setOption(definition.id, value);
-    setValues(engine.getOptionValues());
-  }
-
+export default function OptionMenu({
+  animation,
+  optionValues,
+  setOptionValues,
+}: {
+  animation: AnimationType<AnimationOptions>;
+  optionValues: AnimationOptionValues<AnimationOptions>;
+  setOptionValues: (newValue: AnimationOptionValues<AnimationOptions>) => void;
+}) {
   return (
     <div className={styles.options}>
       <p>Customize animation</p>
-      {definitions.map((o) => (
+      {animation.options.definitions.map((o) => (
         <OptionInput
           key={o.id}
           definition={o}
-          value={values[o.id]}
-          onChange={(value) => handleValueChanged(o, value)}
+          value={optionValues.get(o.id)}
+          onChange={(value) => setOptionValues(optionValues.with(o.id, value))}
         ></OptionInput>
       ))}
     </div>
@@ -33,7 +35,7 @@ function OptionInput({
   value,
   onChange,
 }: {
-  definition: OptionDefinition;
+  definition: AnimationOptionDefinition;
   value: unknown;
   onChange: (value: any) => void;
 }) {
@@ -55,7 +57,7 @@ function BooleanOptionInput({
   value,
   onChange,
 }: {
-  definition: OptionDefinition;
+  definition: AnimationOptionDefinition;
   value: boolean;
   onChange: (value: boolean) => void;
 }) {

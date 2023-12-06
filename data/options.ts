@@ -1,3 +1,5 @@
+import { areUnique } from "@schel-d/js-utils";
+
 export class AnimationOptionDefinition {
   constructor(
     readonly id: string,
@@ -17,21 +19,21 @@ export class AnimationOptionDefinition {
 }
 
 export class AnimationOptions {
-  readonly options: Record<string, AnimationOptionDefinition>;
-  constructor(options: AnimationOptionDefinition[]) {
-    this.options = {};
-    for (let option of options) {
-      this.options[option.id] = option;
+  constructor(readonly definitions: AnimationOptionDefinition[]) {
+    if (!areUnique(definitions.map((d) => d.id))) {
+      throw new Error("Option definition IDs are not unique.");
     }
-    this.validate(AnimationOptions._createDefaultValuesRecord(this.options));
+
+    this.validate(
+      AnimationOptions._createDefaultValuesRecord(this.definitions)
+    );
   }
 
   validate(values: Record<string, unknown>) {
-    for (let id in this.options) {
-      const option = this.options[id];
+    for (const option of this.definitions) {
       if (option.type === "boolean") {
-        if (typeof values[id] !== "boolean") {
-          throw new Error(`Expected boolean for option "${id}".`);
+        if (typeof values[option.id] !== "boolean") {
+          throw new Error(`Expected boolean for option "${option.id}".`);
         }
       } else {
         throw new Error(`Unknown option type "${option.type}".`);
@@ -42,16 +44,16 @@ export class AnimationOptions {
   getDefaultValues(): AnimationOptionValues<this> {
     return new AnimationOptionValues(
       this,
-      AnimationOptions._createDefaultValuesRecord(this.options)
+      AnimationOptions._createDefaultValuesRecord(this.definitions)
     );
   }
 
   private static _createDefaultValuesRecord(
-    options: Record<string, AnimationOptionDefinition>
+    definitions: AnimationOptionDefinition[]
   ): Record<string, unknown> {
     const values: Record<string, unknown> = {};
-    for (let id in options) {
-      values[id] = options[id].defaultValue;
+    for (const option of definitions) {
+      values[option.id] = option.defaultValue;
     }
     return values;
   }
@@ -63,6 +65,10 @@ export class AnimationOptionValues<OptionType extends AnimationOptions> {
     readonly options: Record<string, unknown>
   ) {
     shape.validate(options);
+  }
+
+  get(id: string): unknown | null {
+    return this.options[id] ?? null;
   }
 
   getBoolean(id: string): boolean | null {

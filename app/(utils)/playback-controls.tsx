@@ -2,27 +2,28 @@ import { AnimationEngine } from "@/engines/animation-engine";
 import { clamp } from "@schel-d/js-utils";
 import { useEffect, useState } from "react";
 import styles from "./playback-controls.module.scss";
+import { AnimationType } from "@/data/animation";
+import { AnimationOptions } from "@/data/options";
 
 const precision = 1000;
 
 export default function PlaybackControls({
-  engine,
+  animation,
+  time,
+  setTime,
 }: {
-  engine: AnimationEngine;
+  animation: AnimationType<AnimationOptions>;
+  time: number;
+  setTime: (newValue: number) => void;
 }) {
-  const [paused, setPaused] = useState(engine.isPaused(true));
+  const [paused, setPaused] = useState(false);
 
   function handlePlayPause() {
-    if (engine.isPaused(true)) {
-      engine.unpause(true);
-    } else {
-      engine.pause(true);
-    }
-    setPaused(engine.isPaused(true));
+    setPaused((currentValue) => !currentValue);
   }
 
   function handleReset() {
-    engine.setTime(0);
+    setTime(0);
   }
 
   return (
@@ -33,44 +34,37 @@ export default function PlaybackControls({
       <button className={styles.reset} onClick={handleReset}>
         <ResetIcon></ResetIcon>
       </button>
-      <Seekbar engine={engine}></Seekbar>
+      <Seekbar animation={animation} time={time} setTime={setTime}></Seekbar>
     </div>
   );
 }
 
-function Seekbar({ engine }: { engine: AnimationEngine }) {
-  const [seekbarValue, setSeekbarValue] = useState(
-    calculateSeekbarValue(engine)
-  );
+function Seekbar({
+  animation,
+  time,
+  setTime,
+}: {
+  animation: AnimationType<AnimationOptions>;
+  time: number;
+  setTime: (newValue: number) => void;
+}) {
+  const [holding, setHolding] = useState(false);
+  const seekbarValue = clamp(time / animation.duration, 0, 1) * precision;
 
-  useEffect(() => {
-    let watching = true;
-
-    const update = () => {
-      setSeekbarValue(calculateSeekbarValue(engine));
-      if (watching) {
-        requestAnimationFrame(update);
-      }
-    };
-    update();
-
-    return () => {
-      watching = false;
-    };
-  }, [engine]);
+  // TODO: Use requestAnimationFrame to increment the time variable.
 
   function handleSeekbarChanged(e: React.ChangeEvent<HTMLInputElement>) {
     const value = parseInt(e.target.value);
-    setSeekbarValue(value);
-    engine.setTime((value / precision) * engine.getDuration());
+    const newTime = (value / precision) * animation.duration;
+    setTime(newTime);
   }
 
   function handleSeekbarHeld() {
-    engine.pause(false);
+    setHolding(true);
   }
 
-  function handleSeekbarReleased(e: React.PointerEvent<HTMLInputElement>) {
-    engine.unpause(false);
+  function handleSeekbarReleased() {
+    setHolding(false);
   }
 
   return (
@@ -84,14 +78,6 @@ function Seekbar({ engine }: { engine: AnimationEngine }) {
       onPointerDown={handleSeekbarHeld}
       onPointerUp={handleSeekbarReleased}
     ></input>
-  );
-}
-
-function calculateSeekbarValue(engine: AnimationEngine) {
-  return clamp(
-    (engine.getTime() / engine.getDuration()) * precision,
-    0,
-    precision
   );
 }
 
