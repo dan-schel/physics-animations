@@ -79,7 +79,7 @@ function Seekbar({
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [paused, holding]);
+  }, [paused, holding, setTime]);
 
   function handleSeekbarChanged(e: React.ChangeEvent<HTMLInputElement>) {
     const value = parseInt(e.target.value);

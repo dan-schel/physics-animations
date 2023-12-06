@@ -1,11 +1,12 @@
 import { AnimationType } from "@/data/animation";
-import { regular } from "../waves/regular/page";
-import { collisionSame } from "../waves/collision-same/page";
-import { collisionOpposite } from "../waves/collision-opposite/page";
-import { pulseFixed } from "../waves/pulse-fixed/page";
-import { pulseOpen } from "../waves/pulse-open/page";
-import { standingFixed } from "../waves/standing-fixed/page";
-import { standingOpen } from "../waves/standing-open/page";
+import { collisionOpposite } from "../waves/collision-opposite/animation";
+import { collisionSame } from "../waves/collision-same/animation";
+import { pulseFixed } from "../waves/pulse-fixed/animation";
+import { pulseOpen } from "../waves/pulse-open/animation";
+import { regular } from "../waves/regular/animation";
+import { standingFixed } from "../waves/standing-fixed/animation";
+import { standingOpen } from "../waves/standing-open/animation";
+import { AnimationOptions } from "@/data/options";
 
 export type NavPage = {
   title: string;
@@ -22,7 +23,7 @@ export type NavTreeNode = NavCollection | NavPage;
 
 export type NavTree = NavTreeNode[];
 
-function fromAnimation(animation: AnimationType): NavPage {
+function fromAnimation(animation: AnimationType<AnimationOptions>): NavPage {
   return {
     title: animation.title,
     href: animation.href,
