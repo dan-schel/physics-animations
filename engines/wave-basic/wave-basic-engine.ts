@@ -1,6 +1,6 @@
+import { WaveFunction } from "@/data/wave-animation/functions";
 import { AnimationEngine } from "../animation-engine";
 import { OptionValues } from "../animation-options";
-import { WaveFunction } from "./functions";
 import { WaveBasicOptions } from "./wave-basic-options";
 
 const subwaveColors = ["#ff0000a0", "#00ff00a0"];

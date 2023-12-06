@@ -5,7 +5,7 @@ import { pulse, reversePulse } from "@/data/wave-animation/functions";
 import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
 
 export const collisionSame = WaveAnimationType.fromObject({
-  name: "Collision (same)",
+  title: "Collision (same)",
   description: null,
   href: "/waves/collision-same",
   duration: 4,

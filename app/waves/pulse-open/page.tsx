@@ -5,7 +5,7 @@ import { pulse, reflect } from "@/data/wave-animation/functions";
 import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
 
 export const pulseOpen = WaveAnimationType.fromObject({
-  name: "Pulse (open)",
+  title: "Pulse (open)",
   description: null,
   href: "/waves/pulse-open",
   duration: 7,

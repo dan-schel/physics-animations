@@ -24,7 +24,7 @@ export type NavTree = NavTreeNode[];
 
 function fromAnimation(animation: AnimationType): NavPage {
   return {
-    title: animation.name,
+    title: animation.title,
     href: animation.href,
     type: "animation",
   };

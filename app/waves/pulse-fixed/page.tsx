@@ -5,7 +5,7 @@ import { pulse, reflectAndInvert } from "@/data/wave-animation/functions";
 import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
 
 export const pulseFixed = WaveAnimationType.fromObject({
-  name: "Pulse (fixed)",
+  title: "Pulse (fixed)",
   description: null,
   href: "/waves/pulse-fixed",
   duration: 7,

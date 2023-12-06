@@ -23,7 +23,7 @@ export default function AnimationPage({
   return (
     <div>
       <AnimationHeader
-        title={animation.name}
+        title={animation.title}
         description={animation.description ?? undefined}
       ></AnimationHeader>
       <AnimationCanvas engine={engine}></AnimationCanvas>

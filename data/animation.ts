@@ -5,7 +5,7 @@ export class AnimationType<
   OptionType extends AnimationOptions = AnimationOptions
 > {
   constructor(
-    readonly name: string,
+    readonly title: string,
     readonly description: string | null,
     readonly href: string,
     readonly duration: number,

@@ -5,7 +5,7 @@ import { reflectAndInvert, sine } from "@/data/wave-animation/functions";
 import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
 
 export const standingFixed = WaveAnimationType.fromObject({
-  name: "Standing wave (fixed)",
+  title: "Standing wave (fixed)",
   description: null,
   href: "/waves/standing-fixed",
   duration: 12,

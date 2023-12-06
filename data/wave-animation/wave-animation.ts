@@ -5,14 +5,14 @@ import { WaveAnimationRenderer } from "./wave-animation-renderer";
 
 export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
   constructor(
-    name: string,
+    title: string,
     description: string | null,
     href: string,
     duration: number,
     renderer: WaveAnimationRenderer
   ) {
     super(
-      name,
+      title,
       description,
       href,
       duration,
@@ -22,20 +22,20 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
   }
 
   static fromObject({
-    name,
+    title,
     description,
     href,
     duration,
     waves,
   }: {
-    name: string;
+    title: string;
     description: string | null;
     href: string;
     duration: number;
     waves: WaveFunction[];
   }) {
     return new WaveAnimationType(
-      name,
+      title,
       description,
       href,
       duration,

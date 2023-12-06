@@ -5,7 +5,7 @@ import { sine } from "@/data/wave-animation/functions";
 import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
 
 export const regular = WaveAnimationType.fromObject({
-  name: "Regular",
+  title: "Regular",
   description: null,
   href: "/waves/regular",
   duration: 6,
