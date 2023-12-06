@@ -8,7 +8,7 @@ export abstract class AnimationEngine {
 
   private time = 0;
   private lastTimestamp: number | null = null;
-  private isPaused = false;
+  private playback: "playing" | "held" | "paused" = "playing";
 
   constructor() {}
 
@@ -57,7 +57,7 @@ export abstract class AnimationEngine {
         return;
       }
 
-      if (!this.isPaused) {
+      if (!this.isPaused()) {
         const delta =
           this.lastTimestamp == null ? 0 : timestamp - this.lastTimestamp;
         this.time += delta / 1000;
@@ -81,12 +81,21 @@ export abstract class AnimationEngine {
     requestAnimationFrame((timestamp) => renderLoop(timestamp));
   }
 
-  pause(): void {
-    this.isPaused = true;
+  isPaused(explicitly = false): boolean {
+    return explicitly ? this.playback == "paused" : this.playback != "playing";
   }
 
-  unpause(): void {
-    this.isPaused = false;
+  pause(explicit: boolean): void {
+    if (this.playback === "playing") {
+      this.playback = explicit ? "paused" : "held";
+      this.lastTimestamp = null;
+    }
+  }
+
+  unpause(explicit: boolean): void {
+    if (explicit || this.playback !== "paused") {
+      this.playback = "playing";
+    }
   }
 
   getTime(): number {
@@ -96,6 +105,10 @@ export abstract class AnimationEngine {
   setTime(time: number): void {
     this.time = time;
   }
+
+  abstract getDuration(): number;
+
+  abstract isLooping(): boolean;
 
   abstract render(
     ctx: CanvasRenderingContext2D,

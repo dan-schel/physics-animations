@@ -2,7 +2,11 @@ import { AnimationEngine } from "../animation-engine";
 import { WaveFunction, pulse } from "./functions";
 
 export class WaveBasicEngine extends AnimationEngine {
-  constructor(readonly waves: WaveFunction[]) {
+  constructor(
+    readonly waves: WaveFunction[],
+    readonly duration: number,
+    readonly looping: boolean
+  ) {
     super();
   }
 
@@ -25,6 +29,14 @@ export class WaveBasicEngine extends AnimationEngine {
 
     drawWave(ctx, superposition, time, `#ffffff`, 2, "open", 0, 100, width);
     ctx.restore();
+  }
+
+  getDuration(): number {
+    return this.duration;
+  }
+
+  isLooping(): boolean {
+    return this.looping;
   }
 }
 
