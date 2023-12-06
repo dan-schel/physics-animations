@@ -51,7 +51,7 @@ export class WaveBasicEngine extends AnimationEngine {
     };
 
     if (optionValues["superposition"]) {
-      drawWave(ctx, superposition, time, `#ffffff`, 2, "open", 0, 100, width);
+      drawWave(ctx, superposition, time, `#ffffffa0`, 2, "open", 0, 100, width);
     }
 
     if (optionValues["particles"]) {

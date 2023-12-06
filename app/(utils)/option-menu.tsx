@@ -15,7 +15,7 @@ export default function OptionMenu({ engine }: { engine: AnimationEngine }) {
 
   return (
     <div className={styles.options}>
-      <p>Customize</p>
+      <p>Customize animation</p>
       {definitions.map((o) => (
         <OptionInput
           key={o.id}
@@ -60,15 +60,19 @@ function BooleanOptionInput({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <div>
-      <label>
-        <input
-          type="checkbox"
-          checked={value}
-          onChange={(e) => onChange(e.target.checked)}
-        />
-        <p>{definition.displayName}</p>
-      </label>
-    </div>
+    <label className={styles.switch}>
+      <input
+        type="checkbox"
+        checked={value}
+        onChange={(e) => onChange(e.target.checked)}
+        autoComplete="off"
+      />
+      <div>
+        <div className={styles.switchGraphic}></div>
+        <div className={styles.switchContent}>
+          <p>{definition.displayName}</p>
+        </div>
+      </div>
+    </label>
   );
 }
