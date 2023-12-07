@@ -6,5 +6,7 @@ export const travelling = WaveAnimationType.fromObject({
   description: "A single wave travelling through a rope.",
   href: "/waves/travelling",
   duration: 8,
-  waves: [sine(0.2, 3, 40)],
+  waves: [sine(0.2, 3, 0.3)],
+  leftEnd: "none",
+  rightEnd: "none",
 });

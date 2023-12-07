@@ -4,7 +4,7 @@ import {
   AnimationOptions,
 } from "../animation-options";
 import { WaveFunction } from "./functions";
-import { WaveAnimationRenderer } from "./wave-animation-renderer";
+import { EndpointType, WaveAnimationRenderer } from "./wave-animation-renderer";
 
 export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
   constructor(
@@ -30,19 +30,23 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     href,
     duration,
     waves,
+    leftEnd,
+    rightEnd,
   }: {
     title: string;
     description: string | null;
     href: string;
     duration: number;
     waves: WaveFunction[];
+    leftEnd: EndpointType;
+    rightEnd: EndpointType;
   }) {
     return new WaveAnimationType(
       title,
       description,
       href,
       duration,
-      new WaveAnimationRenderer(waves)
+      new WaveAnimationRenderer(waves, leftEnd, rightEnd)
     );
   }
 }

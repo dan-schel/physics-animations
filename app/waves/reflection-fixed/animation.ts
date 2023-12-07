@@ -10,5 +10,7 @@ export const reflectionFixed = WaveAnimationType.fromObject({
     "The wave reflects and inverts when it reaches the fixed end of the rope.",
   href: "/waves/reflection-fixed",
   duration: 7,
-  waves: [pulse(0.2, 5, 40), reflectAndInvert(pulse(0.2, 5, 40))],
+  waves: [pulse(0.2, 5, 0.3), reflectAndInvert(pulse(0.2, 5, 0.3))],
+  leftEnd: "none",
+  rightEnd: "fixed",
 });

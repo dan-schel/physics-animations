@@ -10,5 +10,7 @@ export const standingFixed = WaveAnimationType.fromObject({
     "A standing wave forms with nodes at both fixed ends due to the reflection.",
   href: "/waves/standing-fixed",
   duration: 12,
-  waves: [sine(0.2, 3, 40), reflectAndInvert(sine(0.2, 3, 40))],
+  waves: [sine(0.2, 3, 0.3), reflectAndInvert(sine(0.2, 3, 0.3))],
+  leftEnd: "fixed",
+  rightEnd: "fixed",
 });

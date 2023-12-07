@@ -7,5 +7,7 @@ export const reflectionFree = WaveAnimationType.fromObject({
     "The wave reflects when it reaches the end of the rope, which can freely move.",
   href: "/waves/reflection-free",
   duration: 7,
-  waves: [pulse(0.2, 5, 40), reflect(pulse(0.2, 5, 40))],
+  waves: [pulse(0.2, 5, 0.3), reflect(pulse(0.2, 5, 0.3))],
+  leftEnd: "none",
+  rightEnd: "free",
 });

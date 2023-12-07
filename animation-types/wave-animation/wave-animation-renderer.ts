@@ -7,6 +7,7 @@ const width = 500;
 const height = 250;
 const horizontalPadding = 30;
 const effectiveWidth = width - horizontalPadding * 2;
+const amplitude = height / 2;
 
 const waveResolution = 100;
 const particleCount = 21;
@@ -14,11 +15,19 @@ const particleCount = 21;
 const superpositionColor = "#ffffffa0";
 const waveThickness = 2;
 const particleColor = "#ffffff";
+const particleSize = 5;
+const endpointSize = 10;
 const subwaveColors = ["#ff0000a0", "#00ff00a0"];
 const subwaveOffset = 2;
 
+export type EndpointType = "fixed" | "free" | "none";
+
 export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOptions> {
-  constructor(readonly waves: WaveFunction[]) {
+  constructor(
+    readonly waves: WaveFunction[],
+    readonly leftEnd: EndpointType,
+    readonly rightEnd: EndpointType
+  ) {
     super();
   }
 
@@ -47,10 +56,10 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     ctx.translate(0, height / 2);
 
     if (showComponents) {
+      const waveCount = this.waves.length;
       this.waves.forEach((wave, i) => {
         const color = subwaveColors[i % subwaveColors.length];
-        const offset =
-          i * subwaveOffset - (this.waves.length * subwaveOffset) / 2;
+        const offset = i * subwaveOffset - (waveCount * subwaveOffset) / 2;
         drawWave(ctx, wave, time, color, "none", "none", offset);
       });
     }
@@ -64,20 +73,16 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     };
 
     if (showSuperposition) {
-      drawWave(ctx, superposition, time, superpositionColor, "free", "free", 0);
+      const color = superpositionColor;
+      drawWave(ctx, superposition, time, color, this.leftEnd, this.rightEnd, 0);
     }
 
     if (showParticles) {
-      drawParticles(
-        ctx,
-        superposition,
-        time,
-        particleColor,
-        5,
-        showAsLongitudinal,
-        true,
-        true
-      );
+      const color = particleColor;
+      const longitudinal = showAsLongitudinal;
+      const left = this.leftEnd == "none";
+      const right = this.rightEnd == "none";
+      drawParticles(ctx, superposition, time, color, longitudinal, left, right);
     }
 
     ctx.restore();
@@ -89,8 +94,8 @@ function drawWave(
   wave: WaveFunction,
   time: number,
   color: string,
-  leftEnd: "fixed" | "free" | "none",
-  rightEnd: "fixed" | "free" | "none",
+  leftEnd: EndpointType,
+  rightEnd: EndpointType,
   offset: number
 ) {
   ctx.strokeStyle = color;
@@ -99,8 +104,7 @@ function drawWave(
 
   for (let i = 0; i < waveResolution; i++) {
     const percentage = i / (waveResolution - 1);
-    const x = horizontalPadding + percentage * effectiveWidth;
-    const y = wave(percentage, time) + offset;
+    const { x, y } = getCoordinates(percentage, wave(percentage, time), offset);
 
     if (i == 0) {
       ctx.moveTo(x, y);
@@ -111,14 +115,12 @@ function drawWave(
   ctx.stroke();
 
   if (leftEnd != "none") {
-    const x = horizontalPadding;
-    const y = wave(0, time) + offset;
-    drawEndpoint(ctx, x, y, leftEnd);
+    const { x, y } = getCoordinates(0, wave(0, time), offset);
+    drawEndpoint(ctx, x, y, leftEnd == "free");
   }
   if (rightEnd != "none") {
-    const x = horizontalPadding + effectiveWidth;
-    const y = wave(1, time) + offset;
-    drawEndpoint(ctx, x, y, rightEnd);
+    const { x, y } = getCoordinates(1, wave(1, time), offset);
+    drawEndpoint(ctx, x, y, rightEnd == "free");
   }
 }
 
@@ -126,19 +128,19 @@ function drawEndpoint(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
-  type: "fixed" | "free"
+  hollow: boolean
 ) {
-  if (type == "free") {
+  if (hollow) {
     ctx.strokeStyle = "#ffffff";
     ctx.fillStyle = "#000000";
     ctx.beginPath();
-    ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   } else {
     ctx.fillStyle = "#ffffff";
     ctx.beginPath();
-    ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 }
@@ -148,27 +150,33 @@ function drawParticles(
   wave: WaveFunction,
   time: number,
   color: string,
-  size: number,
   showLongitudinal: boolean,
-  skipLeft: boolean,
-  skipRight: boolean
+  drawLeft: boolean,
+  drawRight: boolean
 ) {
   ctx.fillStyle = color;
-  const first = skipLeft ? 1 : 0;
-  const last = skipRight ? particleCount - 1 : particleCount;
+
+  const first = drawLeft ? 0 : 1;
+  const last = drawRight ? particleCount : particleCount - 1;
   for (let i = first; i < last; i++) {
     const percentage = i / (particleCount - 1);
-    let x = horizontalPadding + percentage * effectiveWidth;
-    let y = 0;
+    let { x, y } = getCoordinates(percentage, 0, 0);
 
     if (!showLongitudinal) {
-      y += wave(percentage, time);
+      y += wave(percentage, time) * amplitude;
     } else {
-      x += wave(percentage, time) * 0.75;
+      x += wave(percentage, time);
     }
 
     ctx.beginPath();
-    ctx.ellipse(x, y, size, size, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, particleSize, particleSize, 0, 0, Math.PI * 2);
     ctx.fill();
   }
+}
+
+function getCoordinates(percentage: number, height: number, offset: number) {
+  return {
+    x: horizontalPadding + percentage * effectiveWidth,
+    y: height * amplitude + offset,
+  };
 }

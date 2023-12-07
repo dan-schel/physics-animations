@@ -9,5 +9,7 @@ export const interferenceDestructive = WaveAnimationType.fromObject({
   description: "Two waves collide, causing destructive interference.",
   href: "/waves/interference-destructive",
   duration: 4,
-  waves: [pulse(0.2, 5, 40), reversePulse(0.2, 5, -40)],
+  waves: [pulse(0.2, 5, 0.3), reversePulse(0.2, 5, -0.3)],
+  leftEnd: "none",
+  rightEnd: "none",
 });
