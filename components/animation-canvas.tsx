@@ -46,8 +46,8 @@ export class CanvasController {
   private ctx: CanvasRenderingContext2D;
   private resizeObserver: ResizeObserver;
 
-  private width = 0;
-  private height = 0;
+  private canvasWidth = 0;
+  private canvasHeight = 0;
   private dpiRatio = 1;
 
   private lastRender: {
@@ -80,15 +80,15 @@ export class CanvasController {
 
   private resize() {
     const size = this.parent.getBoundingClientRect();
-    this.width = size.width;
-    this.height = size.height;
+    this.canvasWidth = size.width;
+    this.canvasHeight = size.height;
     this.dpiRatio =
       window.devicePixelRatio / ((this.ctx as any).backingStorePixelRatio ?? 1);
 
-    this.canvas.style.width = `${this.width}px`;
-    this.canvas.style.height = `${this.height}px`;
-    this.canvas.width = this.width * this.dpiRatio;
-    this.canvas.height = this.height * this.dpiRatio;
+    this.canvas.style.width = `${this.canvasWidth}px`;
+    this.canvas.style.height = `${this.canvasHeight}px`;
+    this.canvas.width = this.canvasWidth * this.dpiRatio;
+    this.canvas.height = this.canvasHeight * this.dpiRatio;
 
     if (this.lastRender != null) {
       this.render(
@@ -108,16 +108,16 @@ export class CanvasController {
     this.ctx.clearRect(
       0,
       0,
-      this.width * this.dpiRatio,
-      this.height * this.dpiRatio
+      this.canvasWidth * this.dpiRatio,
+      this.canvasHeight * this.dpiRatio
     );
     this.ctx.scale(this.dpiRatio, this.dpiRatio);
 
     animation.renderer.render(
       this.ctx,
       time,
-      this.width,
-      this.height,
+      this.canvasWidth,
+      this.canvasHeight,
       optionValues
     );
 

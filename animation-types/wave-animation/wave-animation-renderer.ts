@@ -1,8 +1,19 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer } from "../animation-renderer";
+import { AnimationRenderer, centerFrame } from "../animation-renderer";
 import { WaveFunction } from "./functions";
 import { WaveAnimationOptions } from "./wave-animation";
 
+const width = 500;
+const height = 250;
+const horizontalPadding = 30;
+const effectiveWidth = width - horizontalPadding * 2;
+
+const waveResolution = 100;
+const particleCount = 21;
+
+const superpositionColor = "#ffffffa0";
+const waveThickness = 2;
+const particleColor = "#ffffff";
 const subwaveColors = ["#ff0000a0", "#00ff00a0"];
 const subwaveOffset = 2;
 
@@ -14,8 +25,8 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    width: number,
-    height: number,
+    canvasWidth: number,
+    canvasHeight: number,
     options: AnimationOptionValues<WaveAnimationOptions>
   ): void {
     const showSuperposition = options.requireBoolean(
@@ -32,22 +43,15 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     );
 
     ctx.save();
-    ctx.translate(0, height * 0.5);
+    centerFrame(ctx, canvasWidth, canvasHeight, width, height);
+    ctx.translate(0, height / 2);
 
     if (showComponents) {
       this.waves.forEach((wave, i) => {
         const color = subwaveColors[i % subwaveColors.length];
-        drawWave(
-          ctx,
-          wave,
-          time,
-          color,
-          2,
-          "none",
-          i * subwaveOffset - (this.waves.length * subwaveOffset) / 2,
-          100,
-          width
-        );
+        const offset =
+          i * subwaveOffset - (this.waves.length * subwaveOffset) / 2;
+        drawWave(ctx, wave, time, color, "none", "none", offset);
       });
     }
 
@@ -60,7 +64,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     };
 
     if (showSuperposition) {
-      drawWave(ctx, superposition, time, `#ffffffa0`, 2, "open", 0, 100, width);
+      drawWave(ctx, superposition, time, superpositionColor, "free", "free", 0);
     }
 
     if (showParticles) {
@@ -68,11 +72,11 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
         ctx,
         superposition,
         time,
-        `#ffffff`,
+        particleColor,
         5,
-        20,
-        width,
-        showAsLongitudinal
+        showAsLongitudinal,
+        true,
+        true
       );
     }
 
@@ -84,20 +88,18 @@ function drawWave(
   ctx: CanvasRenderingContext2D,
   wave: WaveFunction,
   time: number,
-  style: string,
-  thickness: number,
-  end: "open" | "fixed" | "none",
-  offset: number,
-  segments: number,
-  width: number
+  color: string,
+  leftEnd: "fixed" | "free" | "none",
+  rightEnd: "fixed" | "free" | "none",
+  offset: number
 ) {
-  ctx.strokeStyle = style;
-  ctx.lineWidth = thickness;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = waveThickness;
   ctx.beginPath();
 
-  for (let i = 0; i < segments; i++) {
-    const percentage = i / (segments - 1);
-    const x = percentage * width;
+  for (let i = 0; i < waveResolution; i++) {
+    const percentage = i / (waveResolution - 1);
+    const x = horizontalPadding + percentage * effectiveWidth;
     const y = wave(percentage, time) + offset;
 
     if (i == 0) {
@@ -105,24 +107,39 @@ function drawWave(
     } else {
       ctx.lineTo(x, y);
     }
+  }
+  ctx.stroke();
 
-    // If this is the end of the line, draw the open or fixed endpoint.
-    if (i == segments - 1) {
-      ctx.stroke();
-      if (end == "open") {
-        ctx.strokeStyle = "#ffffff";
-        ctx.fillStyle = "#000000";
-        ctx.beginPath();
-        ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      } else if (end == "fixed") {
-        ctx.fillStyle = "#ffffff";
-        ctx.beginPath();
-        ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
+  if (leftEnd != "none") {
+    const x = horizontalPadding;
+    const y = wave(0, time) + offset;
+    drawEndpoint(ctx, x, y, leftEnd);
+  }
+  if (rightEnd != "none") {
+    const x = horizontalPadding + effectiveWidth;
+    const y = wave(1, time) + offset;
+    drawEndpoint(ctx, x, y, rightEnd);
+  }
+}
+
+function drawEndpoint(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  type: "fixed" | "free"
+) {
+  if (type == "free") {
+    ctx.strokeStyle = "#ffffff";
+    ctx.fillStyle = "#000000";
+    ctx.beginPath();
+    ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+  } else {
+    ctx.fillStyle = "#ffffff";
+    ctx.beginPath();
+    ctx.ellipse(x, y, 10, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
   }
 }
 
@@ -130,16 +147,18 @@ function drawParticles(
   ctx: CanvasRenderingContext2D,
   wave: WaveFunction,
   time: number,
-  style: string,
+  color: string,
   size: number,
-  particles: number,
-  width: number,
-  showLongitudinal: boolean
+  showLongitudinal: boolean,
+  skipLeft: boolean,
+  skipRight: boolean
 ) {
-  ctx.fillStyle = style;
-  for (let i = 0; i < particles; i++) {
-    const percentage = i / (particles - 1);
-    let x = percentage * width;
+  ctx.fillStyle = color;
+  const first = skipLeft ? 1 : 0;
+  const last = skipRight ? particleCount - 1 : particleCount;
+  for (let i = first; i < last; i++) {
+    const percentage = i / (particleCount - 1);
+    let x = horizontalPadding + percentage * effectiveWidth;
     let y = 0;
 
     if (!showLongitudinal) {
