@@ -1,11 +1,11 @@
 import { AnimationType } from "@/data/animation";
-import { collisionOpposite } from "../waves/collision-opposite/animation";
-import { collisionSame } from "../waves/collision-same/animation";
-import { pulseFixed } from "../waves/pulse-fixed/animation";
-import { pulseOpen } from "../waves/pulse-open/animation";
-import { regular } from "../waves/regular/animation";
+import { interferenceDestructive } from "../waves/interference-destructive/animation";
+import { interferenceConstructive } from "../waves/interference-constructive/animation";
+import { reflectionFixed } from "../waves/reflection-fixed/animation";
+import { reflectionFree } from "../waves/reflection-free/animation";
+import { travelling } from "../waves/travelling/animation";
 import { standingFixed } from "../waves/standing-fixed/animation";
-import { standingOpen } from "../waves/standing-open/animation";
+import { standingFree } from "../waves/standing-free/animation";
 import { AnimationOptions } from "@/data/options";
 
 export type NavPage = {
@@ -40,13 +40,13 @@ export const navTree: NavTree = [
   {
     title: "Waves",
     children: [
-      fromAnimation(regular),
-      fromAnimation(collisionSame),
-      fromAnimation(collisionOpposite),
-      fromAnimation(pulseFixed),
-      fromAnimation(pulseOpen),
+      fromAnimation(travelling),
+      fromAnimation(interferenceConstructive),
+      fromAnimation(interferenceDestructive),
+      fromAnimation(reflectionFree),
+      fromAnimation(reflectionFixed),
       fromAnimation(standingFixed),
-      fromAnimation(standingOpen),
+      fromAnimation(standingFree),
     ],
   },
 ];
