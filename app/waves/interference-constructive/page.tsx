@@ -1,6 +1,6 @@
 "use client";
 
-import AnimationPage from "@/app/(utils)/animation-page";
+import AnimationPage from "@/components/animation-page";
 import { interferenceConstructive } from "./animation";
 
 export default function Page() {
