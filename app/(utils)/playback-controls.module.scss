@@ -36,6 +36,8 @@
 }
 .seekbar {
   grid-area: seekbar;
+  accent-color: var(--color-accent);
+  cursor: pointer;
 }
 
 @media (min-width: 60rem) {
