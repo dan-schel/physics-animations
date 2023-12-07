@@ -23,11 +23,12 @@
   // Desktop-only styles.
 
   .page {
-    grid-template-columns: 25rem 1fr;
+    grid-template-columns: auto 1fr;
     grid-template-areas: "sidebar main";
   }
   .sidebar {
     grid-area: sidebar;
+    width: min(25rem, 30vw);
   }
   .openSidebarButton {
     display: none;

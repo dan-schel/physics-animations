@@ -1,3 +1,8 @@
+// Note: This same constant is defined in:
+// - app/(utils)/animation-header.module.scss
+// - app/(utils)/animation-page.module.scss
+// - app/(utils)/playback-controls.module.scss
+// So if you change it, make sure you update it in all three places.
 $canvas-header-fade: 3rem;
 
 .page {
