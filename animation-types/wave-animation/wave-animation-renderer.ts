@@ -84,8 +84,9 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     if (showParticles) {
       const color = particleColor;
       const longitudinal = showAsLongitudinal;
-      const left = this.leftEnd == "none" || longitudinal;
-      const right = this.rightEnd == "none" || longitudinal;
+      const ignoreEnds = longitudinal || !showSuperposition;
+      const left = this.leftEnd == "none" || ignoreEnds;
+      const right = this.rightEnd == "none" || ignoreEnds;
       drawParticles(ctx, superposition, time, color, longitudinal, left, right);
     }
 

@@ -13,6 +13,24 @@ export default function Home() {
         you&apos;re on a device with a small screen) to navigate to the
         animations.
       </p>
+      <p>
+        This site and all the animations on it are open source under the{" "}
+        <a
+          className="link"
+          href="https://github.com/schel-d/physics-animations/blob/master/LICENSE"
+        >
+          MIT License
+        </a>
+        , so feel free to use it however you'd like. You can also view the code
+        on{" "}
+        <a
+          className="link"
+          href="https://github.com/schel-d/physics-animations"
+        >
+          GitHub
+        </a>
+        .
+      </p>
     </main>
   );
 }
