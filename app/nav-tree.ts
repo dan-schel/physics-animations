@@ -9,6 +9,8 @@ import { standingFree } from "./waves/standing-free/animation";
 import { AnimationOptions } from "@/animation-types/animation-options";
 import { Metadata } from "next";
 
+const canonicalUrl = "https://physics.danschellekens.com";
+
 export type NavPage = {
   title: string;
   href: string;
@@ -54,9 +56,12 @@ export const navTree: NavTree = [
 
 export function getMetadataForPage(title: string, href: string): Metadata {
   return {
-    title: `${title} | Animations for VCE Physics`,
+    title: `${title} | VCE Physics Animations`,
     description:
       "A small collection of animations useful for explaining VCE Physics concepts.",
+    alternates: {
+      canonical: `${canonicalUrl}${href}`,
+    },
   };
 }
 
@@ -64,8 +69,10 @@ export function getMetadataForAnimation(
   animation: AnimationType<AnimationOptions>
 ): Metadata {
   return {
-    title: `${animation.title} | Animations for VCE Physics`,
-    description:
-      "A small collection of animations useful for explaining VCE Physics concepts.",
+    title: `${animation.title} | VCE Physics Animations`,
+    description: `${animation.description} This site contains small collection of animations useful for explaining VCE Physics concepts.`,
+    alternates: {
+      canonical: `${canonicalUrl}${animation.href}`,
+    },
   };
 }
