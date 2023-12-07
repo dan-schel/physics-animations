@@ -5,6 +5,7 @@ import { AnimationType } from "@/data/animation";
 import { AnimationOptions } from "@/data/options";
 
 const precision = 1000;
+const arrowKeyJumps = 0.5;
 
 export default function PlaybackControls({
   animation,
@@ -24,6 +25,42 @@ export default function PlaybackControls({
   function handleReset() {
     setTime(0);
   }
+
+  useEffect(() => {
+    const listener = (e: KeyboardEvent) => {
+      if (!(e.target instanceof HTMLBodyElement)) {
+        return;
+      }
+
+      if (e.code == "Space") {
+        if (!e.repeat) {
+          setPaused((currentValue) => !currentValue);
+        }
+        e.preventDefault();
+      }
+
+      if (e.code == "ArrowLeft") {
+        if (e.ctrlKey) {
+          setTime(0);
+        } else {
+          setTime((time) => clamp(time - arrowKeyJumps, 0, animation.duration));
+        }
+        e.preventDefault();
+      }
+
+      if (e.code == "ArrowRight") {
+        if (e.ctrlKey) {
+          setTime(animation.duration);
+        } else {
+          setTime((time) => clamp(time + arrowKeyJumps, 0, animation.duration));
+        }
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", listener);
+    return () => window.removeEventListener("keydown", listener);
+  }, [setPaused, setTime, animation]);
 
   return (
     <div className={styles.controls}>
