@@ -1,4 +1,4 @@
-import styles from "./option-menu.module.scss";
+import styles from "./customise-panel.module.scss";
 import {
   AnimationOptionDefinition,
   AnimationOptionValues,
@@ -7,7 +7,7 @@ import {
 import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
 
-export default function OptionMenu({
+export default function CustomisePanel({
   animation,
   optionValues,
   setOptionValues,
@@ -29,7 +29,7 @@ export default function OptionMenu({
   return (
     <div className={`${styles.menu} ${className ?? ""}`}>
       <button className={styles.expandButton} onClick={handleExpandButtonClick}>
-        <p>Customize animation</p>
+        <p>Customise animation</p>
         <ChevronIcon
           className={expanded ? styles.down : styles.up}
         ></ChevronIcon>

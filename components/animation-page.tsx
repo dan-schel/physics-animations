@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AnimationCanvas from "./animation-canvas";
 import AnimationHeader from "./animation-header";
-import OptionMenu from "./option-menu";
+import CustomisePanel from "./customise-panel";
 import PlaybackControls from "./playback-controls";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
@@ -36,12 +36,12 @@ export default function AnimationPage({
         time={time}
         setTime={setTime}
       ></PlaybackControls>
-      <OptionMenu
+      <CustomisePanel
         className={styles.options}
         animation={animation}
         optionValues={optionValues}
         setOptionValues={setOptionValues}
-      ></OptionMenu>
+      ></CustomisePanel>
     </div>
   );
 }
