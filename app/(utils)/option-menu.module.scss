@@ -1,17 +1,44 @@
 @use "@/other/css-template/import" as template;
 
-.options {
+.menu {
   background-color: var(--color-paper-20);
   border-top: 1px solid var(--color-ink-10);
-
-  padding: 1rem;
-  gap: 1rem;
 
   > p {
     margin-bottom: 0.5rem;
     font-weight: bold;
     color: var(--color-ink-100);
   }
+}
+
+.expandButton {
+  @include template.button-hover;
+  @include template.content-text-icon;
+  @include template.row;
+  --button-rounding: 0;
+  padding: 1rem;
+
+  p {
+    flex-grow: 1;
+    font-weight: bold;
+    color: var(--color-ink-100);
+  }
+  :global(.icon) {
+    font-size: 1.2rem;
+
+    &.up {
+      transform: rotate(-90deg);
+    }
+    &.down {
+      transform: rotate(90deg);
+    }
+  }
+}
+.options {
+  padding: 0.5rem 1rem 1rem 1rem;
+  gap: 1rem;
+  max-height: 30vh;
+  overflow-y: auto;
 }
 
 .switch {
@@ -30,6 +57,9 @@
   // Desktop-only styles.
 
   .options {
-    padding: 1.5rem 2rem;
+    padding: 0.5rem 2rem 1.5rem 2rem;
+  }
+  .expandButton {
+    padding: 1rem 2rem;
   }
 }
