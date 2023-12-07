@@ -66,7 +66,7 @@ export function getMetadataForPage(title: string, href: string): Metadata {
 }
 
 export function getMetadataForAnimation(
-  animation: AnimationType<AnimationOptions>
+  animation: AnimationType<AnimationOptions>,
 ): Metadata {
   return {
     title: `${animation.title} | VCE Physics Animations`,

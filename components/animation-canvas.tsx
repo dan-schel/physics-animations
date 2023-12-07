@@ -94,7 +94,7 @@ export class CanvasController {
       this.render(
         this.lastRender.animation,
         this.lastRender.time,
-        this.lastRender.optionValues
+        this.lastRender.optionValues,
       );
     }
   }
@@ -102,14 +102,14 @@ export class CanvasController {
   render(
     animation: AnimationType<AnimationOptions>,
     time: number,
-    optionValues: AnimationOptionValues<AnimationOptions>
+    optionValues: AnimationOptionValues<AnimationOptions>,
   ) {
     this.ctx.save();
     this.ctx.clearRect(
       0,
       0,
       this.canvasWidth * this.dpiRatio,
-      this.canvasHeight * this.dpiRatio
+      this.canvasHeight * this.dpiRatio,
     );
     this.ctx.scale(this.dpiRatio, this.dpiRatio);
 
@@ -118,7 +118,7 @@ export class CanvasController {
       time,
       this.canvasWidth,
       this.canvasHeight,
-      optionValues
+      optionValues,
     );
 
     this.ctx.restore();

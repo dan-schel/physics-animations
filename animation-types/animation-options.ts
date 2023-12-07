@@ -5,7 +5,7 @@ export class AnimationOptionDefinition {
     readonly id: string,
     readonly displayName: string,
     readonly type: "boolean",
-    readonly defaultValue: unknown
+    readonly defaultValue: unknown,
   ) {}
 
   static boolean(id: string, displayName: string, defaultValue: boolean) {
@@ -13,7 +13,7 @@ export class AnimationOptionDefinition {
       id,
       displayName,
       "boolean",
-      defaultValue
+      defaultValue,
     );
   }
 }
@@ -25,7 +25,7 @@ export class AnimationOptions {
     }
 
     this.validate(
-      AnimationOptions._createDefaultValuesRecord(this.definitions)
+      AnimationOptions._createDefaultValuesRecord(this.definitions),
     );
   }
 
@@ -44,12 +44,12 @@ export class AnimationOptions {
   getDefaultValues(): AnimationOptionValues<this> {
     return new AnimationOptionValues(
       this,
-      AnimationOptions._createDefaultValuesRecord(this.definitions)
+      AnimationOptions._createDefaultValuesRecord(this.definitions),
     );
   }
 
   private static _createDefaultValuesRecord(
-    definitions: AnimationOptionDefinition[]
+    definitions: AnimationOptionDefinition[],
   ): Record<string, unknown> {
     const values: Record<string, unknown> = {};
     for (const option of definitions) {
@@ -62,7 +62,7 @@ export class AnimationOptions {
 export class AnimationOptionValues<OptionType extends AnimationOptions> {
   constructor(
     readonly shape: OptionType,
-    readonly options: Record<string, unknown>
+    readonly options: Record<string, unknown>,
   ) {
     shape.validate(options);
   }

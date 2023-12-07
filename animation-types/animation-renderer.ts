@@ -6,7 +6,7 @@ export abstract class AnimationRenderer<OptionType extends AnimationOptions> {
     time: number,
     canvasWidth: number,
     canvasHeight: number,
-    options: AnimationOptionValues<OptionType>
+    options: AnimationOptionValues<OptionType>,
   ): void;
 }
 
@@ -14,7 +14,7 @@ export function frameForWidth(
   ctx: CanvasRenderingContext2D,
   canvasWidth: number,
   canvasHeight: number,
-  width: number
+  width: number,
 ) {
   const scaleFactor = canvasWidth / width;
   const frameHeight = canvasHeight / scaleFactor;
@@ -31,7 +31,7 @@ export function centerFrame(
   canvasWidth: number,
   canvasHeight: number,
   width: number,
-  height: number
+  height: number,
 ) {
   const scaleFactor = Math.min(canvasWidth / width, canvasHeight / height);
   ctx.scale(scaleFactor, scaleFactor);

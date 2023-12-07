@@ -27,7 +27,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
   constructor(
     readonly waves: WaveFunction[],
     readonly leftEnd: EndpointType,
-    readonly rightEnd: EndpointType
+    readonly rightEnd: EndpointType,
   ) {
     super();
   }
@@ -37,19 +37,19 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     time: number,
     canvasWidth: number,
     canvasHeight: number,
-    options: AnimationOptionValues<WaveAnimationOptions>
+    options: AnimationOptionValues<WaveAnimationOptions>,
   ): void {
     const showSuperposition = options.requireBoolean(
-      WaveAnimationOptions.superposition
+      WaveAnimationOptions.superposition,
     );
     const showComponents = options.requireBoolean(
-      WaveAnimationOptions.components
+      WaveAnimationOptions.components,
     );
     const showParticles = options.requireBoolean(
-      WaveAnimationOptions.particles
+      WaveAnimationOptions.particles,
     );
     const showAsLongitudinal = options.requireBoolean(
-      WaveAnimationOptions.longitudinal
+      WaveAnimationOptions.longitudinal,
     );
 
     ctx.save();
@@ -101,7 +101,7 @@ function drawWave(
   color: string,
   leftEnd: EndpointType,
   rightEnd: EndpointType,
-  offset: number
+  offset: number,
 ) {
   ctx.strokeStyle = color;
   ctx.lineWidth = waveThickness;
@@ -133,7 +133,7 @@ function drawEndpoint(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
-  hollow: boolean
+  hollow: boolean,
 ) {
   if (hollow) {
     ctx.strokeStyle = "#ffffff";
@@ -157,7 +157,7 @@ function drawParticles(
   color: string,
   showLongitudinal: boolean,
   drawLeft: boolean,
-  drawRight: boolean
+  drawRight: boolean,
 ) {
   ctx.fillStyle = color;
 

@@ -13,7 +13,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     href: string,
     duration: number,
     autoLoop: boolean,
-    renderer: WaveAnimationRenderer
+    renderer: WaveAnimationRenderer,
   ) {
     super(
       title,
@@ -22,7 +22,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       duration,
       autoLoop,
       new WaveAnimationOptions(),
-      renderer
+      renderer,
     );
   }
 
@@ -51,7 +51,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       href,
       duration,
       autoLoop,
-      new WaveAnimationRenderer(waves, leftEnd, rightEnd)
+      new WaveAnimationRenderer(waves, leftEnd, rightEnd),
     );
   }
 }
@@ -67,22 +67,22 @@ export class WaveAnimationOptions extends AnimationOptions {
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.superposition,
         "Show superposition",
-        true
+        true,
       ),
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.components,
         "Show wave components",
-        false
+        false,
       ),
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.particles,
         "Show particles",
-        false
+        false,
       ),
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.longitudinal,
         "Show particles as longitudinal",
-        false
+        false,
       ),
     ]);
   }
