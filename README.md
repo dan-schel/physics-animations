@@ -1,4 +1,4 @@
-# Animations for VCE Physics
+# VCE Physics Animations
 
 A small collection of animations useful for explaining VCE Physics concepts.
 
