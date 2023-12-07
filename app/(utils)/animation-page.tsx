@@ -19,25 +19,23 @@ export default function AnimationPage({
 
   return (
     <div className={styles.page}>
-      <div className={styles.canvasArea}>
-        <AnimationHeader
-          className={styles.header}
-          title={animation.title}
-          description={animation.description ?? undefined}
-        ></AnimationHeader>
-        <AnimationCanvas
-          className={styles.canvas}
-          animation={animation}
-          time={time}
-          optionValues={optionValues}
-        ></AnimationCanvas>
-        <PlaybackControls
-          className={styles.playback}
-          animation={animation}
-          time={time}
-          setTime={setTime}
-        ></PlaybackControls>
-      </div>
+      <AnimationHeader
+        className={styles.header}
+        title={animation.title}
+        description={animation.description ?? undefined}
+      ></AnimationHeader>
+      <AnimationCanvas
+        className={styles.canvas}
+        animation={animation}
+        time={time}
+        optionValues={optionValues}
+      ></AnimationCanvas>
+      <PlaybackControls
+        className={styles.playback}
+        animation={animation}
+        time={time}
+        setTime={setTime}
+      ></PlaybackControls>
       <OptionMenu
         className={styles.options}
         animation={animation}

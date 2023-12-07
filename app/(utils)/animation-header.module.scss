@@ -1,5 +1,13 @@
+$canvas-header-fade: 3rem;
+
 .header {
   padding: 2rem 1rem;
+
+  padding-bottom: $canvas-header-fade;
+  background: linear-gradient(
+    var(--color-paper-10) calc(100% - $canvas-header-fade),
+    transparent
+  );
 
   h1 {
     font-size: 1.25rem;
@@ -16,5 +24,6 @@
 
   .header {
     padding: 2rem;
+    padding-bottom: $canvas-header-fade;
   }
 }

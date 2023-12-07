@@ -1,30 +1,26 @@
+$canvas-header-fade: 3rem;
+
 .page {
   display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-areas: "canvas" "options";
+  grid-template-rows: auto 1fr auto auto;
+  grid-template-areas: "header" "canvas" "playback" "options";
 }
-.canvasArea {
+.header {
+  grid-area: header;
+  z-index: 2;
+}
+.canvas {
   grid-area: canvas;
-  position: relative;
+  z-index: 0;
+  margin-top: -$canvas-header-fade;
+  margin-bottom: -$canvas-header-fade;
+}
+.playback {
+  grid-area: playback;
+  z-index: 1;
 }
 .options {
   max-height: 30vh;
   grid-area: options;
-}
-.header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 2;
-}
-.playback {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-.canvas {
-  z-index: 0;
+  z-index: 4;
 }
