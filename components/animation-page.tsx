@@ -14,7 +14,7 @@ export default function AnimationPage({
 }) {
   const [time, setTime] = useState(0);
   const [optionValues, setOptionValues] = useState(
-    animation.options.getDefaultValues()
+    animation.options.getDefaultValues(),
   );
 
   return (

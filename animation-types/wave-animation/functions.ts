@@ -3,7 +3,7 @@ export type WaveFunction = (x: number, t: number) => number;
 export function pulse(
   width: number,
   speed: number,
-  height: number
+  height: number,
 ): WaveFunction {
   return (x, t) => {
     const a = -x / (width / Math.PI) + t * speed;
@@ -17,7 +17,7 @@ export function pulse(
 export function reversePulse(
   width: number,
   speed: number,
-  height: number
+  height: number,
 ): WaveFunction {
   return (x, t) => {
     const a = -(1 - x) / (width / Math.PI) + t * speed;
@@ -31,7 +31,7 @@ export function reversePulse(
 export function sine(
   width: number,
   speed: number,
-  height: number
+  height: number,
 ): WaveFunction {
   return (x, t) => {
     const a = -x / (width / Math.PI) + t * speed;

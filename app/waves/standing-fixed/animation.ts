@@ -9,7 +9,7 @@ export const standingFixed = WaveAnimationType.fromObject({
   description:
     "If both ends are fixed, the standing wave must have nodes at each end.",
   href: "/waves/standing-fixed",
-  duration: 12,
+  duration: 14,
   autoLoop: false,
   waves: [sine(0.2, 3, 0.3), reflectAndInvert(sine(0.2, 3, 0.3))],
   leftEnd: "fixed",

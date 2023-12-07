@@ -9,6 +9,6 @@ export class AnimationType<OptionType extends AnimationOptions> {
     readonly duration: number,
     readonly autoLoop: boolean,
     readonly options: OptionType,
-    readonly renderer: AnimationRenderer<OptionType>
+    readonly renderer: AnimationRenderer<OptionType>,
   ) {}
 }
