@@ -24,7 +24,6 @@
 
 .entry,
 .collectionButton {
-  @include template.button-hover;
   @include template.content-text;
   --button-rounding: 0;
 
@@ -53,24 +52,30 @@
       transform: rotate(90deg);
     }
   }
-}
-.entry.selected {
-  position: relative;
-  &::after {
-    content: "";
-    display: block;
-    position: absolute;
-    background-color: var(--color-accent);
-    left: 0;
-    top: 0rem;
-    bottom: 0rem;
-    width: 4px;
+
+  &:not(.selected) {
+    @include template.button-hover;
   }
-  p {
-    font-weight: bold;
-    color: var(--color-ink-100);
+  &.selected {
+    @include template.button-filled-neutral;
+    position: relative;
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: var(--color-accent);
+      left: 0;
+      top: 0rem;
+      bottom: 0rem;
+      width: 4px;
+    }
+    p {
+      font-weight: bold;
+      color: var(--color-ink-100);
+    }
   }
 }
+
 .collection {
   position: relative;
   &::before {

@@ -7,6 +7,7 @@ import { travelling } from "./waves/travelling/animation";
 import { standingFixed } from "./waves/standing-fixed/animation";
 import { standingFree } from "./waves/standing-free/animation";
 import { AnimationOptions } from "@/animation-types/animation-options";
+import { Metadata } from "next";
 
 export type NavPage = {
   title: string;
@@ -50,3 +51,21 @@ export const navTree: NavTree = [
     ],
   },
 ];
+
+export function getMetadataForPage(title: string, href: string): Metadata {
+  return {
+    title: `${title} | Animations for VCE Physics`,
+    description:
+      "A small collection of animations useful for explaining VCE Physics concepts.",
+  };
+}
+
+export function getMetadataForAnimation(
+  animation: AnimationType<AnimationOptions>
+): Metadata {
+  return {
+    title: `${animation.title} | Animations for VCE Physics`,
+    description:
+      "A small collection of animations useful for explaining VCE Physics concepts.",
+  };
+}
