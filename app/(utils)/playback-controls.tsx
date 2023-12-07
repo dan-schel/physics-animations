@@ -11,10 +11,12 @@ export default function PlaybackControls({
   animation,
   time,
   setTime,
+  className,
 }: {
   animation: AnimationType<AnimationOptions>;
   time: number;
   setTime: Dispatch<SetStateAction<number>>;
+  className?: string;
 }) {
   const [paused, setPaused] = useState(false);
 
@@ -63,7 +65,7 @@ export default function PlaybackControls({
   }, [setPaused, setTime, animation]);
 
   return (
-    <div className={styles.controls}>
+    <div className={`${styles.controls} ${className ?? ""}`}>
       <button className={styles.playPause} onClick={handlePlayPause}>
         {paused ? <PlayIcon></PlayIcon> : <PauseIcon></PauseIcon>}
       </button>

@@ -11,12 +11,14 @@ export default function OptionMenu({
   animation,
   optionValues,
   setOptionValues,
+  className,
 }: {
   animation: AnimationType<AnimationOptions>;
   optionValues: AnimationOptionValues<AnimationOptions>;
   setOptionValues: Dispatch<
     SetStateAction<AnimationOptionValues<AnimationOptions>>
   >;
+  className?: string;
 }) {
   const [expanded, setExpanded] = useState(true);
 
@@ -25,7 +27,7 @@ export default function OptionMenu({
   }
 
   return (
-    <div className={styles.menu}>
+    <div className={`${styles.menu} ${className ?? ""}`}>
       <button className={styles.expandButton} onClick={handleExpandButtonClick}>
         <p>Customize animation</p>
         <ChevronIcon

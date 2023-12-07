@@ -9,10 +9,12 @@ export default function AnimationCanvas({
   animation,
   time,
   optionValues,
+  className,
 }: {
   animation: AnimationType<AnimationOptions>;
   time: number;
   optionValues: AnimationOptionValues<AnimationOptions>;
+  className?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [controller, setController] = useState<CanvasController | null>(null);
@@ -30,7 +32,7 @@ export default function AnimationCanvas({
   }, [controller, animation, time, optionValues]);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className ?? ""}`}>
       <canvas ref={canvasRef}></canvas>
     </div>
   );

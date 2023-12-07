@@ -1,0 +1,30 @@
+.page {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "canvas" "options";
+}
+.canvasArea {
+  grid-area: canvas;
+  position: relative;
+}
+.options {
+  max-height: 30vh;
+  grid-area: options;
+}
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+.playback {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+.canvas {
+  z-index: 0;
+}
