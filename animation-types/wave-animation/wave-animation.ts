@@ -76,7 +76,7 @@ export class WaveAnimationOptions extends AnimationOptions {
       ),
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.longitudinal,
-        "Show as longitudinal",
+        "Show particles as longitudinal",
         false
       ),
     ]);

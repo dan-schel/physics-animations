@@ -7,7 +7,8 @@ const width = 500;
 const height = 250;
 const horizontalPadding = 30;
 const effectiveWidth = width - horizontalPadding * 2;
-const amplitude = height / 2;
+const amplitude = height * 0.5;
+const longitudinalAmplitude = effectiveWidth * 0.1;
 
 const waveResolution = 100;
 const particleCount = 21;
@@ -74,14 +75,17 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
 
     if (showSuperposition) {
       const color = superpositionColor;
-      drawWave(ctx, superposition, time, color, this.leftEnd, this.rightEnd, 0);
+      const particlesVisible = showAsLongitudinal && showParticles;
+      const leftEnd = particlesVisible ? "none" : this.leftEnd;
+      const rightEnd = particlesVisible ? "none" : this.rightEnd;
+      drawWave(ctx, superposition, time, color, leftEnd, rightEnd, 0);
     }
 
     if (showParticles) {
       const color = particleColor;
       const longitudinal = showAsLongitudinal;
-      const left = this.leftEnd == "none";
-      const right = this.rightEnd == "none";
+      const left = this.leftEnd == "none" || longitudinal;
+      const right = this.rightEnd == "none" || longitudinal;
       drawParticles(ctx, superposition, time, color, longitudinal, left, right);
     }
 
@@ -165,7 +169,7 @@ function drawParticles(
     if (!showLongitudinal) {
       y += wave(percentage, time) * amplitude;
     } else {
-      x += wave(percentage, time);
+      x += wave(percentage, time) * longitudinalAmplitude;
     }
 
     ctx.beginPath();

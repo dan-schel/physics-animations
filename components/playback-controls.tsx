@@ -143,6 +143,8 @@ function Seekbar({
       value={seekbarValue}
       onChange={handleSeekbarChanged}
       onPointerDown={handleSeekbarHeld}
+      onPointerLeave={handleSeekbarReleased}
+      onPointerCancel={handleSeekbarReleased}
       onPointerUp={handleSeekbarReleased}
     ></input>
   );
