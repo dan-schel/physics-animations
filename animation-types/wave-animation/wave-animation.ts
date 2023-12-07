@@ -12,6 +12,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     description: string | null,
     href: string,
     duration: number,
+    autoLoop: boolean,
     renderer: WaveAnimationRenderer
   ) {
     super(
@@ -19,6 +20,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       description,
       href,
       duration,
+      autoLoop,
       new WaveAnimationOptions(),
       renderer
     );
@@ -29,6 +31,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     description,
     href,
     duration,
+    autoLoop,
     waves,
     leftEnd,
     rightEnd,
@@ -37,6 +40,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     description: string | null;
     href: string;
     duration: number;
+    autoLoop: boolean;
     waves: WaveFunction[];
     leftEnd: EndpointType;
     rightEnd: EndpointType;
@@ -46,6 +50,7 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       description,
       href,
       duration,
+      autoLoop,
       new WaveAnimationRenderer(waves, leftEnd, rightEnd)
     );
   }

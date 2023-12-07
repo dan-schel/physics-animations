@@ -107,7 +107,11 @@ function Seekbar({
     let lastTimestamp: number | null = null;
     const animate = (timestamp: number) => {
       const delta = lastTimestamp == null ? 0 : timestamp - lastTimestamp;
-      setTime((time) => time + delta / 1000);
+      if (animation.autoLoop) {
+        setTime((time) => (time + delta / 1000) % animation.duration);
+      } else {
+        setTime((time) => time + delta / 1000);
+      }
       lastTimestamp = timestamp;
       requestRef.current = requestAnimationFrame(animate);
     };
@@ -118,7 +122,7 @@ function Seekbar({
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [paused, holding, setTime]);
+  }, [paused, holding, setTime, animation]);
 
   function handleSeekbarChanged(e: React.ChangeEvent<HTMLInputElement>) {
     const value = parseInt(e.target.value);
