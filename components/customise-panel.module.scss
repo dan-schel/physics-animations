@@ -35,10 +35,14 @@
   }
 }
 .options {
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
   gap: 1rem;
   overflow-y: auto;
   flex-shrink: 1;
+}
+
+.menu.expanded .expandButton {
+  padding-bottom: 0.5rem;
 }
 
 .switch {
@@ -57,7 +61,7 @@
   // Desktop-only styles.
 
   .options {
-    padding: 0.5rem 2rem 1.5rem 2rem;
+    padding: 1rem 2rem 1.5rem 2rem;
   }
   .expandButton {
     padding: 1rem 2rem;

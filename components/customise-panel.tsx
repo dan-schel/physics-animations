@@ -27,7 +27,11 @@ export default function CustomisePanel({
   }
 
   return (
-    <div className={`${styles.menu} ${className ?? ""}`}>
+    <div
+      className={`${styles.menu} ${className ?? ""} ${
+        expanded ? styles.expanded : ""
+      }`}
+    >
       <button className={styles.expandButton} onClick={handleExpandButtonClick}>
         <p>Customise animation</p>
         <ChevronIcon
