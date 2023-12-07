@@ -37,12 +37,19 @@ export default function AnimationCanvas({
 }
 
 export class CanvasController {
+  private parent: HTMLElement;
   private ctx: CanvasRenderingContext2D;
-  private resizeEvent: EventListener;
+  private resizeObserver: ResizeObserver;
 
   private width = 0;
   private height = 0;
   private dpiRatio = 1;
+
+  private lastRender: {
+    animation: AnimationType<AnimationOptions>;
+    time: number;
+    optionValues: AnimationOptionValues<AnimationOptions>;
+  } | null = null;
 
   constructor(private canvas: HTMLCanvasElement) {
     const ctx = canvas.getContext("2d");
@@ -51,22 +58,23 @@ export class CanvasController {
     }
     this.ctx = ctx;
 
-    this.resizeEvent = () => this.resize();
-    window.addEventListener("resize", this.resizeEvent);
+    const parent = this.canvas.parentElement;
+    if (parent == null) {
+      throw new Error("Failed to get the parent element of the canvas.");
+    }
+    this.parent = parent;
+
+    this.resizeObserver = new ResizeObserver(() => this.resize());
+    this.resizeObserver.observe(this.parent);
     this.resize();
   }
 
   destroy() {
-    window.removeEventListener("resize", this.resizeEvent);
+    this.resizeObserver.disconnect();
   }
 
   private resize() {
-    const parent = this.canvas.parentElement;
-    if (parent == null) {
-      throw new Error("Failed to resize the canvas. It has no parent element.");
-    }
-
-    const size = parent.getBoundingClientRect();
+    const size = this.parent.getBoundingClientRect();
     this.width = size.width;
     this.height = size.height;
     this.dpiRatio =
@@ -76,6 +84,14 @@ export class CanvasController {
     this.canvas.style.height = `${this.height}px`;
     this.canvas.width = this.width * this.dpiRatio;
     this.canvas.height = this.height * this.dpiRatio;
+
+    if (this.lastRender != null) {
+      this.render(
+        this.lastRender.animation,
+        this.lastRender.time,
+        this.lastRender.optionValues
+      );
+    }
   }
 
   render(
@@ -101,5 +117,7 @@ export class CanvasController {
     );
 
     this.ctx.restore();
+
+    this.lastRender = { animation, time, optionValues };
   }
 }
