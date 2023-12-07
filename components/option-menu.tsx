@@ -3,8 +3,8 @@ import {
   AnimationOptionDefinition,
   AnimationOptionValues,
   AnimationOptions,
-} from "@/data/options";
-import { AnimationType } from "@/data/animation";
+} from "@/animation-types/animation-options";
+import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
 
 export default function OptionMenu({

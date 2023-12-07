@@ -3,8 +3,8 @@ import AnimationCanvas from "./animation-canvas";
 import AnimationHeader from "./animation-header";
 import OptionMenu from "./option-menu";
 import PlaybackControls from "./playback-controls";
-import { AnimationType } from "@/data/animation";
-import { AnimationOptions } from "@/data/options";
+import { AnimationType } from "@/animation-types/animation-type";
+import { AnimationOptions } from "@/animation-types/animation-options";
 import styles from "./animation-page.module.scss";
 
 export default function AnimationPage({

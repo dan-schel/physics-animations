@@ -1,5 +1,8 @@
-import { pulse, reflectAndInvert } from "@/data/wave-animation/functions";
-import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
+import {
+  pulse,
+  reflectAndInvert,
+} from "@/animation-types/wave-animation/functions";
+import { WaveAnimationType } from "@/animation-types/wave-animation/wave-animation";
 
 export const reflectionFixed = WaveAnimationType.fromObject({
   title: "Reflection (fixed end)",

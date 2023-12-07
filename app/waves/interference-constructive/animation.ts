@@ -1,5 +1,8 @@
-import { pulse, reversePulse } from "@/data/wave-animation/functions";
-import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
+import {
+  pulse,
+  reversePulse,
+} from "@/animation-types/wave-animation/functions";
+import { WaveAnimationType } from "@/animation-types/wave-animation/wave-animation";
 
 export const interferenceConstructive = WaveAnimationType.fromObject({
   title: "Constructive interference",

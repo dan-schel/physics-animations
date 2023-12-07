@@ -1,5 +1,8 @@
-import { AnimationType } from "../animation";
-import { AnimationOptionDefinition, AnimationOptions } from "../options";
+import { AnimationType } from "../animation-type";
+import {
+  AnimationOptionDefinition,
+  AnimationOptions,
+} from "../animation-options";
 import { WaveFunction } from "./functions";
 import { WaveAnimationRenderer } from "./wave-animation-renderer";
 

@@ -1,4 +1,4 @@
-import { AnimationOptionValues, AnimationOptions } from "./options";
+import { AnimationOptionValues, AnimationOptions } from "./animation-options";
 
 export abstract class AnimationRenderer<OptionType extends AnimationOptions> {
   abstract render(

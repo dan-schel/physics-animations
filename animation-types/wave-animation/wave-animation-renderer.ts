@@ -1,5 +1,5 @@
-import { AnimationOptionValues } from "../options";
-import { AnimationRenderer } from "../renderer";
+import { AnimationOptionValues } from "../animation-options";
+import { AnimationRenderer } from "../animation-renderer";
 import { WaveFunction } from "./functions";
 import { WaveAnimationOptions } from "./wave-animation";
 

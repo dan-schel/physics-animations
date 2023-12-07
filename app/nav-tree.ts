@@ -1,4 +1,4 @@
-import { AnimationType } from "@/data/animation";
+import { AnimationType } from "@/animation-types/animation-type";
 import { interferenceDestructive } from "./waves/interference-destructive/animation";
 import { interferenceConstructive } from "./waves/interference-constructive/animation";
 import { reflectionFixed } from "./waves/reflection-fixed/animation";
@@ -6,7 +6,7 @@ import { reflectionFree } from "./waves/reflection-free/animation";
 import { travelling } from "./waves/travelling/animation";
 import { standingFixed } from "./waves/standing-fixed/animation";
 import { standingFree } from "./waves/standing-free/animation";
-import { AnimationOptions } from "@/data/options";
+import { AnimationOptions } from "@/animation-types/animation-options";
 
 export type NavPage = {
   title: string;

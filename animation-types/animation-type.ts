@@ -1,5 +1,5 @@
-import { AnimationOptions } from "./options";
-import { AnimationRenderer } from "./renderer";
+import { AnimationOptions } from "./animation-options";
+import { AnimationRenderer } from "./animation-renderer";
 
 export class AnimationType<OptionType extends AnimationOptions> {
   constructor(

@@ -1,8 +1,8 @@
 import { clamp } from "@schel-d/js-utils";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "./playback-controls.module.scss";
-import { AnimationType } from "@/data/animation";
-import { AnimationOptions } from "@/data/options";
+import { AnimationType } from "@/animation-types/animation-type";
+import { AnimationOptions } from "@/animation-types/animation-options";
 
 const precision = 1000;
 const arrowKeyJumps = 0.5;

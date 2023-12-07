@@ -1,5 +1,5 @@
-import { pulse, reflect } from "@/data/wave-animation/functions";
-import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
+import { pulse, reflect } from "@/animation-types/wave-animation/functions";
+import { WaveAnimationType } from "@/animation-types/wave-animation/wave-animation";
 
 export const reflectionFree = WaveAnimationType.fromObject({
   title: "Reflection (free end)",

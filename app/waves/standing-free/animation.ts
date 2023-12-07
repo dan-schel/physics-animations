@@ -1,5 +1,8 @@
-import { sine, reflectAndInvert } from "@/data/wave-animation/functions";
-import { WaveAnimationType } from "@/data/wave-animation/wave-animation";
+import {
+  sine,
+  reflectAndInvert,
+} from "@/animation-types/wave-animation/functions";
+import { WaveAnimationType } from "@/animation-types/wave-animation/wave-animation";
 
 export const standingFree = WaveAnimationType.fromObject({
   title: "Standing wave (one free end)",

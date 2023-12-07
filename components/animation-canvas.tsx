@@ -2,8 +2,11 @@
 
 import { useRef, useEffect, useMemo, useState } from "react";
 import styles from "./animation-canvas.module.scss";
-import { AnimationType } from "@/data/animation";
-import { AnimationOptionValues, AnimationOptions } from "@/data/options";
+import { AnimationType } from "@/animation-types/animation-type";
+import {
+  AnimationOptionValues,
+  AnimationOptions,
+} from "@/animation-types/animation-options";
 
 export default function AnimationCanvas({
   animation,
