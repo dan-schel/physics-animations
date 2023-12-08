@@ -5,6 +5,7 @@ export const centripetalForce = SatelliteAnimationType.fromObject({
   description:
     "Circular motion requires the net force to be towards the centre of the circle.",
   href: "/motion/centripetal-force",
-  duration: 4,
+  duration: 10,
   autoLoop: true,
+  orbitalPeriod: 10,
 });

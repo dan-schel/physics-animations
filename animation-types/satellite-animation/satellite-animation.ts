@@ -28,12 +28,14 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
     href,
     duration,
     autoLoop,
+    orbitalPeriod,
   }: {
     title: string;
     description: string | null;
     href: string;
     duration: number;
     autoLoop: boolean;
+    orbitalPeriod: number;
   }) {
     return new SatelliteAnimationType(
       title,
@@ -41,7 +43,7 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
       href,
       duration,
       autoLoop,
-      new SatelliteAnimationRenderer(),
+      new SatelliteAnimationRenderer(orbitalPeriod),
     );
   }
 }
