@@ -32,25 +32,35 @@ export default function CustomisePanel({
         expanded ? styles.expanded : ""
       }`}
     >
-      <button className={styles.expandButton} onClick={handleExpandButtonClick}>
-        <p>Customise animation</p>
-        <ChevronIcon
-          className={expanded ? styles.down : styles.up}
-        ></ChevronIcon>
-      </button>
-      {expanded && (
-        <div className={styles.options}>
-          {animation.options.definitions.map((o) => (
-            <OptionInput
-              key={o.id}
-              definition={o}
-              value={optionValues.get(o.id)}
-              onChange={(value) =>
-                setOptionValues(optionValues.with(o.id, value))
-              }
-            ></OptionInput>
-          ))}
-        </div>
+      {animation.options.definitions.length == 0 && (
+        <p className={styles.empty}>(No customisation options)</p>
+      )}
+      {animation.options.definitions.length > 0 && (
+        <>
+          <button
+            className={styles.expandButton}
+            onClick={handleExpandButtonClick}
+          >
+            <p>Customise animation</p>
+            <ChevronIcon
+              className={expanded ? styles.down : styles.up}
+            ></ChevronIcon>
+          </button>
+          {expanded && (
+            <div className={styles.options}>
+              {animation.options.definitions.map((o) => (
+                <OptionInput
+                  key={o.id}
+                  definition={o}
+                  value={optionValues.get(o.id)}
+                  onChange={(value) =>
+                    setOptionValues(optionValues.with(o.id, value))
+                  }
+                ></OptionInput>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
@@ -63,6 +73,7 @@ function OptionInput({
 }: {
   definition: AnimationOptionDefinition;
   value: unknown;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: any) => void;
 }) {
   if (definition.type == "boolean") {
@@ -85,6 +96,7 @@ function BooleanOptionInput({
 }: {
   definition: AnimationOptionDefinition;
   value: boolean;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: boolean) => void;
 }) {
   return (

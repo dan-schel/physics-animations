@@ -8,6 +8,7 @@ import { standingFixed } from "./waves/standing-fixed/animation";
 import { standingFree } from "./waves/standing-free/animation";
 import { AnimationOptions } from "@/animation-types/animation-options";
 import { Metadata } from "next";
+import { centripetalForce } from "./motion/centripetal-force/animation";
 
 const canonicalUrl = "https://physics.danschellekens.com";
 
@@ -39,6 +40,10 @@ export const navTree: NavTree = [
     title: "Home",
     href: "/",
     type: "document",
+  },
+  {
+    title: "Motion",
+    children: [fromAnimation(centripetalForce)],
   },
   {
     title: "Waves",

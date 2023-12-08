@@ -3,12 +3,16 @@
 .menu {
   background-color: var(--color-paper-20);
   border-top: 1px solid var(--color-ink-10);
+}
 
-  > p {
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-    color: var(--color-ink-100);
-  }
+.expandButton,
+.empty {
+  padding: 1rem;
+}
+
+.empty {
+  font-style: italic;
+  color: var(--color-ink-60);
 }
 
 .expandButton {
@@ -16,7 +20,6 @@
   @include template.content-text-icon;
   @include template.row;
   --button-rounding: 0;
-  padding: 1rem;
 
   p {
     flex-grow: 1;
@@ -63,7 +66,8 @@
   .options {
     padding: 1rem 2rem 1.5rem 2rem;
   }
-  .expandButton {
+  .expandButton,
+  .empty {
     padding: 1rem 2rem;
   }
 }

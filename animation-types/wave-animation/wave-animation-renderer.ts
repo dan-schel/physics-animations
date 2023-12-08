@@ -1,5 +1,7 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer, centerFrame } from "../animation-renderer";
+import { AnimationRenderer } from "../animation-renderer";
+import { background, green, ink100, ink80, red } from "../utils/colors";
+import { centerFrame } from "../utils/framing";
 import { WaveFunction } from "./functions";
 import { WaveAnimationOptions } from "./wave-animation";
 
@@ -13,12 +15,12 @@ const longitudinalAmplitude = effectiveWidth * 0.1;
 const waveResolution = 100;
 const particleCount = 21;
 
-const superpositionColor = "#ffffffa0";
+const superpositionColor = ink80;
 const waveThickness = 2;
-const particleColor = "#ffffff";
+const particleColor = ink100;
 const particleSize = 5;
 const endpointSize = 10;
-const subwaveColors = ["#ff0000a0", "#00ff00a0"];
+const subwaveColors = [red, green];
 const subwaveOffset = 2;
 
 export type EndpointType = "fixed" | "free" | "none";
@@ -136,14 +138,14 @@ function drawEndpoint(
   hollow: boolean,
 ) {
   if (hollow) {
-    ctx.strokeStyle = "#ffffff";
-    ctx.fillStyle = "#000000";
+    ctx.strokeStyle = particleColor;
+    ctx.fillStyle = background;
     ctx.beginPath();
     ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   } else {
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = particleColor;
     ctx.beginPath();
     ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
     ctx.fill();
