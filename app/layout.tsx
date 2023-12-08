@@ -5,7 +5,7 @@ import Sidebar from "../components/sidebar";
 import OpenSidebarButton from "../components/open-sidebar-button";
 import { getMetadataForPage } from "./nav-tree";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], axes: ["slnt"] });
 
 export const metadata = getMetadataForPage("Home", "/");
 
