@@ -1,4 +1,7 @@
-import { AnimationOptions } from "../animation-options";
+import {
+  AnimationOptionDefinition,
+  AnimationOptions,
+} from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { SatelliteAnimationRenderer } from "./satellite-animation-renderer";
 
@@ -49,7 +52,21 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
 }
 
 export class SatelliteAnimationOptions extends AnimationOptions {
+  static readonly netForce = "netForce";
+  static readonly velocity = "velocity";
+
   constructor() {
-    super([]);
+    super([
+      AnimationOptionDefinition.boolean(
+        SatelliteAnimationOptions.netForce,
+        "Show net force",
+        true,
+      ),
+      AnimationOptionDefinition.boolean(
+        SatelliteAnimationOptions.velocity,
+        "Show velocity",
+        false,
+      ),
+    ]);
   }
 }

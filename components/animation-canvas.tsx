@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useMemo, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import styles from "./animation-canvas.module.scss";
 import { AnimationType } from "@/animation-types/animation-type";
 import {

@@ -7,8 +7,13 @@ import { SatelliteAnimationOptions } from "./satellite-animation";
 
 const width = 300;
 const height = 300;
+
 const planetRadius = 75;
 const orbitRadius = 100;
+const netForceLength = 80;
+const velocityLength = 60;
+const vectorThickness = 2;
+
 const planetColor = ink20;
 const satelliteColor = ink80;
 const netForceColor = red;
@@ -26,6 +31,13 @@ export class SatelliteAnimationRenderer extends AnimationRenderer<SatelliteAnima
     canvasHeight: number,
     options: AnimationOptionValues<SatelliteAnimationOptions>,
   ): void {
+    const showNetForce = options.requireBoolean(
+      SatelliteAnimationOptions.netForce,
+    );
+    const showVelocity = options.requireBoolean(
+      SatelliteAnimationOptions.velocity,
+    );
+
     ctx.save();
     centerFrame(ctx, canvasWidth, canvasHeight, width, height);
     ctx.translate(width / 2, height / 2);
@@ -48,8 +60,29 @@ export class SatelliteAnimationRenderer extends AnimationRenderer<SatelliteAnima
     ctx.rect(-3, -5, 6, 10);
     ctx.fill();
 
-    drawArrowOfLength(ctx, 0, 0, Math.PI / 2, 80, 2, netForceColor);
-    drawArrowOfLength(ctx, 0, 0, 0, 60, 2, velocityColor);
+    if (showNetForce) {
+      drawArrowOfLength(
+        ctx,
+        0,
+        0,
+        Math.PI / 2,
+        netForceLength,
+        vectorThickness,
+        netForceColor,
+      );
+    }
+
+    if (showVelocity) {
+      drawArrowOfLength(
+        ctx,
+        0,
+        0,
+        0,
+        velocityLength,
+        vectorThickness,
+        velocityColor,
+      );
+    }
 
     ctx.restore();
   }

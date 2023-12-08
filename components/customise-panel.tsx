@@ -73,6 +73,7 @@ function OptionInput({
 }: {
   definition: AnimationOptionDefinition;
   value: unknown;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: any) => void;
 }) {
   if (definition.type == "boolean") {
@@ -95,6 +96,7 @@ function BooleanOptionInput({
 }: {
   definition: AnimationOptionDefinition;
   value: boolean;
+  // eslint-disable-next-line no-unused-vars
   onChange: (value: boolean) => void;
 }) {
   return (
