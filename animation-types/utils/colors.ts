@@ -14,7 +14,8 @@ export const ink10 = "#1e232d";
 export const accent = "#66b3ff";
 export const red = "#d02020";
 export const green = "#00a000";
-export const blue = accent;
+export const lightBlue = accent;
+export const darkBlue = "#2060d0";
 
 // I've put these here for completeness/just in case, but I don't think they
 // should be used in animations.

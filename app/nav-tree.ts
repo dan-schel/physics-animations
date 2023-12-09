@@ -9,6 +9,7 @@ import { standingFree } from "./waves/standing-free/animation";
 import { AnimationOptions } from "@/animation-types/animation-options";
 import { Metadata } from "next";
 import { centripetalForce } from "./motion/centripetal-force/animation";
+import { bankedTrackFriction } from "./motion/banked-track-friction/animation";
 
 const canonicalUrl = "https://physics.danschellekens.com";
 
@@ -43,7 +44,10 @@ export const navTree: NavTree = [
   },
   {
     title: "Motion",
-    children: [fromAnimation(centripetalForce)],
+    children: [
+      fromAnimation(centripetalForce),
+      fromAnimation(bankedTrackFriction),
+    ],
   },
   {
     title: "Waves",
