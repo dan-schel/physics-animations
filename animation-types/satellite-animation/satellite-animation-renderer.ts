@@ -1,12 +1,12 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer } from "../animation-renderer";
+import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { drawArrowOfLength } from "../utils/arrows";
 import { green, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { SatelliteAnimationOptions } from "./satellite-animation";
 
-const width = 300;
-const height = 300;
+const width = 250;
+const height = 250;
 
 const planetRadius = 75;
 const orbitRadius = 100;
@@ -27,8 +27,7 @@ export class SatelliteAnimationRenderer extends AnimationRenderer<SatelliteAnima
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    canvasWidth: number,
-    canvasHeight: number,
+    metrics: CanvasMetrics,
     options: AnimationOptionValues<SatelliteAnimationOptions>,
   ): void {
     const showNetForce = options.requireBoolean(
@@ -39,7 +38,7 @@ export class SatelliteAnimationRenderer extends AnimationRenderer<SatelliteAnima
     );
 
     ctx.save();
-    centerFrame(ctx, canvasWidth, canvasHeight, width, height);
+    centerFrame(ctx, metrics, width, height);
     ctx.translate(width / 2, height / 2);
 
     ctx.fillStyle = planetColor;

@@ -1,35 +1,40 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer } from "../animation-renderer";
-import { background, green, ink100, ink80, red } from "../utils/colors";
+import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
+import { background, green, ink100, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { WaveFunction } from "./functions";
 import { WaveAnimationOptions } from "./wave-animation";
 
 const width = 500;
 const height = 250;
-const horizontalPadding = 30;
-const effectiveWidth = width - horizontalPadding * 2;
 const amplitude = height * 0.5;
-const longitudinalAmplitude = effectiveWidth * 0.1;
 
 const waveResolution = 100;
 const particleCount = 21;
 
-const superpositionColor = ink80;
 const waveThickness = 2;
-const particleColor = ink100;
-const particleSize = 5;
-const endpointSize = 10;
-const subwaveColors = [red, green];
+const particleRadius = 5;
+const endpointRadius = 10;
 const subwaveOffset = 2;
 
+const horizontalPadding = endpointRadius;
+const effectiveWidth = width - horizontalPadding * 2;
+const longitudinalAmplitude = effectiveWidth * 0.1;
+
+const superpositionColor = ink80;
+const particleColor = ink100;
+const subwaveColors = [red, green];
+const rulerColor = ink20;
+
 export type EndpointType = "fixed" | "free" | "none";
+export type Ruler = number;
 
 export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOptions> {
   constructor(
     readonly waves: WaveFunction[],
     readonly leftEnd: EndpointType,
     readonly rightEnd: EndpointType,
+    readonly rulers: Ruler[],
   ) {
     super();
   }
@@ -37,8 +42,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    canvasWidth: number,
-    canvasHeight: number,
+    metrics: CanvasMetrics,
     options: AnimationOptionValues<WaveAnimationOptions>,
   ): void {
     const showSuperposition = options.requireBoolean(
@@ -53,10 +57,27 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     const showAsLongitudinal = options.requireBoolean(
       WaveAnimationOptions.longitudinal,
     );
+    const showRulers = options.getBoolean(WaveAnimationOptions.rulers) ?? false;
 
     ctx.save();
-    centerFrame(ctx, canvasWidth, canvasHeight, width, height);
+    centerFrame(ctx, metrics, width, height);
     ctx.translate(0, height / 2);
+
+    if (showRulers) {
+      ctx.strokeStyle = rulerColor;
+      ctx.lineWidth = 1;
+      this.rulers.forEach((ruler) => {
+        const { x } = getCoordinates(ruler, 0, 0);
+        ctx.beginPath();
+        ctx.moveTo(x, -amplitude);
+        ctx.lineTo(x, amplitude);
+        ctx.stroke();
+      });
+      ctx.beginPath();
+      ctx.moveTo(getCoordinates(0, 0, 0).x, 0);
+      ctx.lineTo(getCoordinates(1, 0, 0).x, 0);
+      ctx.stroke();
+    }
 
     if (showComponents) {
       const waveCount = this.waves.length;
@@ -69,7 +90,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
 
     const superposition: WaveFunction = (x, t) => {
       let y = 0;
-      for (let wave of this.waves) {
+      for (const wave of this.waves) {
         y += wave(x, t);
       }
       return y;
@@ -141,13 +162,13 @@ function drawEndpoint(
     ctx.strokeStyle = particleColor;
     ctx.fillStyle = background;
     ctx.beginPath();
-    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointRadius, endpointRadius, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   } else {
     ctx.fillStyle = particleColor;
     ctx.beginPath();
-    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointRadius, endpointRadius, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 }
@@ -176,7 +197,7 @@ function drawParticles(
     }
 
     ctx.beginPath();
-    ctx.ellipse(x, y, particleSize, particleSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, particleRadius, particleRadius, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 }

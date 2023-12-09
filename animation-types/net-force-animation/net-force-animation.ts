@@ -3,16 +3,18 @@ import {
   AnimationOptions,
 } from "../animation-options";
 import { AnimationType } from "../animation-type";
-import { SatelliteAnimationRenderer } from "./satellite-animation-renderer";
+import { ForcesFunction } from "./functions";
+import { Graphic } from "./graphics";
+import { NetForceAnimationRenderer } from "./net-force-animation-renderer";
 
-export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOptions> {
+export class NetForceAnimationType extends AnimationType<NetForceAnimationOptions> {
   constructor(
     title: string,
     description: string | null,
     href: string,
     duration: number,
     autoLoop: boolean,
-    renderer: SatelliteAnimationRenderer,
+    renderer: NetForceAnimationRenderer,
   ) {
     super(
       title,
@@ -20,7 +22,7 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
       href,
       duration,
       autoLoop,
-      new SatelliteAnimationOptions(),
+      new NetForceAnimationOptions(),
       renderer,
     );
   }
@@ -31,41 +33,46 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
     href,
     duration,
     autoLoop,
-    orbitalPeriod,
+    forces,
+    graphic,
+    graphicOffset,
+    forceDiagramOffset,
   }: {
     title: string;
     description: string | null;
     href: string;
     duration: number;
     autoLoop: boolean;
-    orbitalPeriod: number;
+    forces: ForcesFunction;
+    graphic: Graphic;
+    graphicOffset?: { x: number; y: number };
+    forceDiagramOffset?: { x: number; y: number };
   }) {
-    return new SatelliteAnimationType(
+    return new NetForceAnimationType(
       title,
       description,
       href,
       duration,
       autoLoop,
-      new SatelliteAnimationRenderer(orbitalPeriod),
+      new NetForceAnimationRenderer(
+        forces,
+        graphic,
+        graphicOffset,
+        forceDiagramOffset,
+      ),
     );
   }
 }
 
-export class SatelliteAnimationOptions extends AnimationOptions {
+export class NetForceAnimationOptions extends AnimationOptions {
   static readonly netForce = "net-force";
-  static readonly velocity = "velocity";
 
   constructor() {
     super([
       AnimationOptionDefinition.boolean(
-        SatelliteAnimationOptions.netForce,
+        NetForceAnimationOptions.netForce,
         "Show net force",
         true,
-      ),
-      AnimationOptionDefinition.boolean(
-        SatelliteAnimationOptions.velocity,
-        "Show velocity",
-        false,
       ),
     ]);
   }

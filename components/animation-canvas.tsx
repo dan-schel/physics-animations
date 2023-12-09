@@ -7,6 +7,7 @@ import {
   AnimationOptionValues,
   AnimationOptions,
 } from "@/animation-types/animation-options";
+import { CanvasMetrics } from "@/animation-types/animation-renderer";
 
 export default function AnimationCanvas({
   animation,
@@ -46,9 +47,7 @@ export class CanvasController {
   private ctx: CanvasRenderingContext2D;
   private resizeObserver: ResizeObserver;
 
-  private canvasWidth = 0;
-  private canvasHeight = 0;
-  private dpiRatio = 1;
+  private canvasMetrics: CanvasMetrics | null = null;
 
   private lastRender: {
     animation: AnimationType<AnimationOptions>;
@@ -80,15 +79,29 @@ export class CanvasController {
 
   private resize() {
     const size = this.parent.getBoundingClientRect();
-    this.canvasWidth = size.width;
-    this.canvasHeight = size.height;
-    this.dpiRatio =
+    const canvasWidth = size.width;
+    const canvasHeight = size.height;
+    const dpiRatio =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       window.devicePixelRatio / ((this.ctx as any).backingStorePixelRatio ?? 1);
 
-    this.canvas.style.width = `${this.canvasWidth}px`;
-    this.canvas.style.height = `${this.canvasHeight}px`;
-    this.canvas.width = this.canvasWidth * this.dpiRatio;
-    this.canvas.height = this.canvasHeight * this.dpiRatio;
+    this.canvas.style.width = `${canvasWidth}px`;
+    this.canvas.style.height = `${canvasHeight}px`;
+    this.canvas.width = canvasWidth * dpiRatio;
+    this.canvas.height = canvasHeight * dpiRatio;
+
+    const style = window.getComputedStyle(document.documentElement);
+    const remSize = parseInt(style.fontSize);
+    const docWidth = document.documentElement.getBoundingClientRect().width;
+    const isDesktopLayout = docWidth >= 60 * remSize;
+
+    this.canvasMetrics = {
+      canvasWidth,
+      canvasHeight,
+      dpiRatio,
+      remSize,
+      isDesktopLayout,
+    };
 
     if (this.lastRender != null) {
       this.render(
@@ -104,23 +117,16 @@ export class CanvasController {
     time: number,
     optionValues: AnimationOptionValues<AnimationOptions>,
   ) {
+    if (this.canvasMetrics == null) {
+      return;
+    }
+
+    const { canvasWidth, canvasHeight, dpiRatio } = this.canvasMetrics;
+
     this.ctx.save();
-    this.ctx.clearRect(
-      0,
-      0,
-      this.canvasWidth * this.dpiRatio,
-      this.canvasHeight * this.dpiRatio,
-    );
-    this.ctx.scale(this.dpiRatio, this.dpiRatio);
-
-    animation.renderer.render(
-      this.ctx,
-      time,
-      this.canvasWidth,
-      this.canvasHeight,
-      optionValues,
-    );
-
+    this.ctx.clearRect(0, 0, canvasWidth * dpiRatio, canvasHeight * dpiRatio);
+    this.ctx.scale(dpiRatio, dpiRatio);
+    animation.renderer.render(this.ctx, time, this.canvasMetrics, optionValues);
     this.ctx.restore();
 
     this.lastRender = { animation, time, optionValues };
