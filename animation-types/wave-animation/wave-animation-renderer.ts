@@ -24,12 +24,14 @@ const subwaveColors = [red, green];
 const subwaveOffset = 2;
 
 export type EndpointType = "fixed" | "free" | "none";
+export type Ruler = number;
 
 export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOptions> {
   constructor(
     readonly waves: WaveFunction[],
     readonly leftEnd: EndpointType,
     readonly rightEnd: EndpointType,
+    readonly rulers: Ruler[],
   ) {
     super();
   }
@@ -69,7 +71,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
 
     const superposition: WaveFunction = (x, t) => {
       let y = 0;
-      for (let wave of this.waves) {
+      for (const wave of this.waves) {
         y += wave(x, t);
       }
       return y;

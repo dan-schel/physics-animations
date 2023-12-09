@@ -4,7 +4,11 @@ import {
   AnimationOptions,
 } from "../animation-options";
 import { WaveFunction } from "./functions";
-import { EndpointType, WaveAnimationRenderer } from "./wave-animation-renderer";
+import {
+  EndpointType,
+  Ruler,
+  WaveAnimationRenderer,
+} from "./wave-animation-renderer";
 
 export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
   constructor(
@@ -13,17 +17,10 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     href: string,
     duration: number,
     autoLoop: boolean,
+    options: WaveAnimationOptions,
     renderer: WaveAnimationRenderer,
   ) {
-    super(
-      title,
-      description,
-      href,
-      duration,
-      autoLoop,
-      new WaveAnimationOptions(),
-      renderer,
-    );
+    super(title, description, href, duration, autoLoop, options, renderer);
   }
 
   static fromObject({
@@ -35,6 +32,8 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     waves,
     leftEnd,
     rightEnd,
+    rulers = [],
+    rulersOptionText = "Show rulers",
   }: {
     title: string;
     description: string | null;
@@ -44,6 +43,8 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
     waves: WaveFunction[];
     leftEnd: EndpointType;
     rightEnd: EndpointType;
+    rulers?: Ruler[];
+    rulersOptionText?: string;
   }) {
     return new WaveAnimationType(
       title,
@@ -51,7 +52,8 @@ export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
       href,
       duration,
       autoLoop,
-      new WaveAnimationRenderer(waves, leftEnd, rightEnd),
+      new WaveAnimationOptions(rulers.length > 0 ? rulersOptionText : null),
+      new WaveAnimationRenderer(waves, leftEnd, rightEnd, rulers),
     );
   }
 }
@@ -61,8 +63,9 @@ export class WaveAnimationOptions extends AnimationOptions {
   static readonly components = "components";
   static readonly particles = "particles";
   static readonly longitudinal = "longitudinal";
+  static readonly rulers = "rulers";
 
-  constructor() {
+  constructor(rulersOption: string | null) {
     super([
       AnimationOptionDefinition.boolean(
         WaveAnimationOptions.superposition,
@@ -84,6 +87,15 @@ export class WaveAnimationOptions extends AnimationOptions {
         "Show particles as longitudinal",
         false,
       ),
+      ...(rulersOption != null
+        ? [
+            AnimationOptionDefinition.boolean(
+              WaveAnimationOptions.rulers,
+              rulersOption,
+              false,
+            ),
+          ]
+        : []),
     ]);
   }
 }

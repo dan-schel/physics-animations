@@ -83,6 +83,7 @@ export class CanvasController {
     this.canvasWidth = size.width;
     this.canvasHeight = size.height;
     this.dpiRatio =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       window.devicePixelRatio / ((this.ctx as any).backingStorePixelRatio ?? 1);
 
     this.canvas.style.width = `${this.canvasWidth}px`;
