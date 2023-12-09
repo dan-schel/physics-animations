@@ -1,4 +1,5 @@
 import { CanvasMetrics } from "../animation-renderer";
+import { ink20 } from "./colors";
 
 export type FrameMetrics = CanvasMetrics & {
   extraWidth: number;
@@ -10,6 +11,7 @@ export function centerFrame(
   metrics: CanvasMetrics,
   width: number,
   height: number,
+  debug: boolean = false,
 ) {
   const horizontalMargin = metrics.isDesktopLayout
     ? metrics.remSize * 2
@@ -26,6 +28,14 @@ export function centerFrame(
   const extraWidth = metrics.canvasWidth / scaleFactor - width;
   const extraHeight = metrics.canvasHeight / scaleFactor - height;
   ctx.translate(extraWidth / 2, extraHeight / 2);
+
+  if (debug) {
+    ctx.strokeStyle = ink20;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.rect(1, 1, width - 2, height - 2);
+    ctx.stroke();
+  }
 
   return {
     ...metrics,

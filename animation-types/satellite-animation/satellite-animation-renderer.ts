@@ -5,8 +5,8 @@ import { green, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { SatelliteAnimationOptions } from "./satellite-animation";
 
-const width = 300;
-const height = 300;
+const width = 250;
+const height = 250;
 
 const planetRadius = 75;
 const orbitRadius = 100;

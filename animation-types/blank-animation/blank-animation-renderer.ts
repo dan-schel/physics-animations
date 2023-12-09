@@ -1,6 +1,5 @@
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
-import { ink20 } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { BlankAnimationOptions } from "./blank-animation";
 
@@ -19,12 +18,11 @@ export class BlankAnimationRenderer extends AnimationRenderer<BlankAnimationOpti
     _options: AnimationOptionValues<BlankAnimationOptions>,
   ): void {
     ctx.save();
-    centerFrame(ctx, metrics, width, height);
 
-    ctx.fillStyle = ink20;
-    ctx.beginPath();
-    ctx.rect(0, 0, width, height);
-    ctx.fill();
+    // Remove this variable (add only pass 4 arguments to centerFrame) for
+    // proper animations!
+    const isDebugMode = true;
+    centerFrame(ctx, metrics, width, height, isDebugMode);
 
     ctx.restore();
   }

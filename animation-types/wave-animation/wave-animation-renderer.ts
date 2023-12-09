@@ -7,21 +7,23 @@ import { WaveAnimationOptions } from "./wave-animation";
 
 const width = 500;
 const height = 250;
-const horizontalPadding = 30;
-const effectiveWidth = width - horizontalPadding * 2;
 const amplitude = height * 0.5;
-const longitudinalAmplitude = effectiveWidth * 0.1;
 
 const waveResolution = 100;
 const particleCount = 21;
 
-const superpositionColor = ink80;
 const waveThickness = 2;
-const particleColor = ink100;
-const particleSize = 5;
-const endpointSize = 10;
-const subwaveColors = [red, green];
+const particleRadius = 5;
+const endpointRadius = 10;
 const subwaveOffset = 2;
+
+const horizontalPadding = endpointRadius;
+const effectiveWidth = width - horizontalPadding * 2;
+const longitudinalAmplitude = effectiveWidth * 0.1;
+
+const superpositionColor = ink80;
+const particleColor = ink100;
+const subwaveColors = [red, green];
 const rulerColor = ink20;
 
 export type EndpointType = "fixed" | "free" | "none";
@@ -160,13 +162,13 @@ function drawEndpoint(
     ctx.strokeStyle = particleColor;
     ctx.fillStyle = background;
     ctx.beginPath();
-    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointRadius, endpointRadius, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.stroke();
   } else {
     ctx.fillStyle = particleColor;
     ctx.beginPath();
-    ctx.ellipse(x, y, endpointSize, endpointSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, endpointRadius, endpointRadius, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 }
@@ -195,7 +197,7 @@ function drawParticles(
     }
 
     ctx.beginPath();
-    ctx.ellipse(x, y, particleSize, particleSize, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, particleRadius, particleRadius, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 }
