@@ -35,6 +35,8 @@ export class NetForceAnimationType extends AnimationType<NetForceAnimationOption
     autoLoop,
     forces,
     graphic,
+    graphicOffset,
+    forceDiagramOffset,
   }: {
     title: string;
     description: string | null;
@@ -43,6 +45,8 @@ export class NetForceAnimationType extends AnimationType<NetForceAnimationOption
     autoLoop: boolean;
     forces: ForcesFunction;
     graphic: Graphic;
+    graphicOffset?: { x: number; y: number };
+    forceDiagramOffset?: { x: number; y: number };
   }) {
     return new NetForceAnimationType(
       title,
@@ -50,7 +54,12 @@ export class NetForceAnimationType extends AnimationType<NetForceAnimationOption
       href,
       duration,
       autoLoop,
-      new NetForceAnimationRenderer(forces, graphic),
+      new NetForceAnimationRenderer(
+        forces,
+        graphic,
+        graphicOffset,
+        forceDiagramOffset,
+      ),
     );
   }
 }

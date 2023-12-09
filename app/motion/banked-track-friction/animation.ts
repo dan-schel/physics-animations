@@ -53,4 +53,5 @@ export const bankedTrackFriction = NetForceAnimationType.fromObject({
   autoLoop: true,
   forces: bankedTrackForces,
   graphic: bankedTrack(degToRad(bankDegrees), 1),
+  forceDiagramOffset: { x: 20, y: -15 },
 });

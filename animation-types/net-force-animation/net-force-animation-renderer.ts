@@ -1,17 +1,19 @@
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { drawArrow, drawArrowOfLength } from "../utils/arrows";
-import { ink20, ink50, red } from "../utils/colors";
+import { ink20, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { Force, ForcesFunction } from "./functions";
 import { Graphic } from "./graphics";
 import { NetForceAnimationOptions } from "./net-force-animation";
 
-const width = 250;
-const height = 200;
+const width = 200;
+const height = 150;
 const netForceColor = red;
+const arrowThickness = 2;
 
-const boxGap = 5;
+const leftBox = defineBox(0, 0, 120, height);
+const rightBox = defineBox(125, 0, 75, height);
 
 type Box = {
   x: number;
@@ -26,6 +28,8 @@ export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimati
   constructor(
     readonly forceProvider: ForcesFunction,
     readonly graphicRenderer: Graphic,
+    readonly graphicOffset: { x: number; y: number } = { x: 0, y: 0 },
+    readonly forceDiagramOffset: { x: number; y: number } = { x: 0, y: 0 },
   ) {
     super();
   }
@@ -44,12 +48,22 @@ export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimati
     ctx.save();
     centerFrame(ctx, metrics, width, height);
 
-    const boxWidth = (width - boxGap) / 2;
-    const leftBox = defineBox(0, 0, boxWidth, height);
-    const rightBox = defineBox(width - boxWidth, 0, boxWidth, height);
+    drawLeftPanel(
+      ctx,
+      this.graphicRenderer,
+      forces,
+      showNetForce,
+      leftBox,
+      this.graphicOffset,
+    );
+    drawRightPanel(
+      ctx,
+      forces,
+      showNetForce,
+      rightBox,
+      this.forceDiagramOffset,
+    );
 
-    drawLeftPanel(ctx, this.graphicRenderer, forces, showNetForce, leftBox);
-    drawRightPanel(ctx, forces, showNetForce, rightBox);
     ctx.restore();
   }
 }
@@ -60,14 +74,23 @@ function drawLeftPanel(
   forces: Force[],
   showNetForce: boolean,
   box: Box,
+  offset: { x: number; y: number },
 ) {
   drawBox(ctx, box);
 
   ctx.save();
-  ctx.translate(box.centerX, box.centerY);
+  ctx.translate(box.centerX + offset.x, box.centerY + offset.y);
   graphicRenderer(ctx);
   forces.forEach((force) => {
-    drawArrowOfLength(ctx, 0, 0, force.angle, force.magnitude, 2, force.color);
+    drawArrowOfLength(
+      ctx,
+      0,
+      0,
+      force.angle,
+      force.magnitude,
+      arrowThickness,
+      force.color,
+    );
   });
   if (showNetForce) {
     const { x: netX, y: netY } = forces.reduce(
@@ -79,7 +102,7 @@ function drawLeftPanel(
       },
       { x: 0, y: 0 },
     );
-    drawArrow(ctx, 0, 0, netX, netY, 2, netForceColor);
+    drawArrow(ctx, 0, 0, netX, netY, arrowThickness, netForceColor);
   }
   ctx.restore();
 }
@@ -89,22 +112,23 @@ function drawRightPanel(
   forces: Force[],
   showNetForce: boolean,
   box: Box,
+  offset: { x: number; y: number },
 ) {
   drawBox(ctx, box);
 
   ctx.save();
-  ctx.translate(box.centerX, box.centerY);
+  ctx.translate(box.centerX + offset.x, box.centerY + offset.y);
   let fromX = 0;
   let fromY = 0;
   forces.forEach((force) => {
     const toX = fromX + Math.cos(force.angle) * force.magnitude;
     const toY = fromY + Math.sin(force.angle) * force.magnitude;
-    drawArrow(ctx, fromX, fromY, toX, toY, 2, force.color);
+    drawArrow(ctx, fromX, fromY, toX, toY, arrowThickness, force.color);
     fromX = toX;
     fromY = toY;
   });
   if (showNetForce) {
-    drawArrow(ctx, 0, 0, fromX, fromY, 2, netForceColor);
+    drawArrow(ctx, 0, 0, fromX, fromY, arrowThickness, netForceColor);
   }
   ctx.restore();
 }

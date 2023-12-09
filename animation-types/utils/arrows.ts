@@ -27,6 +27,10 @@ export function drawArrowOfLength(
   const nLength = Math.abs(length);
   const nAngle = length < 0 ? angle + Math.PI : angle;
 
+  if (nLength < thickness * 0.5) {
+    return;
+  }
+
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(nAngle);
