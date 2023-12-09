@@ -52,7 +52,7 @@ export class SatelliteAnimationType extends AnimationType<SatelliteAnimationOpti
 }
 
 export class SatelliteAnimationOptions extends AnimationOptions {
-  static readonly netForce = "netForce";
+  static readonly netForce = "net-force";
   static readonly velocity = "velocity";
 
   constructor() {

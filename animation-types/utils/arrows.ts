@@ -23,11 +23,15 @@ export function drawArrowOfLength(
   thickness: number,
   color: string,
 ) {
+  // If length is given as a negative, draw the arrow in the opposite direction.
+  const nLength = Math.abs(length);
+  const nAngle = length < 0 ? angle + Math.PI : angle;
+
   ctx.save();
   ctx.translate(x, y);
-  ctx.rotate(angle);
+  ctx.rotate(nAngle);
 
-  const headLength = Math.min(thickness * 4, length * 0.75);
+  const headLength = Math.min(thickness * 4, nLength * 0.75);
   const headWidth = thickness * 4;
 
   ctx.strokeStyle = color;
@@ -37,13 +41,13 @@ export function drawArrowOfLength(
   // Multiply by 0.75 to avoid a tiny gap between the arrow head and the line.
   ctx.beginPath();
   ctx.moveTo(0, 0);
-  ctx.lineTo(length - headLength * 0.75, 0);
+  ctx.lineTo(nLength - headLength * 0.75, 0);
   ctx.stroke();
 
   ctx.beginPath();
-  ctx.moveTo(length, 0);
-  ctx.lineTo(length - headLength, headWidth * -0.5);
-  ctx.lineTo(length - headLength, headWidth * 0.5);
+  ctx.moveTo(nLength, 0);
+  ctx.lineTo(nLength - headLength, headWidth * -0.5);
+  ctx.lineTo(nLength - headLength, headWidth * 0.5);
   ctx.fill();
 
   ctx.restore();

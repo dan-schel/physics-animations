@@ -16,6 +16,9 @@ export const red = "#d02020";
 export const green = "#00a000";
 export const lightBlue = accent;
 export const darkBlue = "#2060d0";
+export const yellow = "#d09020";
+export const purple = "#a030d0";
+export const teal = "#00a0a0";
 
 // I've put these here for completeness/just in case, but I don't think they
 // should be used in animations.

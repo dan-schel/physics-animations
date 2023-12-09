@@ -1,4 +1,7 @@
-import { AnimationOptions } from "../animation-options";
+import {
+  AnimationOptionDefinition,
+  AnimationOptions,
+} from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { ForcesFunction } from "./functions";
 import { Graphic } from "./graphics";
@@ -53,7 +56,15 @@ export class NetForceAnimationType extends AnimationType<NetForceAnimationOption
 }
 
 export class NetForceAnimationOptions extends AnimationOptions {
+  static readonly netForce = "net-force";
+
   constructor() {
-    super([]);
+    super([
+      AnimationOptionDefinition.boolean(
+        NetForceAnimationOptions.netForce,
+        "Show net force",
+        true,
+      ),
+    ]);
   }
 }
