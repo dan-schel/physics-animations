@@ -1,33 +1,34 @@
-export function frameForWidth(
-  ctx: CanvasRenderingContext2D,
-  canvasWidth: number,
-  canvasHeight: number,
-  width: number,
-) {
-  const scaleFactor = canvasWidth / width;
-  const frameHeight = canvasHeight / scaleFactor;
-  ctx.scale(scaleFactor, scaleFactor);
-  ctx.translate(0, frameHeight / 2);
+import { CanvasMetrics } from "../animation-renderer";
 
-  return {
-    frameHeight,
-  };
-}
+export type FrameMetrics = CanvasMetrics & {
+  extraWidth: number;
+  extraHeight: number;
+};
 
 export function centerFrame(
   ctx: CanvasRenderingContext2D,
-  canvasWidth: number,
-  canvasHeight: number,
+  metrics: CanvasMetrics,
   width: number,
   height: number,
 ) {
-  const scaleFactor = Math.min(canvasWidth / width, canvasHeight / height);
+  const horizontalMargin = metrics.isDesktopLayout
+    ? metrics.remSize * 2
+    : metrics.remSize * 1;
+
+  const effectiveWidth = metrics.canvasWidth - horizontalMargin * 2;
+  const effectiveHeight = metrics.canvasHeight - metrics.remSize * 4;
+
+  const scaleFactor = Math.min(
+    effectiveWidth / width,
+    effectiveHeight / height,
+  );
   ctx.scale(scaleFactor, scaleFactor);
-  const extraWidth = canvasWidth / scaleFactor - width;
-  const extraHeight = canvasHeight / scaleFactor - height;
+  const extraWidth = metrics.canvasWidth / scaleFactor - width;
+  const extraHeight = metrics.canvasHeight / scaleFactor - height;
   ctx.translate(extraWidth / 2, extraHeight / 2);
 
   return {
+    ...metrics,
     extraWidth,
     extraHeight,
   };

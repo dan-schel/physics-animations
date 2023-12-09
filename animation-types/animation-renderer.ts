@@ -1,11 +1,18 @@
 import { AnimationOptionValues, AnimationOptions } from "./animation-options";
 
+export type CanvasMetrics = {
+  canvasWidth: number;
+  canvasHeight: number;
+  dpiRatio: number;
+  remSize: number;
+  isDesktopLayout: boolean;
+};
+
 export abstract class AnimationRenderer<OptionType extends AnimationOptions> {
   abstract render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    canvasWidth: number,
-    canvasHeight: number,
+    metrics: CanvasMetrics,
     options: AnimationOptionValues<OptionType>,
   ): void;
 }

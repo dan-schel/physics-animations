@@ -1,5 +1,5 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer } from "../animation-renderer";
+import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { background, green, ink100, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { WaveFunction } from "./functions";
@@ -40,8 +40,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    canvasWidth: number,
-    canvasHeight: number,
+    metrics: CanvasMetrics,
     options: AnimationOptionValues<WaveAnimationOptions>,
   ): void {
     const showSuperposition = options.requireBoolean(
@@ -59,7 +58,7 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     const showRulers = options.getBoolean(WaveAnimationOptions.rulers) ?? false;
 
     ctx.save();
-    centerFrame(ctx, canvasWidth, canvasHeight, width, height);
+    centerFrame(ctx, metrics, width, height);
     ctx.translate(0, height / 2);
 
     if (showRulers) {

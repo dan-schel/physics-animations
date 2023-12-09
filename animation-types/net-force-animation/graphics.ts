@@ -10,6 +10,12 @@ export const drawCar = car();
 export type Graphic = (ctx: CanvasRenderingContext2D) => void;
 
 export function bankedTrack(angle: number, scale: number): Graphic {
+  // Points for banked track triangle.
+  const x1 = b * Math.cos(a - angle);
+  const y1 = b * Math.sin(a - angle);
+  const x2 = -b * Math.cos(-a - angle);
+  const y2 = -b * Math.sin(-a - angle);
+
   return (ctx: CanvasRenderingContext2D) => {
     ctx.save();
     ctx.scale(scale, scale);
@@ -21,10 +27,6 @@ export function bankedTrack(angle: number, scale: number): Graphic {
     ctx.restore();
 
     // Render banked track triangle.
-    const x1 = b * Math.cos(a - angle);
-    const y1 = b * Math.sin(a - angle);
-    const x2 = -b * Math.cos(-a - angle);
-    const y2 = -b * Math.sin(-a - angle);
     ctx.fillStyle = trackColor;
     ctx.beginPath();
     ctx.moveTo(x1, y1);

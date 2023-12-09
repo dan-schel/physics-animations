@@ -10,6 +10,7 @@ import { AnimationOptions } from "@/animation-types/animation-options";
 import { Metadata } from "next";
 import { centripetalForce } from "./motion/centripetal-force/animation";
 import { bankedTrackFriction } from "./motion/banked-track-friction/animation";
+import { blank } from "./blank/animation";
 
 const canonicalUrl = "https://physics.danschellekens.com";
 
@@ -77,6 +78,13 @@ export function getMetadataForPage(title: string, href: string): Metadata {
 export function getMetadataForAnimation(
   animation: AnimationType<AnimationOptions>,
 ): Metadata {
+  if (animation == blank) {
+    return {
+      title: "Blank animation [demo purposes only]",
+      robots: { index: false },
+    };
+  }
+
   return {
     title: `${animation.title} | VCE Physics Animations`,
     description: `${animation.description} This site contains small collection of animations useful for explaining VCE Physics concepts.`,

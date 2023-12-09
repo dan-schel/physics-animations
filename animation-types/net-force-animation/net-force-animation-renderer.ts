@@ -1,15 +1,18 @@
 import { AnimationOptionValues } from "../animation-options";
-import { AnimationRenderer } from "../animation-renderer";
+import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { drawArrow, drawArrowOfLength } from "../utils/arrows";
-import { red } from "../utils/colors";
+import { ink20, ink50, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { Force, ForcesFunction } from "./functions";
 import { Graphic } from "./graphics";
 import { NetForceAnimationOptions } from "./net-force-animation";
 
-const width = 300;
-const height = 150;
+const width = 250;
+const height = 200;
 const netForceColor = red;
+
+const boxHeight = 150;
+const boxMargin = 5;
 
 export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimationOptions> {
   constructor(
@@ -22,8 +25,7 @@ export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimati
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
-    canvasWidth: number,
-    canvasHeight: number,
+    metrics: CanvasMetrics,
     options: AnimationOptionValues<NetForceAnimationOptions>,
   ): void {
     const forces = this.forceProvider(time);
@@ -32,7 +34,29 @@ export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimati
     );
 
     ctx.save();
-    centerFrame(ctx, canvasWidth, canvasHeight, width, height);
+    centerFrame(ctx, metrics, width, height);
+
+    ctx.strokeStyle = ink20;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(
+      boxMargin,
+      (height - boxHeight) * 0.5,
+      width * 0.5 - boxMargin * 1.5,
+      boxHeight,
+      5,
+    );
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.roundRect(
+      width * 0.5 + boxMargin * 0.5,
+      (height - boxHeight) * 0.5,
+      width * 0.5 - boxMargin * 1.5,
+      boxHeight,
+      5,
+    );
+    ctx.stroke();
+
     drawLeftPanel(ctx, this.graphicRenderer, forces, showNetForce);
     drawRightPanel(ctx, forces, showNetForce);
     ctx.restore();
