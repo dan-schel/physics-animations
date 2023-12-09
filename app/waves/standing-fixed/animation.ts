@@ -14,4 +14,6 @@ export const standingFixed = WaveAnimationType.fromObject({
   waves: [sine(0.2, 3, 0.3), reflectAndInvert(sine(0.2, 3, 0.3))],
   leftEnd: "fixed",
   rightEnd: "fixed",
+  rulers: [0.3, 0.6],
+  rulersOptionText: "Highlight one node and antinode",
 });

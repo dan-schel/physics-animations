@@ -14,4 +14,6 @@ export const standingFree = WaveAnimationType.fromObject({
   waves: [sine(1 / 5.5, 3, 0.3), reflectAndInvert(sine(1 / 5.5, 3, 0.3))],
   leftEnd: "free",
   rightEnd: "fixed",
+  rulers: [2.0 / 5.5, 3.5 / 5.5],
+  rulersOptionText: "Highlight one node and antinode",
 });

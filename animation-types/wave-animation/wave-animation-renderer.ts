@@ -1,6 +1,6 @@
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer } from "../animation-renderer";
-import { background, green, ink100, ink80, red } from "../utils/colors";
+import { background, green, ink100, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { WaveFunction } from "./functions";
 import { WaveAnimationOptions } from "./wave-animation";
@@ -22,6 +22,7 @@ const particleSize = 5;
 const endpointSize = 10;
 const subwaveColors = [red, green];
 const subwaveOffset = 2;
+const rulerColor = ink20;
 
 export type EndpointType = "fixed" | "free" | "none";
 export type Ruler = number;
@@ -55,10 +56,27 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
     const showAsLongitudinal = options.requireBoolean(
       WaveAnimationOptions.longitudinal,
     );
+    const showRulers = options.getBoolean(WaveAnimationOptions.rulers) ?? false;
 
     ctx.save();
     centerFrame(ctx, canvasWidth, canvasHeight, width, height);
     ctx.translate(0, height / 2);
+
+    if (showRulers) {
+      ctx.strokeStyle = rulerColor;
+      ctx.lineWidth = 1;
+      this.rulers.forEach((ruler) => {
+        const { x } = getCoordinates(ruler, 0, 0);
+        ctx.beginPath();
+        ctx.moveTo(x, -amplitude);
+        ctx.lineTo(x, amplitude);
+        ctx.stroke();
+      });
+      ctx.beginPath();
+      ctx.moveTo(getCoordinates(0, 0, 0).x, 0);
+      ctx.lineTo(getCoordinates(1, 0, 0).x, 0);
+      ctx.stroke();
+    }
 
     if (showComponents) {
       const waveCount = this.waves.length;
