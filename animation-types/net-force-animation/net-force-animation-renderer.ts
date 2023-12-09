@@ -11,8 +11,16 @@ const width = 250;
 const height = 200;
 const netForceColor = red;
 
-const boxHeight = 150;
-const boxMargin = 5;
+const boxGap = 5;
+
+type Box = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  centerX: number;
+  centerY: number;
+};
 
 export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimationOptions> {
   constructor(
@@ -36,29 +44,12 @@ export class NetForceAnimationRenderer extends AnimationRenderer<NetForceAnimati
     ctx.save();
     centerFrame(ctx, metrics, width, height);
 
-    ctx.strokeStyle = ink20;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(
-      boxMargin,
-      (height - boxHeight) * 0.5,
-      width * 0.5 - boxMargin * 1.5,
-      boxHeight,
-      5,
-    );
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.roundRect(
-      width * 0.5 + boxMargin * 0.5,
-      (height - boxHeight) * 0.5,
-      width * 0.5 - boxMargin * 1.5,
-      boxHeight,
-      5,
-    );
-    ctx.stroke();
+    const boxWidth = (width - boxGap) / 2;
+    const leftBox = defineBox(0, 0, boxWidth, height);
+    const rightBox = defineBox(width - boxWidth, 0, boxWidth, height);
 
-    drawLeftPanel(ctx, this.graphicRenderer, forces, showNetForce);
-    drawRightPanel(ctx, forces, showNetForce);
+    drawLeftPanel(ctx, this.graphicRenderer, forces, showNetForce, leftBox);
+    drawRightPanel(ctx, forces, showNetForce, rightBox);
     ctx.restore();
   }
 }
@@ -68,9 +59,12 @@ function drawLeftPanel(
   graphicRenderer: Graphic,
   forces: Force[],
   showNetForce: boolean,
+  box: Box,
 ) {
+  drawBox(ctx, box);
+
   ctx.save();
-  ctx.translate(width * 0.25, height * 0.5);
+  ctx.translate(box.centerX, box.centerY);
   graphicRenderer(ctx);
   forces.forEach((force) => {
     drawArrowOfLength(ctx, 0, 0, force.angle, force.magnitude, 2, force.color);
@@ -94,9 +88,12 @@ function drawRightPanel(
   ctx: CanvasRenderingContext2D,
   forces: Force[],
   showNetForce: boolean,
+  box: Box,
 ) {
+  drawBox(ctx, box);
+
   ctx.save();
-  ctx.translate(width * 0.75, height * 0.5);
+  ctx.translate(box.centerX, box.centerY);
   let fromX = 0;
   let fromY = 0;
   forces.forEach((force) => {
@@ -110,4 +107,23 @@ function drawRightPanel(
     drawArrow(ctx, 0, 0, fromX, fromY, 2, netForceColor);
   }
   ctx.restore();
+}
+
+function defineBox(x: number, y: number, width: number, height: number): Box {
+  return {
+    x,
+    y,
+    width,
+    height,
+    centerX: x + width * 0.5,
+    centerY: y + height * 0.5,
+  };
+}
+
+function drawBox(ctx: CanvasRenderingContext2D, box: Box) {
+  ctx.strokeStyle = ink20;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(box.x + 0.5, box.y + 0.5, box.width - 1, box.height - 1, 5);
+  ctx.stroke();
 }
