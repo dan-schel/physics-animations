@@ -32,7 +32,7 @@ export default function CustomisePanel({
         expanded ? styles.expanded : ""
       }`}
     >
-      {animation.options.definitions.length == 0 && (
+      {animation.options.definitions.length === 0 && (
         <p className={styles.empty}>(No customisation options)</p>
       )}
       {animation.options.definitions.length > 0 && (
@@ -76,7 +76,7 @@ function OptionInput({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (value: any) => void;
 }) {
-  if (definition.type == "boolean") {
+  if (definition.type === "boolean") {
     return (
       <BooleanOptionInput
         definition={definition}

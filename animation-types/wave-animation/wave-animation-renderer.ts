@@ -108,8 +108,8 @@ export class WaveAnimationRenderer extends AnimationRenderer<WaveAnimationOption
       const color = particleColor;
       const longitudinal = showAsLongitudinal;
       const ignoreEnds = longitudinal || !showSuperposition;
-      const left = this.leftEnd == "none" || ignoreEnds;
-      const right = this.rightEnd == "none" || ignoreEnds;
+      const left = this.leftEnd === "none" || ignoreEnds;
+      const right = this.rightEnd === "none" || ignoreEnds;
       drawParticles(ctx, superposition, time, color, longitudinal, left, right);
     }
 
@@ -134,7 +134,7 @@ function drawWave(
     const percentage = i / (waveResolution - 1);
     const { x, y } = getCoordinates(percentage, wave(percentage, time), offset);
 
-    if (i == 0) {
+    if (i === 0) {
       ctx.moveTo(x, y);
     } else {
       ctx.lineTo(x, y);
@@ -142,13 +142,13 @@ function drawWave(
   }
   ctx.stroke();
 
-  if (leftEnd != "none") {
+  if (leftEnd !== "none") {
     const { x, y } = getCoordinates(0, wave(0, time), offset);
-    drawEndpoint(ctx, x, y, leftEnd == "free");
+    drawEndpoint(ctx, x, y, leftEnd === "free");
   }
-  if (rightEnd != "none") {
+  if (rightEnd !== "none") {
     const { x, y } = getCoordinates(1, wave(1, time), offset);
-    drawEndpoint(ctx, x, y, rightEnd == "free");
+    drawEndpoint(ctx, x, y, rightEnd === "free");
   }
 }
 

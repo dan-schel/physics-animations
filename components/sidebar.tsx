@@ -72,11 +72,11 @@ function SidebarEntry({
       <Link
         href={node.href}
         className={`${styles.entry} ${
-          node.href == pathname ? styles.selected : ""
+          node.href === pathname ? styles.selected : ""
         }`}
       >
-        {node.type == "animation" && <AnimationIcon></AnimationIcon>}
-        {node.type == "document" && <DocumentIcon></DocumentIcon>}
+        {node.type === "animation" && <AnimationIcon></AnimationIcon>}
+        {node.type === "document" && <DocumentIcon></DocumentIcon>}
         <div className="oneLine">
           <p>{node.title}</p>
         </div>

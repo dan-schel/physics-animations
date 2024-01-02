@@ -34,14 +34,14 @@ export default function PlaybackControls({
         return;
       }
 
-      if (e.code == "Space") {
+      if (e.code === "Space") {
         if (!e.repeat) {
           setPaused((currentValue) => !currentValue);
         }
         e.preventDefault();
       }
 
-      if (e.code == "ArrowLeft") {
+      if (e.code === "ArrowLeft") {
         if (e.ctrlKey) {
           setTime(0);
         } else {
@@ -50,7 +50,7 @@ export default function PlaybackControls({
         e.preventDefault();
       }
 
-      if (e.code == "ArrowRight") {
+      if (e.code === "ArrowRight") {
         if (e.ctrlKey) {
           setTime(animation.duration);
         } else {
