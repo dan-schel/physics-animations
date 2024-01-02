@@ -31,7 +31,7 @@ export default function Home() {
         </a>
         .
       </p>
-      <p>© Dan Schellekens 2023</p>
+      <p>© 2023-present Dan Schellekens</p>
     </main>
   );
 }

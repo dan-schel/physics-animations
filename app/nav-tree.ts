@@ -78,7 +78,7 @@ export function getMetadataForPage(title: string, href: string): Metadata {
 export function getMetadataForAnimation(
   animation: AnimationType<AnimationOptions>,
 ): Metadata {
-  if (animation == blank) {
+  if (animation === blank) {
     return {
       title: "Blank animation [demo purposes only]",
       robots: { index: false },
