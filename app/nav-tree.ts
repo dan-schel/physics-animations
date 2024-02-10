@@ -11,6 +11,7 @@ import { Metadata } from "next";
 import { centripetalForce } from "./motion/centripetal-force/animation";
 import { bankedTrackFriction } from "./motion/banked-track-friction/animation";
 import { blank } from "./blank/animation";
+import { refractionCriticalAngle } from "./light/refraction-critical-angle/animation";
 
 const canonicalUrl = "https://physics.danschellekens.com";
 
@@ -42,6 +43,10 @@ export const navTree: NavTree = [
     title: "Home",
     href: "/",
     type: "document",
+  },
+  {
+    title: "Light",
+    children: [fromAnimation(refractionCriticalAngle)],
   },
   {
     title: "Motion",
