@@ -13,7 +13,7 @@ export class BlankAnimationRenderer extends AnimationRenderer<BlankAnimationOpti
 
   render(
     ctx: CanvasRenderingContext2D,
-    time: number,
+    _time: number,
     metrics: CanvasMetrics,
     _options: AnimationOptionValues<BlankAnimationOptions>,
   ): void {
