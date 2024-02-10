@@ -17,7 +17,7 @@ export default function Home() {
         This site and all the animations on it are open source under the{" "}
         <a
           className="link"
-          href="https://github.com/schel-d/physics-animations/blob/main/LICENSE"
+          href="https://github.com/dan-schel/physics-animations/blob/main/LICENSE"
         >
           MIT License
         </a>
@@ -25,7 +25,7 @@ export default function Home() {
         code on{" "}
         <a
           className="link"
-          href="https://github.com/schel-d/physics-animations"
+          href="https://github.com/dan-schel/physics-animations"
         >
           GitHub
         </a>

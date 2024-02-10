@@ -3,7 +3,7 @@ import { bankedTrack } from "@/animation-types/net-force-animation/graphics";
 import { NetForceAnimationType } from "@/animation-types/net-force-animation/net-force-animation";
 import { degToRad } from "@/animation-types/utils/angles";
 import { green, darkBlue, teal } from "@/animation-types/utils/colors";
-import { mapClamp } from "@schel-d/js-utils";
+import { mapClamp } from "@dan-schel/js-utils";
 
 const bankDegrees = 30;
 const duration = 8;

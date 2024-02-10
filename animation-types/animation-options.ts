@@ -1,4 +1,4 @@
-import { areUnique } from "@schel-d/js-utils";
+import { areUnique } from "@dan-schel/js-utils";
 
 export class AnimationOptionDefinition {
   constructor(
