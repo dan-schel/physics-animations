@@ -40,6 +40,9 @@ export class RefractionAnimationRenderer extends AnimationRenderer<RefractionAni
     const showNormal = options.requireBoolean(
       RefractionAnimationOptions.normal,
     );
+    const showMaterials = options.requireBoolean(
+      RefractionAnimationOptions.materials,
+    );
 
     ctx.save();
     centerFrame(ctx, metrics, width, height);
@@ -63,18 +66,20 @@ export class RefractionAnimationRenderer extends AnimationRenderer<RefractionAni
     ctx.lineTo(width / 2, 0);
     ctx.stroke();
 
-    this._renderText(
-      ctx,
-      -textOffset,
-      this.top.materialName,
-      this.top.refractiveIndex,
-    );
-    this._renderText(
-      ctx,
-      textOffset,
-      this.bottom.materialName,
-      this.bottom.refractiveIndex,
-    );
+    if (showMaterials) {
+      this._renderText(
+        ctx,
+        -textOffset,
+        this.top.materialName,
+        this.top.refractiveIndex,
+      );
+      this._renderText(
+        ctx,
+        textOffset,
+        this.bottom.materialName,
+        this.bottom.refractiveIndex,
+      );
+    }
 
     const topAngle = this.top.angle(time) - Math.PI / 2;
     this._renderLight(ctx, topAngle, this.top.type);

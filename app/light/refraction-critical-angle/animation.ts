@@ -8,16 +8,16 @@ import { RefractionAnimationType } from "@/animation-types/refraction-animation/
 import { degToRad } from "@/animation-types/utils/angles";
 import { mapClamp } from "@dan-schel/js-utils";
 
-const duration = 6;
+const duration = 8;
 const easingSmoothing = 0;
 
 const topRefractiveIndex = 1;
-const bottomRefractiveIndex = 2.42;
+const bottomRefractiveIndex = 1.52;
 
 const centralAngle = criticalAngle(bottomRefractiveIndex, topRefractiveIndex);
-const minAngle = centralAngle - degToRad(15);
-const maxAngle = centralAngle + degToRad(15);
-const fudgeAngle = degToRad(1);
+const minAngle = centralAngle - degToRad(25);
+const maxAngle = centralAngle + degToRad(25);
+const fudgeAngle = degToRad(0.1);
 
 const bottom: RefractionEnvironment = {
   type: "incidence",
@@ -29,7 +29,7 @@ const bottom: RefractionEnvironment = {
       minAngle,
       maxAngle,
     ),
-  materialName: "Diamond",
+  materialName: "Glass",
   refractiveIndex: bottomRefractiveIndex,
 };
 
@@ -47,9 +47,9 @@ const top: RefractionEnvironment = {
 };
 
 export const refractionCriticalAngle = RefractionAnimationType.fromObject({
-  title: "Refraction: The critical angle",
+  title: "Refraction (speeding up & critical angle)",
   description:
-    "After reaching the critical angle, light reflects back into the medium.",
+    "Light bends away from the normal when speeding up, until it reaches the critical angle.",
   href: "/light/refraction-critical-angle",
   duration: duration,
   autoLoop: true,

@@ -56,12 +56,18 @@ export class RefractionAnimationType extends AnimationType<RefractionAnimationOp
 
 export class RefractionAnimationOptions extends AnimationOptions {
   static readonly normal = "normal";
+  static readonly materials = "materials";
 
   constructor() {
     super([
       AnimationOptionDefinition.boolean(
         RefractionAnimationOptions.normal,
         "Show normal",
+        true,
+      ),
+      AnimationOptionDefinition.boolean(
+        RefractionAnimationOptions.materials,
+        "Show materials",
         true,
       ),
     ]);

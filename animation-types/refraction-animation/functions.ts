@@ -17,7 +17,7 @@ export function snellsLaw(
   angle1: number,
   fudge: number = 0,
 ): number {
-  const critical = criticalAngle(n1, n2);
+  const critical = n2 < n1 ? criticalAngle(n1, n2) : Number.MAX_VALUE;
   if (angle1 < critical) {
     // Refraction.
     return Math.asin((n1 / n2) * Math.sin(angle1));
