@@ -10,7 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@schel-d/js-utils": "^2.0.0",
+    "@dan-schel/js-utils": "^3.0.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18"

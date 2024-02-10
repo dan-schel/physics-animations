@@ -1,4 +1,4 @@
-import { clamp } from "@schel-d/js-utils";
+import { clamp } from "@dan-schel/js-utils";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import styles from "./playback-controls.module.scss";
 import { AnimationType } from "@/animation-types/animation-type";
