@@ -5,6 +5,8 @@ export type ProjectileMotionValues = {
   positionY: MotionFunction;
   velocityX: MotionFunction;
   velocityY: MotionFunction;
+  accelerationX: MotionFunction;
+  accelerationY: MotionFunction;
 };
 
 export function projectileMotionFunctions(
@@ -26,6 +28,12 @@ export function projectileMotionFunctions(
   const velocityY = (time: number) => {
     return initialVelocityY - gravity * time;
   };
+  const accelerationX = (_time: number) => {
+    return 0;
+  };
+  const accelerationY = (_time: number) => {
+    return -gravity;
+  };
 
   return {
     angle,
@@ -33,6 +41,8 @@ export function projectileMotionFunctions(
     positionY,
     velocityX,
     velocityY,
+    accelerationX,
+    accelerationY,
   };
 }
 

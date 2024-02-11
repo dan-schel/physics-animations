@@ -55,6 +55,7 @@ export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOp
 export class ProjectileAnimationOptions extends AnimationOptions {
   static readonly velocity = "velocity";
   static readonly velocityComponents = "velocity-components";
+  static readonly netForce = "net-force";
 
   constructor() {
     super([
@@ -66,6 +67,11 @@ export class ProjectileAnimationOptions extends AnimationOptions {
       AnimationOptionDefinition.boolean(
         ProjectileAnimationOptions.velocity,
         "Show total velocity",
+        false,
+      ),
+      AnimationOptionDefinition.boolean(
+        ProjectileAnimationOptions.netForce,
+        "Show net force",
         false,
       ),
     ]);
