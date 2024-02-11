@@ -10,7 +10,7 @@ import { NetForceAnimationOptions } from "./net-force-animation";
 const width = 200;
 const height = 150;
 const netForceColor = red;
-const arrowThickness = 1.25;
+const arrowThickness = 1.5;
 
 const leftBox = defineBox(0, 0, 120, height);
 const rightBox = defineBox(125, 0, 75, height);
