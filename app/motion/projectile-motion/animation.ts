@@ -1,11 +1,13 @@
+import { projectileMotionFunctions } from "@/animation-types/projectile-animation.ts/functions";
 import { ProjectileAnimationType } from "@/animation-types/projectile-animation.ts/projectile-animation";
+import { degToRad } from "@/animation-types/utils/angles";
 
 export const projectileMotion = ProjectileAnimationType.fromObject({
-  title: "Centripetal force",
+  title: "Projectile motion",
   description:
-    "Circular motion requires the net force to be towards the centre of the circle.",
+    "Assuming no air resistance, gravity is the only force on the cannonball once fired.",
   href: "/motion/projectile-motion",
-  duration: 10,
+  duration: 4,
   autoLoop: true,
-  orbitalPeriod: 10,
+  motion: projectileMotionFunctions(degToRad(45), 108, 50),
 });

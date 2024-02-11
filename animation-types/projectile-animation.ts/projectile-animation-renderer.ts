@@ -1,26 +1,30 @@
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
-import { drawArrowOfLength } from "../utils/arrows";
-import { green, ink20, ink80, red } from "../utils/colors";
+import { background, ink20, ink40, ink80 } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
+import { ProjectileMotionValues, cannonMouth, cannonRecoil } from "./functions";
 import { ProjectileAnimationOptions } from "./projectile-animation";
 
-const width = 250;
-const height = 250;
+const width = 300;
+const height = 150;
+const offsetX = -120;
+const offsetY = -50;
 
-const planetRadius = 75;
-const orbitRadius = 100;
-const netForceLength = 80;
-const velocityLength = 60;
-const vectorThickness = 2;
+const surfaceColor = ink20;
+const surfaceOffset = -8;
+const surfaceThickness = 4;
 
-const planetColor = ink20;
-const satelliteColor = ink80;
-const netForceColor = red;
-const velocityColor = green;
+const cannonColor = ink40;
+const cannonRecoilDuration = 0.15;
+const cannonRecoilSize = 4;
+const cannonMouthX = 10;
+const cannonMouthY = -5;
+
+const ballColor = ink80;
+const ballRadius = 2;
 
 export class ProjectileAnimationRenderer extends AnimationRenderer<ProjectileAnimationOptions> {
-  constructor(readonly orbitalPeriod: number) {
+  constructor(readonly motion: ProjectileMotionValues) {
     super();
   }
 
@@ -28,60 +32,62 @@ export class ProjectileAnimationRenderer extends AnimationRenderer<ProjectileAni
     ctx: CanvasRenderingContext2D,
     time: number,
     metrics: CanvasMetrics,
-    options: AnimationOptionValues<ProjectileAnimationOptions>,
+    _options: AnimationOptionValues<ProjectileAnimationOptions>,
   ): void {
-    const showNetForce = options.requireBoolean(
-      ProjectileAnimationOptions.netForce,
-    );
-    const showVelocity = options.requireBoolean(
-      ProjectileAnimationOptions.velocity,
-    );
+    // const showVelocity = options.requireBoolean(
+    //   ProjectileAnimationOptions.velocity,
+    // );
 
     ctx.save();
     centerFrame(ctx, metrics, width, height);
     ctx.translate(width / 2, height / 2);
+    ctx.translate(offsetX, -offsetY);
 
-    ctx.fillStyle = planetColor;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, planetRadius, planetRadius, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.rotate(Math.PI * -0.5);
-    ctx.rotate((time / this.orbitalPeriod) * Math.PI * 2);
-    ctx.translate(orbitRadius, 0);
-    ctx.rotate(Math.PI * 0.5);
-
-    ctx.fillStyle = satelliteColor;
-    ctx.beginPath();
-    ctx.rect(-16, -3, 10, 6);
-    ctx.rect(6, -3, 10, 6);
-    ctx.rect(-6, -1, 12, 2);
-    ctx.rect(-3, -5, 6, 10);
-    ctx.fill();
-
-    if (showNetForce) {
-      drawArrowOfLength(
-        ctx,
-        0,
-        0,
-        Math.PI / 2,
-        netForceLength,
-        vectorThickness,
-        netForceColor,
-      );
+    const mouth = cannonMouth(cannonMouthX, cannonMouthY, -this.motion.angle);
+    const ballX = this.motion.positionX(time) + mouth.x;
+    const ballY = -this.motion.positionY(time) + mouth.y;
+    if (ballY < -surfaceOffset) {
+      ctx.fillStyle = ballColor;
+      ctx.beginPath();
+      ctx.ellipse(ballX, ballY, ballRadius, ballRadius, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    if (showVelocity) {
-      drawArrowOfLength(
-        ctx,
-        0,
-        0,
-        0,
-        velocityLength,
-        vectorThickness,
-        velocityColor,
-      );
-    }
+    this._renderCannon(ctx, time);
+
+    ctx.strokeStyle = surfaceColor;
+    ctx.lineWidth = surfaceThickness;
+    ctx.beginPath();
+    ctx.moveTo(-width / 2 - offsetX, -surfaceOffset);
+    ctx.lineTo(width / 2 - offsetX, -surfaceOffset);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  private _renderCannon(ctx: CanvasRenderingContext2D, time: number) {
+    ctx.save();
+    ctx.rotate(-this.motion.angle);
+
+    ctx.fillStyle = cannonColor;
+    ctx.beginPath();
+    ctx.rect(
+      -8 - cannonRecoil(time, cannonRecoilDuration, cannonRecoilSize),
+      -9,
+      22,
+      8,
+    );
+    ctx.fill();
+
+    ctx.fillStyle = background;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 8, 8, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = cannonColor;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 6, 6, 0, 0, Math.PI * 2);
+    ctx.fill();
 
     ctx.restore();
   }

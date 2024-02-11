@@ -3,6 +3,7 @@ import {
   AnimationOptions,
 } from "../animation-options";
 import { AnimationType } from "../animation-type";
+import { ProjectileMotionValues } from "./functions";
 import { ProjectileAnimationRenderer } from "./projectile-animation-renderer";
 
 export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOptions> {
@@ -31,14 +32,14 @@ export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOp
     href,
     duration,
     autoLoop,
-    orbitalPeriod,
+    motion,
   }: {
     title: string;
     description: string | null;
     href: string;
     duration: number;
     autoLoop: boolean;
-    orbitalPeriod: number;
+    motion: ProjectileMotionValues;
   }) {
     return new ProjectileAnimationType(
       title,
@@ -46,25 +47,25 @@ export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOp
       href,
       duration,
       autoLoop,
-      new ProjectileAnimationRenderer(orbitalPeriod),
+      new ProjectileAnimationRenderer(motion),
     );
   }
 }
 
 export class ProjectileAnimationOptions extends AnimationOptions {
-  static readonly netForce = "net-force";
   static readonly velocity = "velocity";
+  static readonly velocityComponents = "velocity-components";
 
   constructor() {
     super([
       AnimationOptionDefinition.boolean(
-        ProjectileAnimationOptions.netForce,
-        "Show net force",
+        ProjectileAnimationOptions.velocityComponents,
+        "Show velocity components",
         true,
       ),
       AnimationOptionDefinition.boolean(
         ProjectileAnimationOptions.velocity,
-        "Show velocity",
+        "Show total velocity",
         false,
       ),
     ]);
