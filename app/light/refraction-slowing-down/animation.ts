@@ -32,7 +32,7 @@ const bottom: RefractionEnvironment = {
 export const refractionSlowingDown = RefractionAnimationType.fromObject({
   title: "Refraction (slowing down)",
   description:
-    "As the light enters the glass and slows, its angle bends towards the normal.",
+    "As light enters the glass and slows, its angle bends towards the normal.",
   href: "/light/refraction-slowing-down",
   duration: duration,
   autoLoop: true,

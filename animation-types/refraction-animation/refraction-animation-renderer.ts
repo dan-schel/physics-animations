@@ -7,7 +7,7 @@ import { RefractionEnvironment } from "./functions";
 import { RefractionAnimationOptions } from "./refraction-animation";
 
 const width = 250;
-const height = 250;
+const height = 210;
 
 const arrowLength = 100;
 const lightThickness = 2;
