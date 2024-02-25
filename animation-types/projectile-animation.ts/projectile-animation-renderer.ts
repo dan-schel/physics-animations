@@ -6,7 +6,6 @@ import {
   darkBlue,
   green,
   ink20,
-  ink40,
   ink80,
   red,
   teal,
@@ -21,17 +20,17 @@ const offsetX = -125;
 const offsetY = -70;
 
 const surfaceColor = ink20;
-const surfaceOffset = -8;
-const surfaceThickness = 4;
+const surfaceOffset = -9;
+const surfaceThickness = 6;
 
-const cannonColor = ink40;
-const cannonRecoilDuration = 0.15;
+const cannonColor = ink80;
+const cannonRecoilDuration = 0.2;
 const cannonRecoilSize = 4;
 const cannonMouthX = 10;
 const cannonMouthY = -5;
 
 const ballColor = ink80;
-const ballRadius = 2;
+const ballRadius = 3;
 
 const totalVelocityColor = teal;
 const velocityXColor = darkBlue;
@@ -53,7 +52,7 @@ export class ProjectileAnimationRenderer extends AnimationRenderer<ProjectileAni
     options: AnimationOptionValues<ProjectileAnimationOptions>,
   ): void {
     ctx.save();
-    centerFrame(ctx, metrics, width, height, false);
+    centerFrame(ctx, metrics, width, height);
     ctx.translate(width / 2, height / 2);
     ctx.translate(offsetX, -offsetY);
 
