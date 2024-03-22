@@ -85,7 +85,7 @@ The classes which inherit from `AnimationRenderer` are the classes actually resp
 ```ts
 // File: animation-types/my-custom-animation/my-custom-animation-renderer.ts
 
-import { AnimationOptions, AnimationOptionValues } from "../animation-options";
+import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
@@ -98,12 +98,12 @@ const circleRadius = 20;
 const oscillationWidth = 50;
 const oscillationPeriod = 5;
 
-export class MyCustomAnimationRenderer extends AnimationRenderer<AnimationOptions> {
+export class MyCustomAnimationRenderer extends AnimationRenderer {
   render(
     ctx: CanvasRenderingContext2D,
     time: number,
     metrics: CanvasMetrics,
-    options: AnimationOptionValues<AnimationOptions>,
+    options: AnimationOptionValues,
   ): void {
     ctx.save();
     centerFrame(ctx, metrics, width, height);
@@ -131,7 +131,7 @@ import { AnimationOptions } from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { MyCustomAnimationRenderer } from "./my-custom-animation-renderer";
 
-export class MyCustomAnimationType extends AnimationType<AnimationOptions> {
+export class MyCustomAnimationType extends AnimationType {
   constructor(
     title: string,
     description: string | null,
@@ -170,13 +170,15 @@ export class MyCustomAnimationType extends AnimationType<AnimationOptions> {
 }
 ```
 
-And switch our `animation.ts` file from being a `BlankAnimationType` to a `MyCustomAnimationType`:
+And switch your `animation.ts` file from being a `BlankAnimationType` to a `MyCustomAnimationType`:
 
 ```ts
 // File: app/topic/my-custom-animation/animation.ts
 
 import { MyCustomAnimationType } from "@/animation-types/my-custom-animation/my-custom-animation";
 
+//                            Using MyCustomAnimationType
+//                                         V
 export const myCustomAnimation = MyCustomAnimationType.fromObject({
   title: "My custom animation",
   description: "This is an animation I made, wow!",
@@ -186,9 +188,38 @@ export const myCustomAnimation = MyCustomAnimationType.fromObject({
 });
 ```
 
-**TODO:** Point towards other animation types for examples.
+You should now see a red circle oscillating horizontally across the screen as your animation. You can customise the `render` method within `MyCustomAnimationRenderer` to draw whatever you'd like!
 
 ## Step 4 - Allowing for customisation
+
+Many animations on this site allow the user to toggle elements of the animation on and off. You can offer animation options for your animations by creating a class which inherits from `AnimationOptions`. The `define` method returns an array containing each option this animation provides for customisation:
+
+```ts
+// File: animation-types/my-custom-animation/my-custom-animation-options.ts
+
+import {
+  AnimationOptionDefinition,
+  AnimationOptions,
+} from "../animation-options";
+
+export class MyCustomAnimationOptions extends AnimationOptions {
+  static readonly netForce = "net-force";
+
+  define() {
+    return [
+      AnimationOptionDefinition.boolean(
+        MyCustomAnimationOptions.netForce,
+        "Show net force",
+        true,
+      ),
+    ];
+  }
+}
+```
+
+**TODO:** Using options in generics, using the option values in the renderer.
+
+**TODO:** Point towards other animation types for examples.
 
 ## Step 5 - Publishing your animation
 
