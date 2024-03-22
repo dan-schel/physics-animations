@@ -1,12 +1,11 @@
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { centerFrame } from "../utils/framing";
-import { BlankAnimationOptions } from "./blank-animation";
 
 const width = 250;
 const height = 200;
 
-export class BlankAnimationRenderer extends AnimationRenderer<BlankAnimationOptions> {
+export class BlankAnimationRenderer extends AnimationRenderer {
   constructor() {
     super();
   }
@@ -15,7 +14,7 @@ export class BlankAnimationRenderer extends AnimationRenderer<BlankAnimationOpti
     ctx: CanvasRenderingContext2D,
     _time: number,
     metrics: CanvasMetrics,
-    _options: AnimationOptionValues<BlankAnimationOptions>,
+    _options: AnimationOptionValues,
   ): void {
     ctx.save();
 

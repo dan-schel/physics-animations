@@ -19,7 +19,7 @@ export class AnimationOptionDefinition {
 }
 
 export class AnimationOptions {
-  constructor(readonly definitions: AnimationOptionDefinition[]) {
+  constructor(readonly definitions: AnimationOptionDefinition[] = []) {
     if (!areUnique(definitions.map((d) => d.id))) {
       throw new Error("Option definition IDs are not unique.");
     }
@@ -59,7 +59,9 @@ export class AnimationOptions {
   }
 }
 
-export class AnimationOptionValues<OptionType extends AnimationOptions> {
+export class AnimationOptionValues<
+  OptionType extends AnimationOptions = AnimationOptions,
+> {
   constructor(
     readonly shape: OptionType,
     readonly options: Record<string, unknown>,

@@ -2,14 +2,14 @@ import { AnimationOptions } from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { BlankAnimationRenderer } from "./blank-animation-renderer";
 
-export class BlankAnimationType extends AnimationType<BlankAnimationOptions> {
+export class BlankAnimationType extends AnimationType {
   constructor(
     title: string,
     description: string | null,
     href: string,
     duration: number,
     autoLoop: boolean,
-    options: BlankAnimationOptions,
+    options: AnimationOptions,
     renderer: BlankAnimationRenderer,
   ) {
     super(title, description, href, duration, autoLoop, options, renderer);
@@ -34,14 +34,8 @@ export class BlankAnimationType extends AnimationType<BlankAnimationOptions> {
       href,
       duration,
       autoLoop,
-      new BlankAnimationOptions(),
+      new AnimationOptions(),
       new BlankAnimationRenderer(),
     );
-  }
-}
-
-export class BlankAnimationOptions extends AnimationOptions {
-  constructor() {
-    super([]);
   }
 }

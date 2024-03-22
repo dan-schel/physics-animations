@@ -8,7 +8,9 @@ export type CanvasMetrics = {
   isDesktopLayout: boolean;
 };
 
-export abstract class AnimationRenderer<OptionType extends AnimationOptions> {
+export abstract class AnimationRenderer<
+  OptionType extends AnimationOptions = AnimationOptions,
+> {
   abstract render(
     ctx: CanvasRenderingContext2D,
     time: number,
