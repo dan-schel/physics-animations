@@ -3,7 +3,7 @@ import "./globals.scss";
 import styles from "./layout.module.scss";
 import Sidebar from "../components/sidebar";
 import OpenSidebarButton from "../components/open-sidebar-button";
-import { getMetadataForPage } from "./nav-tree";
+import { getMetadataForPage } from "./nav-tree-utils";
 
 const inter = Inter({ subsets: ["latin"], axes: ["slnt"] });
 

@@ -19,18 +19,47 @@ export class AnimationOptionDefinition {
 }
 
 export class AnimationOptions {
-  constructor(readonly definitions: AnimationOptionDefinition[] = []) {
-    if (!areUnique(definitions.map((d) => d.id))) {
-      throw new Error("Option definition IDs are not unique.");
+  private _definitions: AnimationOptionDefinition[] | null = null;
+
+  define(): AnimationOptionDefinition[] {
+    return [];
+  }
+
+  get definitions(): AnimationOptionDefinition[] {
+    if (this._definitions == null) {
+      const defs = this.define();
+
+      if (!areUnique(defs.map((d) => d.id))) {
+        throw new Error("Option definition IDs are not unique.");
+      }
+
+      AnimationOptions._validate(
+        AnimationOptions._createDefaultValuesRecord(defs),
+        defs,
+      );
+
+      this._definitions = defs;
     }
 
-    this.validate(
+    return this._definitions;
+  }
+
+  validate(values: Record<string, unknown>) {
+    AnimationOptions._validate(values, this.definitions);
+  }
+
+  getDefaultValues(): AnimationOptionValues<this> {
+    return new AnimationOptionValues(
+      this,
       AnimationOptions._createDefaultValuesRecord(this.definitions),
     );
   }
 
-  validate(values: Record<string, unknown>) {
-    for (const option of this.definitions) {
+  private static _validate(
+    values: Record<string, unknown>,
+    definitions: AnimationOptionDefinition[],
+  ) {
+    for (const option of definitions) {
       if (option.type === "boolean") {
         if (typeof values[option.id] !== "boolean") {
           throw new Error(`Expected boolean for option "${option.id}".`);
@@ -39,13 +68,6 @@ export class AnimationOptions {
         throw new Error(`Unknown option type "${option.type}".`);
       }
     }
-  }
-
-  getDefaultValues(): AnimationOptionValues<this> {
-    return new AnimationOptionValues(
-      this,
-      AnimationOptions._createDefaultValuesRecord(this.definitions),
-    );
   }
 
   private static _createDefaultValuesRecord(

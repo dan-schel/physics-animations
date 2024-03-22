@@ -1,10 +1,7 @@
-import {
-  AnimationOptionDefinition,
-  AnimationOptions,
-} from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { ForcesFunction } from "./functions";
 import { Graphic } from "./graphics";
+import { NetForceAnimationOptions } from "./net-force-animation-options";
 import { NetForceAnimationRenderer } from "./net-force-animation-renderer";
 
 export class NetForceAnimationType extends AnimationType<NetForceAnimationOptions> {
@@ -61,19 +58,5 @@ export class NetForceAnimationType extends AnimationType<NetForceAnimationOption
         forceDiagramOffset,
       ),
     );
-  }
-}
-
-export class NetForceAnimationOptions extends AnimationOptions {
-  static readonly netForce = "net-force";
-
-  constructor() {
-    super([
-      AnimationOptionDefinition.boolean(
-        NetForceAnimationOptions.netForce,
-        "Show net force",
-        true,
-      ),
-    ]);
   }
 }

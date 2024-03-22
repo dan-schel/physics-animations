@@ -12,7 +12,7 @@ import {
 } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { ProjectileMotionValues, cannonMouth, cannonRecoil } from "./functions";
-import { ProjectileAnimationOptions } from "./projectile-animation";
+import { ProjectileAnimationOptions } from "./projectile-animation-options";
 
 const width = 300;
 const height = 200;

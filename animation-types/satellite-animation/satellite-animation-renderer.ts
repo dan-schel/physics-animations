@@ -3,7 +3,7 @@ import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { drawArrowOfLength } from "../utils/arrows";
 import { green, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
-import { SatelliteAnimationOptions } from "./satellite-animation";
+import { SatelliteAnimationOptions } from "./satellite-animation-options";
 
 const width = 250;
 const height = 250;

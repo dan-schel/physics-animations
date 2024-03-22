@@ -4,7 +4,7 @@ import { drawArrow } from "../utils/arrows";
 import { ink100, ink20, ink40, ink80, lightBlue } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { RefractionEnvironment } from "./functions";
-import { RefractionAnimationOptions } from "./refraction-animation";
+import { RefractionAnimationOptions } from "./refraction-animation-options";
 
 const width = 250;
 const height = 210;

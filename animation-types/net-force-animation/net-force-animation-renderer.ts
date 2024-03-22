@@ -5,7 +5,7 @@ import { ink20, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { Force, ForcesFunction } from "./functions";
 import { Graphic } from "./graphics";
-import { NetForceAnimationOptions } from "./net-force-animation";
+import { NetForceAnimationOptions } from "./net-force-animation-options";
 
 const width = 200;
 const height = 150;
