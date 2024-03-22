@@ -1,4 +1,4 @@
-import { projectileMotionFunctions } from "@/animation-types/projectile-animation.ts/functions";
+import { projectileMotionFunctions } from "@/animation-types/projectile-animation/functions";
 import { ProjectileAnimationType } from "@/animation-types/projectile-animation.ts/projectile-animation";
 import { degToRad } from "@/animation-types/utils/angles";
 
