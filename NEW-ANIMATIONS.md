@@ -217,9 +217,171 @@ export class MyCustomAnimationOptions extends AnimationOptions {
 }
 ```
 
-**TODO:** Using options in generics, using the option values in the renderer.
+Now hook that class up with your animation type:
 
-**TODO:** Point towards other animation types for examples.
+```ts
+// File: animation-types/my-custom-animation/my-custom-animation.ts
+
+import { AnimationOptions } from "../animation-options";
+import { AnimationType } from "../animation-type";
+import { MyCustomAnimationRenderer } from "./my-custom-animation-renderer";
+
+//                                                    Using MyCustomAnimationOptions
+//                                                                  V
+export class MyCustomAnimationType extends AnimationType<MyCustomAnimationOptions> {
+  constructor(
+    title: string,
+    description: string | null,
+    href: string,
+    duration: number,
+    autoLoop: boolean,
+    options: MyCustomAnimationOptions,
+    renderer: MyCustomAnimationRenderer,
+  ) {
+    super(title, description, href, duration, autoLoop, options, renderer);
+  }
+
+  static fromObject({
+    title,
+    description,
+    href,
+    duration,
+    autoLoop,
+  }: {
+    title: string;
+    description: string | null;
+    href: string;
+    duration: number;
+    autoLoop: boolean;
+  }) {
+    return new BlankAnimationType(
+      title,
+      description,
+      href,
+      duration,
+      autoLoop,
+      new MyCustomAnimationOptions(), // <-- Using MyCustomAnimationOptions
+      new MyCustomAnimationRenderer(),
+    );
+  }
+}
+```
+
+And being using it in your renderer:
+
+```ts
+// File: animation-types/my-custom-animation/my-custom-animation-renderer.ts
+
+import { AnimationOptionValues } from "../animation-options";
+import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
+import { red } from "../utils/colors";
+import { centerFrame } from "../utils/framing";
+
+const width = 250;
+const height = 200;
+
+const circleColor = red;
+const circleRadius = 20;
+const oscillationWidth = 50;
+const oscillationPeriod = 5;
+
+//                                                            Using MyCustomAnimationOptions
+//                                                                          V
+export class MyCustomAnimationRenderer extends AnimationRenderer<MyCustomAnimationOptions> {
+  render(
+    ctx: CanvasRenderingContext2D,
+    time: number,
+    metrics: CanvasMetrics,
+    //                          Using MyCustomAnimationOptions
+    //                                        V
+    options: AnimationOptionValues<MyCustomAnimationOptions>,
+  ): void {
+    const showNetForce = options.requireBoolean(
+      MyCustomAnimationOptions.netForce,
+    );
+
+    ctx.save();
+    centerFrame(ctx, metrics, width, height);
+    ctx.translate(width / 2, height / 2);
+
+    // Draw a circle that oscillates horizontally!
+    const x =
+      Math.sin((time / oscillationPeriod) * Math.PI * 2) * oscillationWidth;
+    ctx.fillStyle = circleColor;
+    ctx.beginPath();
+    ctx.ellipse(x, 0, circleRadius, circleRadius, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    if (showNetForce) {
+      // ...
+    }
+
+    ctx.restore();
+  }
+}
+```
+
+And that's it! You should now have a simple animation that allows for some customisation, and a base to build something much cooler upon! Don't forget you can always [look at the existing animation types](https://github.com/dan-schel/physics-animations/tree/master/animation-types) for more examples of how animations are put together.
+
+## A note about animation types
+
+You'll notice that not every animation need implement its own animation type class. If some animations are similar enough that they can reuse each other's rendering code, then can be implemented as different instances of their animation type class, but with different values passed into the constructor.
+
+For example, [the wave animation type](https://github.com/dan-schel/physics-animations/blob/master/animation-types/wave-animation/wave-animation.ts) allows different waveforms to be supplied in its `fromObject` method, which it then passes on to [the renderer](https://github.com/dan-schel/physics-animations/blob/master/animation-types/wave-animation/wave-animation-renderer.ts).
+
+```ts
+// File: animation-types/wave-animation/wave-animation.ts
+
+// [...] Imports omitted for brevity.
+
+export class WaveAnimationType extends AnimationType<WaveAnimationOptions> {
+  // [...] Constructor omitted for brevity.
+
+  static fromObject({
+    title,
+    description,
+    href,
+    duration,
+    autoLoop,
+
+    // Additional data
+    //        V
+    waves,
+    leftEnd,
+    rightEnd,
+    rulers = [],
+    rulersOptionText = "Show rulers",
+  }: {
+    title: string;
+    description: string | null;
+    href: string;
+    duration: number;
+    autoLoop: boolean;
+    waves: WaveFunction[];
+    leftEnd: EndpointType;
+    rightEnd: EndpointType;
+    rulers?: Ruler[];
+    rulersOptionText?: string;
+  }) {
+    return new WaveAnimationType(
+      title,
+      description,
+      href,
+      duration,
+      autoLoop,
+      new WaveAnimationOptions(rulers.length > 0 ? rulersOptionText : null),
+
+      // Which is passed on to the renderer.
+      //                  V
+      new WaveAnimationRenderer(waves, leftEnd, rightEnd, rulers),
+    );
+  }
+}
+```
+
+You'll also notice that in the example above the same goes for the options class. You can have the output of its `define` function depend on parameters passed to the constructor.
+
+Before implementing your own animation type, perhaps consider if it might be easier to piggyback off code that already exists!
 
 ## Step 5 - Publishing your animation
 
