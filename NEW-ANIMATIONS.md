@@ -1,10 +1,12 @@
 # Adding animations to the site
 
-Here's a step-by-step guide to adding animations to the site.
+If you're interesting in playing around with the code and adding your own animations to the site, here's how you can get started.
 
 ## Step 1 - Getting set up
 
-**TODO:** Forking the repo, installing dependencies, etc.
+First, you'll need your own copy of the code to work with. Fork the repository on GitHub and then clone it to your computer. Note that this repo makes use of git submodules, so either clone with the `--recurse-submodules`/`--recursive` flag, or if you've already cloned it, run `git submodule update --init --recursive` to install those.
+
+Next, you'll want to run `npm install` to install the NodeJS dependencies, and finally `npm run dev` to start up the development server. If you open up [`http://localhost:3000`](http://localhost:3000) in a web browser and see the site running, then everything should be set up correctly ready to go!
 
 ## Step 2 - Creating the NextJS page.
 
@@ -409,4 +411,8 @@ Before implementing your own animation type, perhaps consider if it might be eas
 
 ## Step 5 - Publishing your animation
 
-**TODO:** Linting, formatting, opening a pull request, etc.
+If you're happy with your animation and think it might be useful sharing with others, the best way to do that is by contributing it back to this repo so it can appear on [physics.danschellekens.com](https://physics.danschellekens.com)!
+
+In order to do that, please first run `npm run lint` to check for any code errors, and then `npm run format` to ensure your code is formatted in a consistent fashion to the rest of the repo. Finally, open a pull request so I can take a look and consider whether your animation is a good fit for the site. While I can't promise to merge every pull request I receive, I'm aware the current offering of animations is quite modest so I'm certainly keen to grow the collection and make it as broadly useful as I can!
+
+Please be aware that by contributing your code to this repo, you agree to license your contribution under the [MIT license](https://github.com/dan-schel/physics-animations/blob/master/LICENSE).
