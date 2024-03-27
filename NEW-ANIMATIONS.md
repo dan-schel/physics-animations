@@ -78,6 +78,30 @@ Again, all `layout.tsx` files should look identical, aside from name of the `myC
 
 By this point you should be able to navigate to [`http://localhost:3000/topic/my-custom-animation`](http://localhost:3000/topic/my-custom-animation) to see the blank page soon to house your animation!
 
+Although before long you might notice it doesn't show up in the navigation sidebar, to fix that head to [`app/nav-tree.ts`](https://github.com/dan-schel/physics-animations/tree/master/app/nav-tree.ts), and add your animation:
+
+```ts
+// File: app/nav-tree.ts
+
+// [...] There's be lots of other imports...
+import { myCustomAnimation } from "./topic/my-custom-animation/animation";
+
+export const navTree: NavTree = [
+  {
+    title: "Home",
+    href: "/",
+    type: "document",
+  },
+  // [...] Other topics omitted for brevity.
+  {
+    title: "Topic",
+    children: [fromAnimation(myCustomAnimation)],
+  },
+];
+```
+
+You may wish to add it as a new topic, as the code above does, or simply tack it onto an existing one by simply appending it to an existing `children` array.
+
 ## Step 3 - Creating a custom animation renderer
 
 The classes which inherit from `AnimationRenderer` are the classes actually responsible for making draw calls to the canvas, which they do in their `render` method:
