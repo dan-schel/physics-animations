@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { navTree, NavTreeNode, NavPage, NavCollection } from "../app/nav-tree";
+import { navTree } from "../app/nav-tree";
+import { NavTreeNode, NavPage, NavCollection } from "../app/nav-tree-utils";
 import styles from "./sidebar.module.scss";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
