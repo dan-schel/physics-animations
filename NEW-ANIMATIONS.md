@@ -104,7 +104,7 @@ You may wish to add it as a new topic, as the code above does, or simply tack it
 
 ## Step 3 - Creating a custom animation renderer
 
-The classes which inherit from `AnimationRenderer` are the classes actually responsible for making draw calls to the canvas, which they do in their `render` method:
+The classes which inherit from `AnimationRenderer` are the classes actually responsible for making draw calls to the canvas, which they do in their `render` method. To create a custom animation renderer, create a new subfolder within the `animation-types` folder, and a new file for the renderer code:
 
 ```ts
 // File: animation-types/my-custom-animation/my-custom-animation-renderer.ts
@@ -120,7 +120,7 @@ const height = 200;
 const circleColor = red;
 const circleRadius = 20;
 const oscillationWidth = 50;
-const oscillationPeriod = 5;
+const oscillationPeriod = 2.5;
 
 export class MyCustomAnimationRenderer extends AnimationRenderer {
   render(
@@ -146,7 +146,7 @@ export class MyCustomAnimationRenderer extends AnimationRenderer {
 }
 ```
 
-Now to use your custom renderer, implement your custom animation type:
+Now to use your custom renderer, implement a new class for your custom animation type:
 
 ```ts
 // File: animation-types/my-custom-animation/my-custom-animation.ts
@@ -181,7 +181,7 @@ export class MyCustomAnimationType extends AnimationType {
     duration: number;
     autoLoop: boolean;
   }) {
-    return new BlankAnimationType(
+    return new MyCustomAnimationType(
       title,
       description,
       href,
@@ -227,13 +227,13 @@ import {
 } from "../animation-options";
 
 export class MyCustomAnimationOptions extends AnimationOptions {
-  static readonly netForce = "net-force";
+  static readonly oscillateVertically = "oscillate-vertically";
 
   define() {
     return [
       AnimationOptionDefinition.boolean(
-        MyCustomAnimationOptions.netForce,
-        "Show net force",
+        MyCustomAnimationOptions.oscillateVertically,
+        "Oscillate vertically",
         true,
       ),
     ];
@@ -246,7 +246,7 @@ Now hook that class up with your animation type:
 ```ts
 // File: animation-types/my-custom-animation/my-custom-animation.ts
 
-import { AnimationOptions } from "../animation-options";
+import { MyCustomAnimationOptions } from "./my-custom-animation-options";
 import { AnimationType } from "../animation-type";
 import { MyCustomAnimationRenderer } from "./my-custom-animation-renderer";
 
@@ -278,7 +278,7 @@ export class MyCustomAnimationType extends AnimationType<MyCustomAnimationOption
     duration: number;
     autoLoop: boolean;
   }) {
-    return new BlankAnimationType(
+    return new MyCustomAnimationType(
       title,
       description,
       href,
@@ -298,6 +298,7 @@ And being using it in your renderer:
 
 import { AnimationOptionValues } from "../animation-options";
 import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
+import { MyCustomAnimationOptions } from "./my-custom-animation-options";
 import { red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 
@@ -307,7 +308,7 @@ const height = 200;
 const circleColor = red;
 const circleRadius = 20;
 const oscillationWidth = 50;
-const oscillationPeriod = 5;
+const oscillationPeriod = 2.5;
 
 //                                                            Using MyCustomAnimationOptions
 //                                                                          V
@@ -320,25 +321,24 @@ export class MyCustomAnimationRenderer extends AnimationRenderer<MyCustomAnimati
     //                                        V
     options: AnimationOptionValues<MyCustomAnimationOptions>,
   ): void {
-    const showNetForce = options.requireBoolean(
-      MyCustomAnimationOptions.netForce,
+    const oscillateVertically = options.requireBoolean(
+      MyCustomAnimationOptions.oscillateVertically,
     );
 
     ctx.save();
     centerFrame(ctx, metrics, width, height);
     ctx.translate(width / 2, height / 2);
 
-    // Draw a circle that oscillates horizontally!
-    const x =
+    // Draw a circle that oscillates vertically OR horizontally!
+    const offset =
       Math.sin((time / oscillationPeriod) * Math.PI * 2) * oscillationWidth;
+    const x = !oscillateVertically ? offset : 0;
+    const y = oscillateVertically ? offset : 0;
+
     ctx.fillStyle = circleColor;
     ctx.beginPath();
-    ctx.ellipse(x, 0, circleRadius, circleRadius, 0, 0, Math.PI * 2);
+    ctx.ellipse(x, y, circleRadius, circleRadius, 0, 0, Math.PI * 2);
     ctx.fill();
-
-    if (showNetForce) {
-      // ...
-    }
 
     ctx.restore();
   }
