@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "_static/types/**/*.ts"
+    "_static/types/**/*.ts",
+    "animation-types/projectile-animation"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,9 @@
 import { AnimationOptions } from "./animation-options";
 import { AnimationRenderer } from "./animation-renderer";
 
-export class AnimationType<OptionType extends AnimationOptions> {
+export class AnimationType<
+  OptionType extends AnimationOptions = AnimationOptions,
+> {
   constructor(
     readonly title: string,
     readonly description: string | null,

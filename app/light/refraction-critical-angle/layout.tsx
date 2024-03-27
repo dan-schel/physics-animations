@@ -1,4 +1,4 @@
-import { getMetadataForAnimation } from "@/app/nav-tree";
+import { getMetadataForAnimation } from "@/app/nav-tree-utils";
 import { refractionCriticalAngle } from "./animation";
 
 export const metadata = getMetadataForAnimation(refractionCriticalAngle);

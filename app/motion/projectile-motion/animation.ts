@@ -1,5 +1,5 @@
-import { projectileMotionFunctions } from "@/animation-types/projectile-animation.ts/functions";
-import { ProjectileAnimationType } from "@/animation-types/projectile-animation.ts/projectile-animation";
+import { projectileMotionFunctions } from "@/animation-types/projectile-animation/functions";
+import { ProjectileAnimationType } from "@/animation-types/projectile-animation/projectile-animation";
 import { degToRad } from "@/animation-types/utils/angles";
 
 export const projectileMotion = ProjectileAnimationType.fromObject({

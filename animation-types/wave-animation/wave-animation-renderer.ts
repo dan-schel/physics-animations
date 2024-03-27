@@ -3,7 +3,7 @@ import { AnimationRenderer, CanvasMetrics } from "../animation-renderer";
 import { background, green, ink100, ink20, ink80, red } from "../utils/colors";
 import { centerFrame } from "../utils/framing";
 import { WaveFunction } from "./functions";
-import { WaveAnimationOptions } from "./wave-animation";
+import { WaveAnimationOptions } from "./wave-animation-options";
 
 const width = 500;
 const height = 250;

@@ -1,9 +1,6 @@
-import {
-  AnimationOptionDefinition,
-  AnimationOptions,
-} from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { ProjectileMotionValues } from "./functions";
+import { ProjectileAnimationOptions } from "./projectile-animation-options";
 import { ProjectileAnimationRenderer } from "./projectile-animation-renderer";
 
 export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOptions> {
@@ -49,31 +46,5 @@ export class ProjectileAnimationType extends AnimationType<ProjectileAnimationOp
       autoLoop,
       new ProjectileAnimationRenderer(motion),
     );
-  }
-}
-
-export class ProjectileAnimationOptions extends AnimationOptions {
-  static readonly velocity = "velocity";
-  static readonly velocityComponents = "velocity-components";
-  static readonly netForce = "net-force";
-
-  constructor() {
-    super([
-      AnimationOptionDefinition.boolean(
-        ProjectileAnimationOptions.velocityComponents,
-        "Show velocity components",
-        true,
-      ),
-      AnimationOptionDefinition.boolean(
-        ProjectileAnimationOptions.velocity,
-        "Show total velocity",
-        false,
-      ),
-      AnimationOptionDefinition.boolean(
-        ProjectileAnimationOptions.netForce,
-        "Show net force",
-        false,
-      ),
-    ]);
   }
 }

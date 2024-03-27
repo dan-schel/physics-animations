@@ -1,9 +1,6 @@
-import {
-  AnimationOptionDefinition,
-  AnimationOptions,
-} from "../animation-options";
 import { AnimationType } from "../animation-type";
 import { RefractionEnvironment } from "./functions";
+import { RefractionAnimationOptions } from "./refraction-animation-options";
 import { RefractionAnimationRenderer } from "./refraction-animation-renderer";
 
 export class RefractionAnimationType extends AnimationType<RefractionAnimationOptions> {
@@ -51,25 +48,5 @@ export class RefractionAnimationType extends AnimationType<RefractionAnimationOp
       autoLoop,
       new RefractionAnimationRenderer(top, bottom),
     );
-  }
-}
-
-export class RefractionAnimationOptions extends AnimationOptions {
-  static readonly normal = "normal";
-  static readonly materials = "materials";
-
-  constructor() {
-    super([
-      AnimationOptionDefinition.boolean(
-        RefractionAnimationOptions.normal,
-        "Show normal",
-        true,
-      ),
-      AnimationOptionDefinition.boolean(
-        RefractionAnimationOptions.materials,
-        "Show materials",
-        true,
-      ),
-    ]);
   }
 }
