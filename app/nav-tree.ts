@@ -11,6 +11,7 @@ import { refractionCriticalAngle } from "./light/refraction-critical-angle/anima
 import { refractionSlowingDown } from "./light/refraction-slowing-down/animation";
 import { projectileMotion } from "./motion/projectile-motion/animation";
 import { NavTree, fromAnimation } from "./nav-tree-utils";
+import { doppler } from "./waves/doppler/animation";
 
 export const navTree: NavTree = [
   {
@@ -43,6 +44,7 @@ export const navTree: NavTree = [
       fromAnimation(reflectionFixed),
       fromAnimation(standingFixed),
       fromAnimation(standingFree),
+      fromAnimation(doppler),
     ],
   },
 ];
