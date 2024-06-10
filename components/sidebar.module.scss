@@ -57,7 +57,6 @@
     @include template.button-hover;
   }
   &.selected {
-    @include template.button-filled-neutral;
     position: relative;
     &::after {
       content: "";
@@ -74,6 +73,15 @@
       color: var(--color-ink-100);
     }
   }
+}
+
+// Only entries should use the filled neutral button style when selected,
+// collections should always use the hover style.
+.entry.selected {
+  @include template.button-filled-neutral;
+}
+.collectionButton {
+  @include template.button-hover;
 }
 
 .collection {

@@ -59,3 +59,11 @@ export function getMetadataForAnimation(
     },
   };
 }
+
+export function isPathnameWithin(node: NavTreeNode, pathname: string): boolean {
+  if ("children" in node) {
+    return node.children.some((child) => isPathnameWithin(child, pathname));
+  } else {
+    return node.href === pathname;
+  }
+}
