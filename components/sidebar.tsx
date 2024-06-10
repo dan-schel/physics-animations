@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import { navTree } from "../app/nav-tree";
-import { NavTreeNode, NavPage, NavCollection } from "../app/nav-tree-utils";
+import {
+  NavTreeNode,
+  NavPage,
+  NavCollection,
+  isPathnameWithin,
+} from "../app/nav-tree-utils";
 import styles from "./sidebar.module.scss";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export default function Sidebar({ className }: { className?: string }) {
@@ -68,13 +73,16 @@ function SidebarEntry({
   depth: number;
   pathname: string;
 }) {
+  const selected = useMemo(
+    () => isPathnameWithin(node, pathname),
+    [node, pathname],
+  );
+
   return (
     <li style={{ "--depth": depth } as React.CSSProperties}>
       <Link
         href={node.href}
-        className={`${styles.entry} ${
-          node.href === pathname ? styles.selected : ""
-        }`}
+        className={`${styles.entry} ${selected ? styles.selected : ""}`}
       >
         {node.type === "animation" && <AnimationIcon></AnimationIcon>}
         {node.type === "document" && <DocumentIcon></DocumentIcon>}
@@ -96,8 +104,13 @@ function SidebarAnimationCollection({
   pathname: string;
 }) {
   // TODO: If there's lot of animations, maybe set this to false (collasped) by
-  // default.
+  // default, or set it to something like depth < 1 (only the first level open).
   const [open, setOpen] = useState(true);
+
+  const selected = useMemo(
+    () => isPathnameWithin(node, pathname),
+    [node, pathname],
+  );
 
   return (
     <li
@@ -105,7 +118,10 @@ function SidebarAnimationCollection({
       style={{ "--depth": depth } as React.CSSProperties}
     >
       <button
-        className={styles.collectionButton}
+        className={
+          styles.collectionButton +
+          (selected && !open ? ` ${styles.selected}` : "")
+        }
         onClick={() => setOpen((open) => !open)}
       >
         <ChevronIcon className={open ? styles.open : ""}></ChevronIcon>
