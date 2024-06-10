@@ -5,7 +5,7 @@ import { centerFrame } from "../utils/framing";
 import { PositionFunction } from "./functions";
 import { Graphic } from "./graphics";
 
-const width = 300;
+const width = 250;
 const height = 200;
 
 const sourceColor = ink80;
