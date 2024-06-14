@@ -78,6 +78,7 @@ export class DopplerAnimationRenderer extends AnimationRenderer {
     ctx.beginPath();
     ctx.ellipse(x, y, radius, radius, 0, 0, Math.PI * 2);
     ctx.stroke();
+    ctx.globalAlpha = 1;
   }
 
   private _waveOpacity(age: number) {
