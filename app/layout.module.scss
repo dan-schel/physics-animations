@@ -16,7 +16,7 @@
   z-index: 1;
 }
 .openSidebarButton {
-  position: fixed;
+  position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 2;
@@ -62,6 +62,9 @@
       visibility: visible;
       opacity: 1;
       transform: translate(0, 0);
+    }
+    .openSidebarButton {
+      position: fixed;
     }
   }
 }

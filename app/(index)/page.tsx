@@ -21,8 +21,9 @@ export default function Home() {
         >
           MIT License
         </a>
-        , so feel free to use it however you&apos;d like. You can also view,
-        leave feedback, or even contribute to the project by heading over to{" "}
+        , so feel free to use it however you&apos;d like. You can also view the
+        code, leave feedback, or even contribute to the project by heading over
+        to{" "}
         <a
           className="link"
           href="https://github.com/dan-schel/physics-animations"
