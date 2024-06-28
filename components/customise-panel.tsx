@@ -6,6 +6,7 @@ import {
 } from "@/animation-types/animation-options";
 import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
+import { UilAngleRightB } from "./icons/uil-angle-right-b";
 
 export default function CustomisePanel({
   animation,
@@ -42,9 +43,9 @@ export default function CustomisePanel({
             onClick={handleExpandButtonClick}
           >
             <p>Customise animation</p>
-            <ChevronIcon
+            <UilAngleRightB
               className={expanded ? styles.down : styles.up}
-            ></ChevronIcon>
+            ></UilAngleRightB>
           </button>
           {expanded && (
             <div className={styles.options}>
@@ -113,22 +114,5 @@ function BooleanOptionInput({
         </div>
       </div>
     </label>
-  );
-}
-
-function ChevronIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      className={`icon ${className ?? ""}`}
-    >
-      <path
-        fill="currentColor"
-        d="M15.54 11.29L9.88 5.64a1 1 0 0 0-1.42 0a1 1 0 0 0 0 1.41l4.95 5L8.46 17a1 1 0 0 0 0 1.41a1 1 0 0 0 .71.3a1 1 0 0 0 .71-.3l5.66-5.65a1 1 0 0 0 0-1.47Z"
-      />
-    </svg>
   );
 }

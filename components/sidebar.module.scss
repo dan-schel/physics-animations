@@ -43,7 +43,7 @@
     flex-shrink: 1;
     min-width: 0;
   }
-  :global(.icon) {
+  svg {
     grid-area: icon;
     font-size: 1rem;
 

@@ -34,7 +34,7 @@ $canvas-header-fade: 2rem;
   height: 3rem;
   align-items: center;
   justify-content: center;
-  :global(.icon) {
+  svg {
     font-size: 2rem;
   }
 }
@@ -43,8 +43,9 @@ $canvas-header-fade: 2rem;
 }
 .reset {
   grid-area: reset;
-  :global(.icon) {
+  svg {
     font-size: 1.75rem;
+    transform: scaleX(-1);
   }
 }
 .seekbar {

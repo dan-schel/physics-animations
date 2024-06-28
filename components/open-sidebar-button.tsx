@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import styles from "./open-sidebar-button.module.scss";
 import { usePathname } from "next/navigation";
+import { UilTimes } from "./icons/uil-times";
+import { UilBars } from "./icons/uil-bars";
 
 export default function OpenSidebarButton({
   className,
@@ -34,12 +36,12 @@ export default function OpenSidebarButton({
       >
         {sidebarOpen ? (
           <>
-            <CloseIcon></CloseIcon>
+            <UilTimes></UilTimes>
             <p>Close menu</p>
           </>
         ) : (
           <>
-            <HamburgerIcon></HamburgerIcon>
+            <UilBars></UilBars>
             <p>Open menu</p>
           </>
         )}
@@ -50,38 +52,4 @@ export default function OpenSidebarButton({
 
 function isSidebarOpen() {
   return document.body.classList.contains("sidebarOpen");
-}
-
-function HamburgerIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      className="icon"
-    >
-      <path
-        fill="currentColor"
-        d="M3 8h18a1 1 0 0 0 0-2H3a1 1 0 0 0 0 2Zm18 8H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Zm0-5H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2Z"
-      />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      className="icon"
-    >
-      <path
-        fill="currentColor"
-        d="m13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29l-4.3 4.29a1 1 0 0 0 0 1.42a1 1 0 0 0 1.42 0l4.29-4.3l4.29 4.3a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.42Z"
-      />
-    </svg>
-  );
 }
