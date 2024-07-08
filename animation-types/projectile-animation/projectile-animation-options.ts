@@ -7,6 +7,7 @@ export class ProjectileAnimationOptions extends AnimationOptions {
   static readonly velocity = "velocity";
   static readonly velocityComponents = "velocity-components";
   static readonly netForce = "net-force";
+  static readonly dimensions = "dimensions";
 
   define() {
     return [
@@ -23,6 +24,11 @@ export class ProjectileAnimationOptions extends AnimationOptions {
       AnimationOptionDefinition.boolean(
         ProjectileAnimationOptions.netForce,
         "Show net force",
+        false,
+      ),
+      AnimationOptionDefinition.boolean(
+        ProjectileAnimationOptions.dimensions,
+        "Show 1-dimensional movement",
         false,
       ),
     ];
