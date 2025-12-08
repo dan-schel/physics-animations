@@ -27,6 +27,9 @@ html {
   --color-foreground-strong: #fff;
   --color-foreground-weak: rgba(214, 228, 255, 0.6);
   --color-accent: rgb(102, 179, 255);
+  --color-soft-border: rgba(173, 201, 255, 0.2);
+  --color-soft-hover: rgba(163, 194, 255, 0.1);
+  --color-soft-active: rgba(173, 201, 255, 0.2);
 
   --leading-*: initial;
   --leading-none: 0em;
