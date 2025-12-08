@@ -19,7 +19,7 @@ export default function RootLayout({
       <body
         className={clsx(
           inter.className,
-          'bg-background grid h-screen grid-cols-[1fr] lg:grid-cols-[auto_1fr] [grid-template-areas:"main"] lg:[grid-template-areas:"sidebar_main"]',
+          'bg-background text-foreground grid h-screen grid-cols-[1fr] lg:grid-cols-[auto_1fr] [grid-template-areas:"main"] lg:[grid-template-areas:"sidebar_main"]',
         )}
       >
         <Sidebar className="transition-[translate,opacity,visibility] duration-200 z-1 lg:[grid-area:sidebar] lg:w-[min(25rem,30vw)] max-lg:fixed max-lg:w-[min(calc(100vw-2rem),25rem)] max-lg:h-full max-lg:invisible max-lg:opacity-0 max-lg:-translate-x-4 max-lg:[--extra-margin:3rem] max-lg:sidebar-open:visible max-lg:sidebar-open:opacity-100 max-lg:sidebar-open:translate-x-0"></Sidebar>
