@@ -19,7 +19,7 @@ export default function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className={`${className} ${styles.sidebar}`}>
+    <nav className={`${className} ${styles.sidebar} bg-background-raised`}>
       <div className={styles.content}>
         <p className={styles.title}>Navigation</p>
         <ul>

@@ -1,0 +1,41 @@
+/* 
+ * Fixes single line text being affected by line height changes. I've also 
+ * overridden the `leading-*` Tailwind utility to set `--line-spacing` instead.
+ *
+ * Note: One day this can be avoided by setting a couple lines of CSS (see
+ * https://caniuse.com/css-text-box-trim).
+ */
+:root {
+  --line-spacing: 0.5em;
+}
+._text {
+  display: block;
+  line-height: calc(1em + var(--line-spacing)) !important;
+}
+._text::before,
+._text::after {
+  content: "";
+  margin-top: calc(var(--line-spacing) / -2);
+  height: 0;
+  display: block;
+}
+
+/*
+ * Used when using <Text oneLine>. Prevents text from wrapping and truncates
+ * with an ellipsis if it gets too long.
+ */
+._one-line > * {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  /* Ensures characters that draw below the line aren't cut-off. */
+  padding-bottom: 0.25em;
+}
+._one-line::after {
+  /* Negates the effects of using padding-bottom above. */
+  content: "";
+  margin-bottom: -0.25em;
+  height: 0;
+  display: block;
+}

@@ -1,0 +1,62 @@
+@import "tailwindcss";
+@import "./text.css" layer(base);
+
+* {
+  flex-shrink: 0;
+}
+
+html {
+  --page-min-width: 20rem;
+  min-width: var(--page-min-width);
+}
+
+@layer base {
+  /* Always use pointer cursor on buttons. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@theme {
+  --font-sans: "Inter", sans-serif;
+
+  --color-*: initial;
+  --color-background: #0f1115;
+  --color-background-raised: #191d24;
+  --color-foreground: rgba(235, 241, 255, 0.8);
+  --color-foreground-strong: #fff;
+  --color-foreground-weak: rgba(214, 228, 255, 0.6);
+  /* --color-soft: hsl(220deg 20% 93%);
+  --color-soft-hover: hsl(220deg 20% 89%);
+  --color-soft-active: hsl(220deg 20% 85%);
+  --color-soft-border: hsl(220deg 20% 89%);
+  --color-accent: hsl(220deg 100% 40%);
+  --color-accent-hover: hsl(220deg 100% 50%);
+  --color-accent-active: hsl(220deg 100% 60%);
+  --color-accent-soft: hsl(220deg 100% 95%);
+  --color-on-accent: hsl(220deg 20% 100%);
+  --color-status-green: hsl(130, 60%, 40%);
+  --color-status-yellow: hsl(40, 100%, 40%);
+  --color-status-red: hsl(0, 100%, 45%);
+  --color-switch: hsl(220deg 20% 70%);
+  --color-switch-hover: hsl(220deg 20% 65%);
+  --color-switch-knob: hsl(220deg 0% 100%); */
+
+  --leading-*: initial;
+  --leading-none: 0em;
+  --leading-tight: 0.25em;
+  --leading-snug: 0.375em;
+  --leading-normal: 0.5em;
+  --leading-relaxed: 0.625em;
+  --leading-loose: 1em;
+
+  --breakpoint-*: initial;
+  --breakpoint-lg: 60rem;
+}
+
+@custom-variant sidebar-open {
+  .sidebarOpen & {
+    @slot;
+  }
+}
