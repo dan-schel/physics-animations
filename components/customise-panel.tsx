@@ -7,6 +7,7 @@ import {
 import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
 import { UilAngleRightB } from "./icons/uil-angle-right-b";
+import Switch from "./switch";
 
 export default function CustomisePanel({
   animation,
@@ -100,19 +101,10 @@ function BooleanOptionInput({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <label className={styles.switch}>
-      <input
-        type="checkbox"
-        checked={value}
-        onChange={(e) => onChange(e.target.checked)}
-        autoComplete="off"
-      />
-      <div>
-        <div className={styles.switchGraphic}></div>
-        <div className={styles.switchContent}>
-          <p>{definition.displayName}</p>
-        </div>
-      </div>
-    </label>
+    <Switch
+      label={definition.displayName}
+      checked={value}
+      onChange={onChange}
+    />
   );
 }

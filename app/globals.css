@@ -27,10 +27,14 @@ html {
   --color-foreground: rgba(235, 241, 255, 0.8);
   --color-foreground-strong: #fff;
   --color-foreground-weak: rgba(214, 228, 255, 0.6);
-  --color-accent: rgb(102, 179, 255);
+  --color-accent: rgb(77, 166, 255);
+  --color-accent-hover: rgb(102, 179, 255);
+  --color-accent-active: rgb(51, 153, 255);
+  --color-on-accent: black;
   --color-soft-border: rgba(173, 201, 255, 0.2);
   --color-soft-hover: rgba(163, 194, 255, 0.1);
   --color-soft-active: rgba(173, 201, 255, 0.2);
+  --color-field-border: rgba(204, 221, 255, 0.5);
 
   --leading-*: initial;
   --leading-none: 0em;

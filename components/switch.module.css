@@ -1,0 +1,67 @@
+.switch {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+
+  cursor: pointer;
+
+  & > input[type="checkbox"] {
+    position: fixed;
+    opacity: 0;
+    pointer-events: none;
+
+    & + div {
+      user-select: none;
+      -webkit-user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      & svg {
+        width: 2rem;
+
+        & rect {
+          stroke: var(--color-field-border);
+          fill: none;
+        }
+
+        & circle {
+          fill: var(--color-field-border);
+
+          --x: 10px;
+          --r: 5;
+          transform: translate(var(--x), 10px) scale(var(--r));
+          transition: transform 0.1s;
+        }
+      }
+    }
+
+    &:checked {
+      & + div > svg {
+        & rect {
+          fill: var(--color-accent);
+          stroke: none;
+        }
+        & circle {
+          fill: var(--color-on-accent);
+          --x: 22px;
+        }
+      }
+
+      &:active + div > svg rect {
+        fill: var(--color-accent-active);
+      }
+    }
+
+    &:not(:checked):active + div > svg rect {
+      fill: var(--color-soft-active);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .switch > input[type="checkbox"]:hover + div > svg circle {
+    --r: 6;
+  }
+}
