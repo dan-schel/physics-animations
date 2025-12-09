@@ -6,6 +6,7 @@
 
 html {
   --page-min-width: 20rem;
+  --canvas-header-fade: 2rem;
   min-width: var(--page-min-width);
 }
 

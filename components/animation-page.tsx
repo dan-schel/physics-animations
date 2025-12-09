@@ -5,7 +5,6 @@ import CustomisePanel from "./customise-panel";
 import PlaybackControls from "./playback-controls";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
-import styles from "./animation-page.module.scss";
 
 export default function AnimationPage({
   animation,
@@ -18,26 +17,26 @@ export default function AnimationPage({
   );
 
   return (
-    <div className={styles.page}>
+    <div className='grid grid-rows-[auto_1fr_auto_auto] [grid-template-areas:"header""canvas""playback""options"]'>
       <AnimationHeader
-        className={styles.header}
+        className="[grid-area:header] z-2"
         title={animation.title}
         description={animation.description ?? undefined}
       ></AnimationHeader>
       <AnimationCanvas
-        className={styles.canvas}
+        className="[grid-area:canvas] z-0 -mt-(--canvas-header-fade) -mb-(--canvas-header-fade)"
         animation={animation}
         time={time}
         optionValues={optionValues}
       ></AnimationCanvas>
       <PlaybackControls
-        className={styles.playback}
+        className="[grid-area:playback] z-1"
         animation={animation}
         time={time}
         setTime={setTime}
       ></PlaybackControls>
       <CustomisePanel
-        className={styles.options}
+        className="max-h-[30vh] [grid-area:options] z-4"
         animation={animation}
         optionValues={optionValues}
         setOptionValues={setOptionValues}
