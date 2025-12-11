@@ -32,9 +32,15 @@ html {
   --color-accent-active: rgb(51, 153, 255);
   --color-on-accent: black;
   --color-soft-border: rgba(173, 201, 255, 0.2);
-  --color-soft-hover: rgba(163, 194, 255, 0.1);
-  --color-soft-active: rgba(173, 201, 255, 0.2);
+  --color-soft: rgba(163, 194, 255, 0.1);
+  --color-soft-hover: rgba(173, 201, 255, 0.2);
+  --color-soft-active: rgba(184, 207, 255, 0.3);
   --color-field-border: rgba(204, 221, 255, 0.5);
+  --color-subtle-border: rgba(163, 194, 255, 0.1);
+  --color-shadow: black;
+
+  --shadow-*: initial;
+  --shadow-mobile-sidebar: 0rem 0rem 1rem 0.5rem rgba(0, 0, 0, 0.6);
 
   --leading-*: initial;
   --leading-none: 0em;

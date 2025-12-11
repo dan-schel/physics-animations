@@ -48,18 +48,6 @@
   padding-bottom: 0.5rem;
 }
 
-.switch {
-  @include template.checkbox-switch(
-    $graphic-class: "switchGraphic",
-    $content-class: "switchContent"
-  );
-
-  .switchContent {
-    @include template.content-text;
-    margin-left: 1rem;
-  }
-}
-
 @media (min-width: 60rem) {
   // Desktop-only styles.
 
