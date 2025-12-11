@@ -23,8 +23,6 @@ export default function OpenSidebarButton({
     setSidebarOpen(false);
   }, [pathname]);
 
-  // The button is wrapped inside a div because css-template overrides
-  // "position: fixed" for "position: relative" for buttons.
   return (
     <button
       className={clsx(
