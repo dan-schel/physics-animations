@@ -1,4 +1,3 @@
-import styles from "./customise-panel.module.scss";
 import {
   AnimationOptionDefinition,
   AnimationOptionValues,
@@ -8,6 +7,7 @@ import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
 import { UilAngleRightB } from "./icons/uil-angle-right-b";
 import Switch from "./switch";
+import clsx from "clsx";
 
 export default function CustomisePanel({
   animation,
@@ -30,26 +30,34 @@ export default function CustomisePanel({
 
   return (
     <div
-      className={`${styles.menu} ${className ?? ""} ${
-        expanded ? styles.expanded : ""
-      }`}
+      className={clsx(
+        "bg-background-raised border-t border-t-subtle-border",
+        className,
+      )}
     >
       {animation.options.definitions.length === 0 && (
-        <p className={styles.empty}>(No customisation options)</p>
+        <p className="p-4 italic text-foreground-weak lg:px-8">
+          (No customisation options)
+        </p>
       )}
       {animation.options.definitions.length > 0 && (
         <>
           <button
-            className={styles.expandButton}
+            className="p-4 lg:px-8 grid grid-cols-[1fr_auto] hover:bg-soft-hover active:bg-soft-active items-center w-full"
             onClick={handleExpandButtonClick}
           >
-            <p>Customise animation</p>
+            <p className="text-left text-foreground-strong font-bold">
+              Customise animation
+            </p>
             <UilAngleRightB
-              className={expanded ? styles.down : styles.up}
+              className={clsx("text-lg", {
+                "rotate-90": expanded,
+                "rotate-270": !expanded,
+              })}
             ></UilAngleRightB>
           </button>
           {expanded && (
-            <div className={styles.options}>
+            <div className="p-4 pt-2 flex flex-col gap-4 overflow-y-auto shrink lg:px-8">
               {animation.options.definitions.map((o) => (
                 <OptionInput
                   key={o.id}
