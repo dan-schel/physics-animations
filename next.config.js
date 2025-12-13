@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: "export",
   distDir: "_static",
-  devIndicators: false
+  devIndicators: false,
 };
 
 module.exports = nextConfig;

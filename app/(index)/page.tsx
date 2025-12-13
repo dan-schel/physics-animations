@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="py-8 px-4 lg:px-8 max-w-240">
-      <h1 className="text-2xl font-bold text-foreground-strong mb-6">
+    <main className="max-w-240 px-4 py-8 lg:px-8">
+      <h1 className="text-foreground-strong mb-6 text-2xl font-bold">
         VCE Physics Animations
       </h1>
       <p className="mb-6">

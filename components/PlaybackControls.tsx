@@ -70,12 +70,12 @@ export default function PlaybackControls({
   return (
     <div
       className={clsx(
-        'pb-8 px-4 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] [grid-template-areas:"playPause_._reset""seekbar_seekbar_seekbar"] gap-4 items-center pt-(--canvas-header-fade) bg-linear-0 from-background to-transparent from-[calc(100%-var(--canvas-header-fade))] lg:px-8 lg:grid-rows-[auto] lg:[grid-template-areas:"playPause_seekbar_reset"]',
+        'from-background grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] items-center gap-4 bg-linear-0 from-[calc(100%-var(--canvas-header-fade))] to-transparent px-4 pt-(--canvas-header-fade) pb-8 [grid-template-areas:"playPause_._reset""seekbar_seekbar_seekbar"] lg:grid-rows-[auto] lg:px-8 lg:[grid-template-areas:"playPause_seekbar_reset"]',
         className,
       )}
     >
       <button
-        className="[grid-area:playPause] rounded-full border border-soft-border w-12 h-12 flex items-center justify-center hover:bg-soft-hover active:bg-soft-active"
+        className="border-soft-border hover:bg-soft-hover active:bg-soft-active flex h-12 w-12 items-center justify-center rounded-full border [grid-area:playPause]"
         onClick={handlePlayPause}
       >
         {paused ? (
@@ -85,10 +85,10 @@ export default function PlaybackControls({
         )}
       </button>
       <button
-        className="[grid-area:reset] rounded-full border border-soft-border w-12 h-12 flex items-center justify-center hover:bg-soft-hover active:bg-soft-active"
+        className="border-soft-border hover:bg-soft-hover active:bg-soft-active flex h-12 w-12 items-center justify-center rounded-full border [grid-area:reset]"
         onClick={handleReset}
       >
-        <MaterialSymbolsRefreshRounded className="text-[1.75rem] -scale-x-100" />
+        <MaterialSymbolsRefreshRounded className="-scale-x-100 text-[1.75rem]" />
       </button>
       <Seekbar
         animation={animation}
@@ -158,7 +158,7 @@ function Seekbar({
 
   return (
     <input
-      className="[grid-area:seekbar] accent-accent cursor-pointer"
+      className="accent-accent cursor-pointer [grid-area:seekbar]"
       type="range"
       min={0}
       max={precision}

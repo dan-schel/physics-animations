@@ -31,22 +31,22 @@ export default function CustomisePanel({
   return (
     <div
       className={clsx(
-        "bg-background-raised border-t border-t-subtle-border",
+        "bg-background-raised border-t-subtle-border border-t",
         className,
       )}
     >
       {animation.options.definitions.length === 0 && (
-        <p className="p-4 italic text-foreground-weak lg:px-8">
+        <p className="text-foreground-weak p-4 italic lg:px-8">
           (No customisation options)
         </p>
       )}
       {animation.options.definitions.length > 0 && (
         <>
           <button
-            className="p-4 lg:px-8 grid grid-cols-[1fr_auto] hover:bg-soft-hover active:bg-soft-active items-center w-full"
+            className="hover:bg-soft-hover active:bg-soft-active grid w-full grid-cols-[1fr_auto] items-center p-4 lg:px-8"
             onClick={handleExpandButtonClick}
           >
-            <p className="text-left text-foreground-strong font-bold">
+            <p className="text-foreground-strong text-left font-bold">
               Customise animation
             </p>
             <UilAngleRightB
@@ -57,7 +57,7 @@ export default function CustomisePanel({
             ></UilAngleRightB>
           </button>
           {expanded && (
-            <div className="px-4 pb-4 flex flex-col gap-3 overflow-y-auto lg:px-8 max-h-[calc(40vh-10rem)] ">
+            <div className="flex max-h-[calc(40vh-10rem)] flex-col gap-3 overflow-y-auto px-4 pb-4 lg:px-8">
               {animation.options.definitions.map((o) => (
                 <OptionInput
                   key={o.id}

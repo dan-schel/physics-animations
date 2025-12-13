@@ -12,11 +12,11 @@ export default function AnimationHeader({
   return (
     <div
       className={clsx(
-        "pt-8 pb-(--canvas-header-fade) px-4 lg:px-8 bg-linear-180 from-background to-transparent from-[calc(100%-var(--canvas-header-fade))]",
+        "from-background bg-linear-180 from-[calc(100%-var(--canvas-header-fade))] to-transparent px-4 pt-8 pb-(--canvas-header-fade) lg:px-8",
         className,
       )}
     >
-      <h1 className="text-xl font-bold text-foreground-strong">{title}</h1>
+      <h1 className="text-foreground-strong text-xl font-bold">{title}</h1>
       {description != null && <p className="mt-2">{description}</p>}
     </div>
   );

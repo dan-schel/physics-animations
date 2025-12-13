@@ -21,12 +21,12 @@ export default function Sidebar({ className }: { className?: string }) {
   return (
     <nav
       className={clsx(
-        "bg-background-raised border-r border-r-subtle-border max-lg:shadow-mobile-sidebar min-h-0",
+        "bg-background-raised border-r-subtle-border max-lg:shadow-mobile-sidebar min-h-0 border-r",
         className,
       )}
     >
-      <div className="mt-(--extra-margin,0rem) py-8 overflow-y-auto h-full">
-        <p className="text-xl font-bold mb-2 text-foreground-strong px-4">
+      <div className="mt-(--extra-margin,0rem) h-full overflow-y-auto py-8">
+        <p className="text-foreground-strong mb-2 px-4 text-xl font-bold">
           Navigation
         </p>
         <ul>
@@ -92,9 +92,9 @@ function SidebarEntry({
     <li style={{ "--depth": depth } as React.CSSProperties}>
       <Link
         className={clsx(
-          "relative grid grid-cols-[1rem_1fr] gap-2 items-center pr-4 pl-[calc(1rem+var(--depth)*1rem)] h-8 w-full hover:bg-soft-hover active:bg-soft-active",
+          "hover:bg-soft-hover active:bg-soft-active relative grid h-8 w-full grid-cols-[1rem_1fr] items-center gap-2 pr-4 pl-[calc(1rem+var(--depth)*1rem)]",
           {
-            'bg-soft after:content-[""] after:absolute after:bg-accent after:left-0 after:top-0 after:bottom-0 after:w-1':
+            'bg-soft after:bg-accent after:absolute after:top-0 after:bottom-0 after:left-0 after:w-1 after:content-[""]':
               selected,
           },
         )}
@@ -104,8 +104,8 @@ function SidebarEntry({
         {node.type === "document" && <TextIcon></TextIcon>}
         <p
           className={clsx(
-            "overflow-hidden whitespace-nowrap text-ellipsis shrink min-w-0",
-            { "font-bold text-foreground-strong": selected },
+            "min-w-0 shrink overflow-hidden text-ellipsis whitespace-nowrap",
+            { "text-foreground-strong font-bold": selected },
           )}
         >
           {node.title}
@@ -135,14 +135,14 @@ function SidebarAnimationCollection({
 
   return (
     <li
-      className="relative before:content-[''] before:block before:absolute before:border-l before:border-l-soft-border before:top-8 before:bottom-2 before:left-[calc(1.25rem+var(--depth)*1rem)]"
+      className="before:border-l-soft-border relative before:absolute before:top-8 before:bottom-2 before:left-[calc(1.25rem+var(--depth)*1rem)] before:block before:border-l before:content-['']"
       style={{ "--depth": depth } as React.CSSProperties}
     >
       <button
         className={clsx(
-          "relative grid grid-cols-[1rem_1fr] gap-2 items-center pr-4 pl-[calc(1rem+var(--depth)*1rem)] h-8 w-full hover:bg-soft-hover active:bg-soft-active",
+          "hover:bg-soft-hover active:bg-soft-active relative grid h-8 w-full grid-cols-[1rem_1fr] items-center gap-2 pr-4 pl-[calc(1rem+var(--depth)*1rem)]",
           {
-            'after:content-[""] after:absolute after:bg-accent after:left-0 after:top-0 after:bottom-0 after:w-1':
+            'after:bg-accent after:absolute after:top-0 after:bottom-0 after:left-0 after:w-1 after:content-[""]':
               selected && !open,
           },
         )}
@@ -155,8 +155,8 @@ function SidebarAnimationCollection({
         ></UilAngleRightB>
         <p
           className={clsx(
-            "overflow-hidden whitespace-nowrap text-ellipsis shrink min-w-0 text-left",
-            { "font-bold text-foreground-strong": selected && !open },
+            "min-w-0 shrink overflow-hidden text-left text-ellipsis whitespace-nowrap",
+            { "text-foreground-strong font-bold": selected && !open },
           )}
         >
           {node.title}

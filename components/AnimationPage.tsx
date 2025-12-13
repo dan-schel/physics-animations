@@ -19,24 +19,24 @@ export default function AnimationPage({
   return (
     <div className='grid grid-rows-[auto_1fr_auto_auto] [grid-template-areas:"header""canvas""playback""options"]'>
       <AnimationHeader
-        className="[grid-area:header] z-2"
+        className="z-2 [grid-area:header]"
         title={animation.title}
         description={animation.description ?? undefined}
       ></AnimationHeader>
       <AnimationCanvas
-        className="[grid-area:canvas] z-0 -mt-(--canvas-header-fade) -mb-(--canvas-header-fade)"
+        className="z-0 -mt-(--canvas-header-fade) -mb-(--canvas-header-fade) [grid-area:canvas]"
         animation={animation}
         time={time}
         optionValues={optionValues}
       ></AnimationCanvas>
       <PlaybackControls
-        className="[grid-area:playback] z-1"
+        className="z-1 [grid-area:playback]"
         animation={animation}
         time={time}
         setTime={setTime}
       ></PlaybackControls>
       <CustomisePanel
-        className="[grid-area:options] z-4"
+        className="z-4 [grid-area:options]"
         animation={animation}
         optionValues={optionValues}
         setOptionValues={setOptionValues}

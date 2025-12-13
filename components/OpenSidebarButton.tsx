@@ -29,7 +29,7 @@ export default function OpenSidebarButton({
     <button
       className={clsx(
         className,
-        "flex px-2 items-center gap-2 h-8 border-soft-border border rounded-sm hover:bg-soft-hover active:bg-soft-active",
+        "border-soft-border hover:bg-soft-hover active:bg-soft-active flex h-8 items-center gap-2 rounded-sm border px-2",
       )}
       onClick={() => {
         document.body.classList.toggle("sidebarOpen");

@@ -36,9 +36,9 @@ export default function AnimationCanvas({
   }, [controller, animation, time, optionValues]);
 
   return (
-    <div className={clsx("relative grow shrink min-h-60", className)}>
+    <div className={clsx("relative min-h-60 shrink grow", className)}>
       <canvas
-        className="absolute top-0 left-0 right-0 bottom-0"
+        className="absolute top-0 right-0 bottom-0 left-0"
         ref={canvasRef}
       ></canvas>
     </div>
