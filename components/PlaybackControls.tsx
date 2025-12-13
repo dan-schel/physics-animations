@@ -1,11 +1,11 @@
 import { clamp } from "@dan-schel/js-utils";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import styles from "./playback-controls.module.scss";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
-import { MaterialSymbolsRefreshRounded } from "./icons/material-symbols-refresh-rounded";
-import { MdiPlay } from "./icons/mdi-play";
-import { MdiPause } from "./icons/mdi-pause";
+import { MaterialSymbolsRefreshRounded } from "./icons/MaterialSymbolsRefreshRounded";
+import { MdiPlay } from "./icons/MdiPlay";
+import { MdiPause } from "./icons/MdiPause";
+import clsx from "clsx";
 
 const precision = 1000;
 const arrowKeyJumps = 0.5;
@@ -68,12 +68,27 @@ export default function PlaybackControls({
   }, [setPaused, setTime, animation]);
 
   return (
-    <div className={`${styles.controls} ${className ?? ""}`}>
-      <button className={styles.playPause} onClick={handlePlayPause}>
-        {paused ? <MdiPlay></MdiPlay> : <MdiPause></MdiPause>}
+    <div
+      className={clsx(
+        'from-background grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] items-center gap-4 bg-linear-0 from-[calc(100%-var(--canvas-header-fade))] to-transparent px-4 pt-(--canvas-header-fade) pb-8 [grid-template-areas:"playPause_._reset""seekbar_seekbar_seekbar"] lg:grid-rows-[auto] lg:px-8 lg:[grid-template-areas:"playPause_seekbar_reset"]',
+        className,
+      )}
+    >
+      <button
+        className="border-soft-border hover:bg-soft-hover active:bg-soft-active flex h-12 w-12 items-center justify-center rounded-full border [grid-area:playPause]"
+        onClick={handlePlayPause}
+      >
+        {paused ? (
+          <MdiPlay className="text-[2rem]" />
+        ) : (
+          <MdiPause className="text-[2rem]" />
+        )}
       </button>
-      <button className={styles.reset} onClick={handleReset}>
-        <MaterialSymbolsRefreshRounded></MaterialSymbolsRefreshRounded>
+      <button
+        className="border-soft-border hover:bg-soft-hover active:bg-soft-active flex h-12 w-12 items-center justify-center rounded-full border [grid-area:reset]"
+        onClick={handleReset}
+      >
+        <MaterialSymbolsRefreshRounded className="-scale-x-100 text-[1.75rem]" />
       </button>
       <Seekbar
         animation={animation}
@@ -99,7 +114,7 @@ function Seekbar({
   const [holding, setHolding] = useState(false);
   const seekbarValue = clamp(time / animation.duration, 0, 1) * precision;
 
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number>(undefined);
 
   useEffect(() => {
     if (paused || holding) {
@@ -143,7 +158,7 @@ function Seekbar({
 
   return (
     <input
-      className={styles.seekbar}
+      className="accent-accent cursor-pointer [grid-area:seekbar]"
       type="range"
       min={0}
       max={precision}

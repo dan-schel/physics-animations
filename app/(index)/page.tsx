@@ -1,22 +1,22 @@
-import styles from "./page.module.scss";
-
 export default function Home() {
   return (
-    <main className={styles.page}>
-      <h1>VCE Physics Animations</h1>
-      <p>
+    <main className="max-w-240 px-4 py-8 lg:px-8">
+      <h1 className="text-foreground-strong mb-6 text-2xl font-bold">
+        VCE Physics Animations
+      </h1>
+      <p className="mb-6">
         This is a small collection of animations I&apos;ve created, which
         I&apos;ve found useful for explaining VCE Physics concepts.
       </p>
-      <p>
+      <p className="mb-6">
         Please use the menu on the left (click &quot;Open menu&quot; if
         you&apos;re on a device with a small screen) to navigate to the
         animations.
       </p>
-      <p>
+      <p className="mb-6">
         This site and all the animations on it are open source under the{" "}
         <a
-          className="link"
+          className="text-accent hover:underline"
           href="https://github.com/dan-schel/physics-animations/blob/main/LICENSE"
         >
           MIT License
@@ -25,14 +25,14 @@ export default function Home() {
         code, leave feedback, or even contribute to the project by heading over
         to{" "}
         <a
-          className="link"
+          className="text-accent hover:underline"
           href="https://github.com/dan-schel/physics-animations"
         >
           GitHub
         </a>
         .
       </p>
-      <p>© 2023-present Dan Schellekens</p>
+      <p className="mb-6">© 2023-present Dan Schellekens</p>
     </main>
   );
 }

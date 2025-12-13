@@ -1,11 +1,10 @@
 import { useState } from "react";
-import AnimationCanvas from "./animation-canvas";
-import AnimationHeader from "./animation-header";
-import CustomisePanel from "./customise-panel";
-import PlaybackControls from "./playback-controls";
+import AnimationCanvas from "./AnimationCanvas";
+import AnimationHeader from "./AnimationHeader";
+import CustomisePanel from "./CustomisePanel";
+import PlaybackControls from "./PlaybackControls";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
-import styles from "./animation-page.module.scss";
 
 export default function AnimationPage({
   animation,
@@ -18,26 +17,26 @@ export default function AnimationPage({
   );
 
   return (
-    <div className={styles.page}>
+    <div className='grid grid-rows-[auto_1fr_auto_auto] [grid-template-areas:"header""canvas""playback""options"]'>
       <AnimationHeader
-        className={styles.header}
+        className="z-2 [grid-area:header]"
         title={animation.title}
         description={animation.description ?? undefined}
       ></AnimationHeader>
       <AnimationCanvas
-        className={styles.canvas}
+        className="z-0 -mt-(--canvas-header-fade) -mb-(--canvas-header-fade) [grid-area:canvas]"
         animation={animation}
         time={time}
         optionValues={optionValues}
       ></AnimationCanvas>
       <PlaybackControls
-        className={styles.playback}
+        className="z-1 [grid-area:playback]"
         animation={animation}
         time={time}
         setTime={setTime}
       ></PlaybackControls>
       <CustomisePanel
-        className={styles.options}
+        className="z-4 [grid-area:options]"
         animation={animation}
         optionValues={optionValues}
         setOptionValues={setOptionValues}

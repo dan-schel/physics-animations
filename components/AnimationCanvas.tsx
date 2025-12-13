@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import styles from "./animation-canvas.module.scss";
 import { AnimationType } from "@/animation-types/animation-type";
 import {
   AnimationOptionValues,
   AnimationOptions,
 } from "@/animation-types/animation-options";
 import { CanvasMetrics } from "@/animation-types/animation-renderer";
+import clsx from "clsx";
 
 export default function AnimationCanvas({
   animation,
@@ -36,8 +36,11 @@ export default function AnimationCanvas({
   }, [controller, animation, time, optionValues]);
 
   return (
-    <div className={`${styles.wrapper} ${className ?? ""}`}>
-      <canvas ref={canvasRef}></canvas>
+    <div className={clsx("relative min-h-60 shrink grow", className)}>
+      <canvas
+        className="absolute top-0 right-0 bottom-0 left-0"
+        ref={canvasRef}
+      ></canvas>
     </div>
   );
 }

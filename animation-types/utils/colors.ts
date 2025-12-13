@@ -1,6 +1,7 @@
 export const background = "#0f1115";
 
 export const ink100 = "#ffffff";
+/** @knipignore */
 export const ink90 = "#dee1e8";
 export const ink80 = "#bfc3d0";
 export const ink70 = "#a1aab9";

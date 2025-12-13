@@ -1,11 +1,6 @@
 import { CanvasMetrics } from "../animation-renderer";
 import { ink20 } from "./colors";
 
-export type FrameMetrics = CanvasMetrics & {
-  extraWidth: number;
-  extraHeight: number;
-};
-
 export function centerFrame(
   ctx: CanvasRenderingContext2D,
   metrics: CanvasMetrics,

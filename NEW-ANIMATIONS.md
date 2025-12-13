@@ -4,7 +4,7 @@ If you're interesting in playing around with the code and adding your own animat
 
 ## Step 1 - Getting set up
 
-First, you'll need your own copy of the code to work with. Fork the repository on GitHub and then clone it to your computer. Note that this repo makes use of git submodules, so either clone with the `--recurse-submodules`/`--recursive` flag, or if you've already cloned it, run `git submodule update --init --recursive` to install those.
+First, you'll need your own copy of the code to work with. Fork the repository on GitHub and then clone it to your computer.
 
 Next, you'll want to run `npm install` to install the NodeJS dependencies, and finally `npm run dev` to start up the development server. If you open up [`http://localhost:3000`](http://localhost:3000) in a web browser and see the site running, then everything should be set up correctly ready to go!
 

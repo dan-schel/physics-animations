@@ -8,20 +8,27 @@ import {
   NavCollection,
   isPathnameWithin,
 } from "../app/nav-tree-utils";
-import styles from "./sidebar.module.scss";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { UilAngleRightB } from "./icons/uil-angle-right-b";
-import { TextIcon } from "./icons/text-icon";
-import { AnimationIcon } from "./icons/animation-icon";
+import { UilAngleRightB } from "./icons/UilAngleRightB";
+import { TextIcon } from "./icons/TextIcon";
+import { AnimationIcon } from "./icons/AnimationIcon";
+import clsx from "clsx";
 
 export default function Sidebar({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <nav className={`${className} ${styles.sidebar}`}>
-      <div className={styles.content}>
-        <p className={styles.title}>Navigation</p>
+    <nav
+      className={clsx(
+        "bg-background-raised border-r-subtle-border max-lg:shadow-mobile-sidebar min-h-0 border-r",
+        className,
+      )}
+    >
+      <div className="mt-(--extra-margin,0rem) h-full overflow-y-auto py-8">
+        <p className="text-foreground-strong mb-2 px-4 text-xl font-bold">
+          Navigation
+        </p>
         <ul>
           {navTree.map((node, i) => {
             return (
@@ -84,14 +91,25 @@ function SidebarEntry({
   return (
     <li style={{ "--depth": depth } as React.CSSProperties}>
       <Link
+        className={clsx(
+          "hover:bg-soft-hover active:bg-soft-active relative grid h-8 w-full grid-cols-[1rem_1fr] items-center gap-2 pr-4 pl-[calc(1rem+var(--depth)*1rem)]",
+          {
+            'bg-soft after:bg-accent after:absolute after:top-0 after:bottom-0 after:left-0 after:w-1 after:content-[""]':
+              selected,
+          },
+        )}
         href={node.href}
-        className={`${styles.entry} ${selected ? styles.selected : ""}`}
       >
         {node.type === "animation" && <AnimationIcon></AnimationIcon>}
         {node.type === "document" && <TextIcon></TextIcon>}
-        <div className="oneLine">
-          <p>{node.title}</p>
-        </div>
+        <p
+          className={clsx(
+            "min-w-0 shrink overflow-hidden text-ellipsis whitespace-nowrap",
+            { "text-foreground-strong font-bold": selected },
+          )}
+        >
+          {node.title}
+        </p>
       </Link>
     </li>
   );
@@ -117,20 +135,32 @@ function SidebarAnimationCollection({
 
   return (
     <li
-      className={styles.collection}
+      className="before:border-l-soft-border relative before:absolute before:top-8 before:bottom-2 before:left-[calc(1.25rem+var(--depth)*1rem)] before:block before:border-l before:content-['']"
       style={{ "--depth": depth } as React.CSSProperties}
     >
       <button
-        className={
-          styles.collectionButton +
-          (selected && !open ? ` ${styles.selected}` : "")
-        }
+        className={clsx(
+          "hover:bg-soft-hover active:bg-soft-active relative grid h-8 w-full grid-cols-[1rem_1fr] items-center gap-2 pr-4 pl-[calc(1rem+var(--depth)*1rem)]",
+          {
+            'after:bg-accent after:absolute after:top-0 after:bottom-0 after:left-0 after:w-1 after:content-[""]':
+              selected && !open,
+          },
+        )}
         onClick={() => setOpen((open) => !open)}
       >
-        <UilAngleRightB className={open ? styles.open : ""}></UilAngleRightB>
-        <div className="oneLine">
-          <p>{node.title}</p>
-        </div>
+        <UilAngleRightB
+          className={clsx("transition-transform duration-100", {
+            "rotate-90": open,
+          })}
+        ></UilAngleRightB>
+        <p
+          className={clsx(
+            "min-w-0 shrink overflow-hidden text-left text-ellipsis whitespace-nowrap",
+            { "text-foreground-strong font-bold": selected && !open },
+          )}
+        >
+          {node.title}
+        </p>
       </button>
       {open && (
         <ul>

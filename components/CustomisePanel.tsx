@@ -1,4 +1,3 @@
-import styles from "./customise-panel.module.scss";
 import {
   AnimationOptionDefinition,
   AnimationOptionValues,
@@ -6,7 +5,9 @@ import {
 } from "@/animation-types/animation-options";
 import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
-import { UilAngleRightB } from "./icons/uil-angle-right-b";
+import { UilAngleRightB } from "./icons/UilAngleRightB";
+import Switch from "./Switch";
+import clsx from "clsx";
 
 export default function CustomisePanel({
   animation,
@@ -29,26 +30,34 @@ export default function CustomisePanel({
 
   return (
     <div
-      className={`${styles.menu} ${className ?? ""} ${
-        expanded ? styles.expanded : ""
-      }`}
+      className={clsx(
+        "bg-background-raised border-t-subtle-border border-t",
+        className,
+      )}
     >
       {animation.options.definitions.length === 0 && (
-        <p className={styles.empty}>(No customisation options)</p>
+        <p className="text-foreground-weak p-4 italic lg:px-8">
+          (No customisation options)
+        </p>
       )}
       {animation.options.definitions.length > 0 && (
         <>
           <button
-            className={styles.expandButton}
+            className="hover:bg-soft-hover active:bg-soft-active grid w-full grid-cols-[1fr_auto] items-center p-4 lg:px-8"
             onClick={handleExpandButtonClick}
           >
-            <p>Customise animation</p>
+            <p className="text-foreground-strong text-left font-bold">
+              Customise animation
+            </p>
             <UilAngleRightB
-              className={expanded ? styles.down : styles.up}
+              className={clsx("text-lg", {
+                "rotate-90": expanded,
+                "rotate-270": !expanded,
+              })}
             ></UilAngleRightB>
           </button>
           {expanded && (
-            <div className={styles.options}>
+            <div className="flex max-h-[calc(40vh-10rem)] flex-col gap-3 overflow-y-auto px-4 pb-4 lg:px-8">
               {animation.options.definitions.map((o) => (
                 <OptionInput
                   key={o.id}
@@ -100,19 +109,10 @@ function BooleanOptionInput({
   onChange: (value: boolean) => void;
 }) {
   return (
-    <label className={styles.switch}>
-      <input
-        type="checkbox"
-        checked={value}
-        onChange={(e) => onChange(e.target.checked)}
-        autoComplete="off"
-      />
-      <div>
-        <div className={styles.switchGraphic}></div>
-        <div className={styles.switchContent}>
-          <p>{definition.displayName}</p>
-        </div>
-      </div>
-    </label>
+    <Switch
+      label={definition.displayName}
+      checked={value}
+      onChange={onChange}
+    />
   );
 }

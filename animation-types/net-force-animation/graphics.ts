@@ -5,7 +5,7 @@ const carColor = ink80;
 const a = Math.atan2(11, 50);
 const b = Math.sqrt(50 * 50 + 11 * 11);
 
-export const drawCar = car();
+const drawCar = car();
 
 export type Graphic = (ctx: CanvasRenderingContext2D) => void;
 
@@ -38,7 +38,7 @@ export function bankedTrack(angle: number, scale: number): Graphic {
   };
 }
 
-export function car(): Graphic {
+function car(): Graphic {
   return (ctx: CanvasRenderingContext2D) => {
     ctx.fillStyle = carColor;
     ctx.beginPath();
