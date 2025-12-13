@@ -3,9 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   output: "export",
   distDir: "_static",
-  eslint: {
-    dirs: ["."],
-  },
+  devIndicators: false
 };
 
 module.exports = nextConfig;

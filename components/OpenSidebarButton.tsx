@@ -13,6 +13,7 @@ export default function OpenSidebarButton({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSidebarOpen(isSidebarOpen());
   }, []);
 
@@ -20,6 +21,7 @@ export default function OpenSidebarButton({
   const pathname = usePathname();
   useEffect(() => {
     document.body.classList.remove("sidebarOpen");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSidebarOpen(false);
   }, [pathname]);
 
