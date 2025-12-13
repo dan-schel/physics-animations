@@ -5,8 +5,8 @@ import {
 } from "@/animation-types/animation-options";
 import { AnimationType } from "@/animation-types/animation-type";
 import { Dispatch, SetStateAction, useState } from "react";
-import { UilAngleRightB } from "./icons/uil-angle-right-b";
-import Switch from "./switch";
+import { UilAngleRightB } from "./icons/UilAngleRightB";
+import Switch from "./Switch";
 import clsx from "clsx";
 
 export default function CustomisePanel({

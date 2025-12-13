@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import styles from "./switch.module.css";
+import styles from "./Switch.module.css";
 
 export default function Switch({
   className,

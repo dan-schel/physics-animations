@@ -2,9 +2,9 @@ import { clamp } from "@dan-schel/js-utils";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
-import { MaterialSymbolsRefreshRounded } from "./icons/material-symbols-refresh-rounded";
-import { MdiPlay } from "./icons/mdi-play";
-import { MdiPause } from "./icons/mdi-pause";
+import { MaterialSymbolsRefreshRounded } from "./icons/MaterialSymbolsRefreshRounded";
+import { MdiPlay } from "./icons/MdiPlay";
+import { MdiPause } from "./icons/MdiPause";
 import clsx from "clsx";
 
 const precision = 1000;

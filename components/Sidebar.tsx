@@ -10,9 +10,9 @@ import {
 } from "../app/nav-tree-utils";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
-import { UilAngleRightB } from "./icons/uil-angle-right-b";
-import { TextIcon } from "./icons/text-icon";
-import { AnimationIcon } from "./icons/animation-icon";
+import { UilAngleRightB } from "./icons/UilAngleRightB";
+import { TextIcon } from "./icons/TextIcon";
+import { AnimationIcon } from "./icons/AnimationIcon";
 import clsx from "clsx";
 
 export default function Sidebar({ className }: { className?: string }) {

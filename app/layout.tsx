@@ -1,7 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Sidebar from "../components/sidebar";
-import OpenSidebarButton from "../components/open-sidebar-button";
+import Sidebar from "../components/Sidebar";
+import OpenSidebarButton from "../components/OpenSidebarButton";
 import { getMetadataForPage } from "./nav-tree-utils";
 import clsx from "clsx";
 

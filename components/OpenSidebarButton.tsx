@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { UilTimes } from "./icons/uil-times";
-import { UilBars } from "./icons/uil-bars";
+import { UilTimes } from "./icons/UilTimes";
+import { UilBars } from "./icons/UilBars";
 import clsx from "clsx";
 
 export default function OpenSidebarButton({

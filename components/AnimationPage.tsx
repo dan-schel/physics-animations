@@ -1,8 +1,8 @@
 import { useState } from "react";
-import AnimationCanvas from "./animation-canvas";
-import AnimationHeader from "./animation-header";
-import CustomisePanel from "./customise-panel";
-import PlaybackControls from "./playback-controls";
+import AnimationCanvas from "./AnimationCanvas";
+import AnimationHeader from "./AnimationHeader";
+import CustomisePanel from "./CustomisePanel";
+import PlaybackControls from "./PlaybackControls";
 import { AnimationType } from "@/animation-types/animation-type";
 import { AnimationOptions } from "@/animation-types/animation-options";
 
