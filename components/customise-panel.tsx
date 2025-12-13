@@ -57,7 +57,7 @@ export default function CustomisePanel({
             ></UilAngleRightB>
           </button>
           {expanded && (
-            <div className="p-4 pt-2 flex flex-col gap-4 overflow-y-auto shrink lg:px-8">
+            <div className="px-4 pb-4 flex flex-col gap-3 overflow-y-auto lg:px-8 max-h-[calc(40vh-10rem)] ">
               {animation.options.definitions.map((o) => (
                 <OptionInput
                   key={o.id}

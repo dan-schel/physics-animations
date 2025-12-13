@@ -17,7 +17,7 @@ export default function AnimationHeader({
       )}
     >
       <h1 className="text-xl font-bold text-foreground-strong">{title}</h1>
-      {description != null && <p className="mt-4">{description}</p>}
+      {description != null && <p className="mt-2">{description}</p>}
     </div>
   );
 }

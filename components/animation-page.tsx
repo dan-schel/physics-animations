@@ -36,7 +36,7 @@ export default function AnimationPage({
         setTime={setTime}
       ></PlaybackControls>
       <CustomisePanel
-        className="max-h-[30vh] [grid-area:options] z-4"
+        className="[grid-area:options] z-4"
         animation={animation}
         optionValues={optionValues}
         setOptionValues={setOptionValues}

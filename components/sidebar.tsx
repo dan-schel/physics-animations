@@ -21,12 +21,12 @@ export default function Sidebar({ className }: { className?: string }) {
   return (
     <nav
       className={clsx(
-        "bg-background-raised border-r border-r-subtle-border max-lg:shadow-mobile-sidebar flex flex-col",
+        "bg-background-raised border-r border-r-subtle-border max-lg:shadow-mobile-sidebar min-h-0",
         className,
       )}
     >
-      <div className="mt-(--extra-margin,0rem) py-8 overflow-y-auto shrink">
-        <p className="text-xl font-bold mb-4 text-foreground-strong px-4">
+      <div className="mt-(--extra-margin,0rem) py-8 overflow-y-auto h-full">
+        <p className="text-xl font-bold mb-2 text-foreground-strong px-4">
           Navigation
         </p>
         <ul>
