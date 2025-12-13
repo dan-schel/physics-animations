@@ -3,8 +3,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "serve _static",
-    "lint": "eslint .",
-    "format": "prettier --write ."
+    "lint": "tsc --noEmit -p tsconfig.json && eslint . --max-warnings 0 && knip",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "dependencies": {
     "@dan-schel/js-utils": "4.5.5",
@@ -24,6 +25,7 @@
     "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "5.5.4",
+    "knip": "5.73.4",
     "prettier": "3.7.4",
     "prettier-plugin-tailwindcss": "0.7.2",
     "serve": "14.2.5",

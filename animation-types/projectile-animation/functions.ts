@@ -1,4 +1,4 @@
-export type MotionFunction = (time: number) => number;
+type MotionFunction = (time: number) => number;
 export type ProjectileMotionValues = {
   angle: number;
   positionX: MotionFunction;

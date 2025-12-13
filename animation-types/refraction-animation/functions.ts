@@ -5,7 +5,7 @@ export type RefractionEnvironment = {
   refractiveIndex: number | null;
 };
 
-export type RefractionAngle = (time: number) => number;
+type RefractionAngle = (time: number) => number;
 
 export function criticalAngle(n1: number, n2: number): number {
   return Math.asin(n2 / n1);
