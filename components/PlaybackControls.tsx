@@ -114,7 +114,7 @@ function Seekbar({
   const [holding, setHolding] = useState(false);
   const seekbarValue = clamp(time / animation.duration, 0, 1) * precision;
 
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number>(undefined);
 
   useEffect(() => {
     if (paused || holding) {
